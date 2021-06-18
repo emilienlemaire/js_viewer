@@ -20,7 +20,7 @@ type PropType = {
   onClick: () => void
 }
 
-export default function TopAppBar(props: PropType) {
+export default function TopAppBar(props: PropType): React.FunctionComponentElement<PropType> {
   const classes = useStyles();
 
   return (
@@ -36,7 +36,7 @@ export default function TopAppBar(props: PropType) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title}>js_of_ocaml</Typography>
+          <Typography className={classes.title}>js_of_cubicle</Typography>
           <Menu />
         </Toolbar>
       </AppBar>

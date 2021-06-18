@@ -1,6 +1,10 @@
-import dot from "graphlib-dot";
 import type { Edge } from "graphlib";
-import { getD3Hierachy, Graph, Node } from "./graphs";
+import type { Edge as CubicleEdge } from "../types/CubicleGraph";
+import type { HierarchyGraph, Node } from "../types/Graph";
+import type { PIXIContext } from "../types/Context";
+
+import dot from "graphlib-dot";
+import { getD3Hierachy, Graph } from "./graphs";
 import { hierarchy, tree as d3Tree } from "d3";
 import * as PIXI from "pixi.js";
 import { drawNode, colorToHex } from "./draw";
@@ -8,10 +12,11 @@ import { drawNode, colorToHex } from "./draw";
 export function initGraph(graphviz: string): Graph {
   const graph = dot.read(graphviz);
 
-  const dechargedEdge: Array<[Edge, any]> = [];
+  const dechargedEdge: Array<[Edge, CubicleEdge]> = [];
   graph.edges().forEach((e) => {
     const edge = graph.edge(e);
-    if (edge.color === "gray") {
+    console.log("Edge", e, edge);
+    if (edge.subsume) {
       graph.removeEdge(e);
       dechargedEdge.push([e, edge]);
     }
@@ -24,10 +29,10 @@ export function initGraph(graphviz: string): Graph {
     return (node.orig);
   });
 
-  console.log(root);
+  console.log("Root", root);
 
   const d3HierarchyGraph = hierarchy(getD3Hierachy(graph, root));
-  const tree = d3Tree().nodeSize([25, 75])(d3HierarchyGraph);
+  const tree = d3Tree<HierarchyGraph>().nodeSize([25, 75])(d3HierarchyGraph);
 
   const customGraph = new Graph(tree, graph, graph.edges());
 
@@ -37,22 +42,18 @@ export function initGraph(graphviz: string): Graph {
     }
   });
 
-  dechargedEdge.forEach((edge: [Edge, any]) => {
+  dechargedEdge.forEach((edge: [Edge, CubicleEdge]) => {
     customGraph.addDechargedEdge(edge);
   });
 
   return customGraph;
 }
 
-export interface PIXIContext {
-  superStage: PIXI.Container;
-  stage: PIXI.Container;
-  renderer: PIXI.AbstractRenderer;
-  ticker: PIXI.Ticker;
-  links: PIXI.Graphics;
-}
-
-export function initPIXI(width: number, height: number, onBackgroundClick:(ev: PIXI.InteractionEvent) => void): PIXIContext {
+export function initPIXI(
+  width: number,
+  height: number,
+  onBackgroundClick:(ev: PIXI.InteractionEvent) => void
+): PIXIContext {
   const superStage = new PIXI.Container();
   const stage = new PIXI.Container();
 
@@ -118,7 +119,7 @@ export function initNodeGraphics(stage: PIXI.Container, node: Node, onClick: (n:
   node.target_y = node.y - (bounds.height / 2);
   node.x += (bounds.width / 2);
   node.gfx.interactive = true;
-  node.gfx.on("click", (ev: PIXI.InteractionEvent) => {
+  node.gfx.on("click", () => {
     onClick(node);
   });
   node.gfx.addChild(node.text);

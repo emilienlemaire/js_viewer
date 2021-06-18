@@ -1,3 +1,7 @@
+import type { State, Action, Node, Edge } from "../types/Graph";
+import type { PIXIContext } from "../types/Context";
+import type { GraphProps } from "../types/Props";
+
 import React, { useEffect, useReducer, useState } from "react";
 import stringHash from "string-hash";
 import useD3 from "../hooks/useD3";
@@ -5,11 +9,9 @@ import * as d3 from "d3";
 import * as PIXI from "pixi.js";
 import * as init from "../common/init";
 import { drawArrow, colorToHex, drawNode } from "../common/draw";
-import { State, Action } from "../types/Graph";
-import { Graph as GraphType, Node, Edge } from "../common/graphs";
+import { Graph as GraphType } from "../common/graphs";
 
 // TODO:
-//  - Attribut sur les noeuds
 //  - Intégrer a cubicle (generation html + online ou non)
 //  - Hover sur les noeuds
 //  - Petit graphe = zoom, gros graphe = rotation
@@ -25,8 +27,9 @@ function reducer(state: State, action: Action): State {
   const oldParents = (() => {
     if (action.payload.parents) {
       return (state.parents)
-        ? state.parents.filter((n: any)  => {
-          return !action.payload.parents.includes(n) && n != action.payload.node;
+        ? state.parents.filter((n: Node)  => {
+          return action.payload.parents &&
+            !action.payload.parents.includes(n) && n != action.payload.node;
         })
         : null;
     }
@@ -55,13 +58,12 @@ function reducer(state: State, action: Action): State {
   }
 }
 
+  //eslint-disable-next-line
   (window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__ &&
+    //eslint-disable-next-line
     (window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 
-type GraphProps = {
-  graphviz: string;
-}
-export default function Graph({ graphviz }: GraphProps) {
+export default function Graph({ graphviz }: GraphProps): React.FunctionComponentElement<GraphProps> {
 
   const [selectionState, dispatch] = useReducer(reducer, {
     node: null,
@@ -70,7 +72,7 @@ export default function Graph({ graphviz }: GraphProps) {
     oldParents: null,
     path: null
   });
-  const [pixiContext, setPIXIContext] = useState<init.PIXIContext | null>(null);
+  const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [requested, setRequested] = useState<number | null>(null);
   const [graph, setGraph] = useState<GraphType | null>(null);
 
@@ -100,8 +102,8 @@ export default function Graph({ graphviz }: GraphProps) {
 
   const ref = useD3(
     (div): void => {
-      const width = div.node()!.offsetWidth,
-        height = div.node()!.offsetHeight;
+      const width = (div.node() as HTMLDivElement).offsetWidth,
+        height = (div.node() as HTMLDivElement).offsetHeight;
 
       const midpoint = new PIXI.Point(width / 2, height / 2);
 
@@ -118,7 +120,7 @@ export default function Graph({ graphviz }: GraphProps) {
       stage.scale = new PIXI.ObservablePoint(onPosOrScaleChange, null, stage.scale.x, stage.scale.y);
 
       div.selectAll("*").remove();
-      div.node()!.appendChild(renderer.view);
+      (div.node() as HTMLDivElement).appendChild(renderer.view);
       console.log(renderer);
 
       const zoom = d3.zoom<HTMLCanvasElement, unknown>().on("zoom", (event) => {
@@ -139,13 +141,13 @@ export default function Graph({ graphviz }: GraphProps) {
         const { source, target } = edge;
         links.lineStyle(
           0.5,
-          edge.style === "dashed" ? colorToHex("gray") : colorToHex("black")
+          edge.subsume ? colorToHex("gray") : colorToHex("black")
         );
         drawArrow(links, source, target);
         links.closePath();
       });
 
-      setPIXIContext({superStage, stage, renderer, ticker, links} as init.PIXIContext);
+      setPIXIContext({superStage, stage, renderer, ticker, links} as PIXIContext);
       setGraph(customGraph);
 
       requestRender(superStage, renderer);
@@ -188,6 +190,7 @@ export default function Graph({ graphviz }: GraphProps) {
       }
       requestRender(superStage, renderer);
     }
+  //eslint-disable-next-line
   }, [selectionState, pixiContext]);
 
   useEffect(() => {

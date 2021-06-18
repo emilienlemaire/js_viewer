@@ -1,4 +1,3 @@
-import path from "path";
 import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugion from "fork-ts-checker-webpack-plugin";
@@ -28,6 +27,11 @@ const config: webpack.Configuration = {
           'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+        loader: "file-loader"
       }
     ]
   },
@@ -37,6 +41,8 @@ const config: webpack.Configuration = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
+      inject: "head",
+      favicon: "src/assets/cubicle.svg"
     }),
     new ForkTsCheckerWebpackPlugion({
       async: false

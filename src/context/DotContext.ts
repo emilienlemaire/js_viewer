@@ -1,8 +1,8 @@
 import { useContext, createContext } from "react";
 
 export type DotContextType = {
-  dot: string;
-  setDot: (s: string) => void;
+  dot: string | null;
+  setDot: (s: string | null) => void;
 }
 
 export const DotContext = createContext<DotContextType>({

@@ -6,7 +6,7 @@ import "./index.css";
 import "./App.css";
 
 const App = () => {
-  const [dot, setDot] = useState<string>("");
+  const [dot, setDot] = useState<string | null>(null);
 
   return (
     <DotContext.Provider value={{dot, setDot}}>

@@ -1,33 +1,9 @@
 import type { Graph as GraphType, Edge as EdgeType } from "graphlib";
-import * as PIXI from "pixi.js";
+import type { Edge as CubicleEdge } from "../types/CubicleGraph";
+import type { HierarchyGraph, Node, Edge } from "../types/Graph";
 import type * as d3Types from "d3";
 
-export interface HierarchyGraph {
-  name: string;
-  data: any;
-  children?: HierarchyGraph[]
-}
-
-export interface Node {
-  name: string;
-  label: string;
-  color: string;
-  x: number;
-  y: number;
-  text: PIXI.Text;
-  gfx: PIXI.Graphics;
-  children?: Node[];
-  target_y?: number;
-  graph: Graph;
-}
-
-export interface Edge {
-  source: Node;
-  target: Node;
-  label?: string;
-  color: string;
-  style?: string;
-}
+import * as PIXI from "pixi.js";
 
 export class Graph {
   graph: GraphType;
@@ -49,11 +25,11 @@ export class Graph {
   private _targetMap = new Map<string, Edge[]>();
 
 
-  constructor(root: d3Types.HierarchyPointNode<any>, nodes: GraphType, edges: EdgeType[]) {
+  constructor(root: d3Types.HierarchyPointNode<HierarchyGraph>, nodes: GraphType, edges: EdgeType[]) {
     this.graph = nodes;
     this.root = this._toNode(root);
     root.descendants().forEach((n) => {
-        this._toNode(n);
+      this._toNode(n);
     });
     this.edges = edges.map((e): Edge => {
       return this._toEdge(e);
@@ -61,15 +37,15 @@ export class Graph {
     this.nodes = Array.from(this._nodeMap.values());
   }
 
-  private _toNode(node: d3Types.HierarchyPointNode<any>): Node {
+  private _toNode(node: d3Types.HierarchyPointNode<HierarchyGraph>): Node {
     if (!this._nodeMap.has(node.data.name)) {
       const newNode = {
         name: node.data.name,
-        label: node.data.data.label,
+        label: node.data.data.label as string,
         color: node.data.data.color,
         x: node.x,
         y: node.y,
-        text: new PIXI.Text(node.data.label),
+        text: new PIXI.Text(node.data.data.label as string),
         gfx: new PIXI.Graphics(),
         children: (node.children || []).map((n) => this._toNode(n)),
         graph: this
@@ -94,9 +70,7 @@ export class Graph {
     const newEdge = {
       source,
       target,
-      label: e.label,
-      color: e.color,
-      style: e.style || null
+      ...e
     };
 
     const actual_source = <Edge[]> this._sourceMap.get(source.name) || [];
@@ -108,15 +82,14 @@ export class Graph {
     return newEdge;
   }
 
-  private _toEdgeDecharged(edge: EdgeType, data: any): Edge {
+  private _toEdgeDecharged(edge: EdgeType, data: CubicleEdge): Edge {
     const source = <Node> this._nodeMap.get(edge.v);
     const target = <Node> this._nodeMap.get(edge.w);
 
     return {
       source,
       target,
-      color: data.color,
-      style: data.style || null
+      ...data
     }
   }
 
@@ -165,13 +138,13 @@ export class Graph {
   targetEdges(nodes: Node[]): Edge[] {
     return nodes.flatMap((n) => {
       return (this._targetMap.has(n.name))
-        ? <Edge[]> this._targetMap.get(n.name)
+        ? this._targetMap.get(n.name) as Edge[]
         : [];
     });
 
   }
 
-  addDechargedEdge(edge: any): void {
+  addDechargedEdge(edge: [EdgeType, CubicleEdge]): void {
     this.edges.push(this._toEdgeDecharged(edge[0], edge[1]));
   }
 }

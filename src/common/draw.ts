@@ -1,5 +1,6 @@
+import type { Node } from "../types/Graph";
+
 import * as PIXI from "pixi.js";
-import { Node } from "./graphs";
 
 export function colorToHex(color: string): number {
   switch (color) {

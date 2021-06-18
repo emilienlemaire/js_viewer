@@ -4,8 +4,6 @@ import common from "./webpack.common.config";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
 //@ts-ignore
 import TerserPlugin from "terser-webpack-plugin";
-//@ts-ignore
-import UglyfiJsPlugin from "uglifyjs-webpack-plugin";
 
 const config = merge(common, {
   mode: "production",
@@ -16,14 +14,20 @@ const config = merge(common, {
     publicPath: ""
   },
   plugins: [
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ],
   optimization: {
-    splitChunks: {
-      chunks: "all"
-    }
-  },
-  // devtool: "source-map"
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          }
+        }
+      })
+    ]
+  }
 });
 
 export default config;

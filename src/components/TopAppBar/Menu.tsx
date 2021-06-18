@@ -4,7 +4,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import { DropzoneDialog } from "material-ui-dropzone";
 import { DotContext } from "../../context/DotContext";
 
-export default function CustomMenu() {
+export default function CustomMenu(): React.FunctionComponentElement<null> {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -49,9 +49,9 @@ export default function CustomMenu() {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                   const dotFile = e.target &&
-                    (typeof e.target!.result === "string")
-                    ? (e.target!.result)
-                    : (e.target!.result!.toString());
+                    (typeof e.target.result === "string")
+                    ? (e.target && e.target.result)
+                    : (e.target && e.target.result && e.target.result.toString());
                   setDot(dotFile);
                   setOpen(false);
                   handleClose();
