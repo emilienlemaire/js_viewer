@@ -6,9 +6,9 @@ import Graph from "./Graph";
 //eslint-disable-next-line
 const dot_str = (window as any).__DOT_STR__;
 
-console.log(dot_str);
-
 export default function Main(): React.FunctionComponentElement<null> {
+
+  console.log(dot_str);
 
   return (
     <div className="App">

@@ -5,7 +5,7 @@ import Main from "./components/Main";
 import "./index.css";
 import "./App.css";
 
-const App = () => {
+const App = (): React.FunctionComponentElement<null> => {
   const [dot, setDot] = useState<string | null>(null);
 
   return (

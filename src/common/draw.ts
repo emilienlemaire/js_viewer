@@ -42,7 +42,6 @@ export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node): 
   const l = Math.sqrt(dx * dx + dy * dy);
 
   if (l === 0) {
-    console.log(source, target);
     return;
   }
 
@@ -73,4 +72,53 @@ export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node): 
   graphics.lineTo(sx + topX * arrowWingsLength, sy + topY * arrowWingsLength);
   graphics.moveTo(ex, ey);
   graphics.lineTo(sx - topX * arrowWingsLength, sy - topY * arrowWingsLength);
+}
+
+export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
+  const hover = new PIXI.Graphics();
+  const hoverText = new PIXI.Text("");
+  const globPos = node.gfx.getBounds();
+
+  hoverText.text = node.label;
+
+  hover.addChild(hoverText);
+
+  const globBounds = hoverText.getBounds();
+
+  hover.lineStyle(1.5, 0xff0000);
+  hover.beginFill(0xffffff);
+  hover.drawRoundedRect(
+    hover.position.x - 5,
+    hover.position.y - 5,
+    globBounds.width + 10,
+    globBounds.height + 10,
+    20
+  );
+
+  // We need to check if the hover is outside the view
+  if (globPos.x + globBounds.right > stage.width) {
+    console.log("Too wide");
+    globPos.x -= globBounds.width - 10;
+  }
+
+  if (globPos.x < stage.position.x) {
+    globPos.x += (stage.position.x - globPos.x) + 10
+  } else {
+    globPos.x += 20;
+  }
+
+  if (globPos.y + globBounds.bottom > stage.height) {
+    console.log("Too low");
+    globPos.y -= globBounds.height - 10;
+  }
+
+  if (globPos.y < stage.position.y) {
+    globPos.y += (stage.position.y - globPos.y) + 10
+  } else {
+    globPos.y += 20;
+  }
+
+  hover.position =  new PIXI.ObservablePoint(() => null, null, globPos.x, globPos.y);
+
+  return hover;
 }

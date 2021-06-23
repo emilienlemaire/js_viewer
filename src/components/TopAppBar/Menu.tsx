@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Menu, MenuItem, IconButton } from "@material-ui/core";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { DropzoneDialog } from "material-ui-dropzone";
 import { DotContext } from "../../context/DotContext";

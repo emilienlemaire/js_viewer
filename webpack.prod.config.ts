@@ -2,8 +2,6 @@ import path from "path";
 import { merge } from "webpack-merge";
 import common from "./webpack.common.config";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
-//@ts-ignore
-import TerserPlugin from "terser-webpack-plugin";
 
 const config = merge(common, {
   mode: "production",
@@ -16,18 +14,7 @@ const config = merge(common, {
   plugins: [
     new CleanWebpackPlugin(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          compress: {
-            drop_console: true,
-          }
-        }
-      })
-    ]
-  }
+  devtool: "source-map",
 });
 
 export default config;

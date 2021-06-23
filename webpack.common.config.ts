@@ -1,9 +1,9 @@
-import webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugion from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
+import { ProgressPlugin, Configuration } from "webpack";
 
-const config: webpack.Configuration = {
+const config: Configuration = {
   entry: "./src/index.tsx",
   module: {
     rules: [
@@ -50,6 +50,7 @@ const config: webpack.Configuration = {
     new ESLintPlugin({
       extensions: ["js", "jsx", "ts", "tsx"]
     }),
+    new ProgressPlugin(),
   ]
 };
 

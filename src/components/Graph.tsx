@@ -12,12 +12,15 @@ import { drawArrow, colorToHex, drawNode } from "../common/draw";
 import { Graph as GraphType } from "../common/graphs";
 
 // TODO:
-//  - Intégrer a cubicle (generation html + online ou non)
 //  - Hover sur les noeuds
 //  - Petit graphe = zoom, gros graphe = rotation
 //  - On select: hide all other nodes but the path to the root
 //  - Split
 //  - Select the types of nodes to display
+
+// Hover:
+//  - Add background
+//  - Maybe alpha < 1.0
 
 // Questions:
 //   - Pour la config: clique droit toogle, popup avec cocher...
@@ -75,6 +78,7 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
   const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [requested, setRequested] = useState<number | null>(null);
   const [graph, setGraph] = useState<GraphType | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
 
   const render = (stage: PIXI.Container, renderer: PIXI.AbstractRenderer): () => void => {
     return () => {
@@ -100,6 +104,14 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
     dispatch({type: "setSelection", payload: { node: null, parents: null, path: null }});
   }
 
+  const onHover = (node: Node) => {
+    setHoveredNode(node);
+  }
+
+  const onOut = () => {
+    setHoveredNode(null);
+  }
+
   const ref = useD3(
     (div): void => {
       const width = (div.node() as HTMLDivElement).offsetWidth,
@@ -121,7 +133,6 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
 
       div.selectAll("*").remove();
       (div.node() as HTMLDivElement).appendChild(renderer.view);
-      console.log(renderer);
 
       const zoom = d3.zoom<HTMLCanvasElement, unknown>().on("zoom", (event) => {
         const { x, y, k } = event.transform.translate(midpoint.x, midpoint.y);
@@ -134,7 +145,7 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
 
 
       customGraph.nodes.forEach((node: Node) => {
-        init.initNodeGraphics(stage, node, onNodeClick);
+        init.initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
       });
 
       customGraph.edges.forEach((edge: Edge) => {
@@ -172,7 +183,6 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
       }
 
       if (selectionState.parents) {
-        console.log("New", selectionState.parents);
         selectionState.parents.forEach((node: Node) => {
           const { gfx, text, color } = node;
           const bounds = text.getLocalBounds(new PIXI.Rectangle());
@@ -181,7 +191,6 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
       }
 
       if (selectionState.oldParents) {
-        console.log("Old", selectionState.oldParents);
         selectionState.oldParents.forEach((node: Node) => {
           const { gfx, text, color } = node;
           const bounds = text.getLocalBounds(new PIXI.Rectangle());
@@ -213,7 +222,17 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
     }
   }, [selectionState.path, graph, pixiContext]);
 
+  useEffect(() => {
+    if (pixiContext) {
+      const { superStage, renderer } = pixiContext;
+      requestRender(superStage, renderer);
+    }
+  //eslint-disable-next-line
+  }, [pixiContext, hoveredNode]);
+
   return (
-    <div style={{ height: "100%" }} ref={ref} />
+    <div style={{height: "100%"}}>
+      <div style={{ height: "100%" }} ref={ref}/>
+    </div>
   );
 }

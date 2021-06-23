@@ -7,7 +7,7 @@ import dot from "graphlib-dot";
 import { getD3Hierachy, Graph } from "./graphs";
 import { hierarchy, tree as d3Tree } from "d3";
 import * as PIXI from "pixi.js";
-import { drawNode, colorToHex } from "./draw";
+import { drawNode, colorToHex, drawHover } from "./draw";
 
 export function initGraph(graphviz: string): Graph {
   const graph = dot.read(graphviz);
@@ -15,21 +15,17 @@ export function initGraph(graphviz: string): Graph {
   const dechargedEdge: Array<[Edge, CubicleEdge]> = [];
   graph.edges().forEach((e) => {
     const edge = graph.edge(e);
-    console.log("Edge", e, edge);
     if (edge.subsume) {
       graph.removeEdge(e);
       dechargedEdge.push([e, edge]);
     }
   });
 
-  console.log(dechargedEdge);
-
   const root = graph.filterNodes((n) => {
     const node = graph.node(n);
-    return (node.orig);
+    console.log(node.orig);
+    return (node.orig && node.orig === "true");
   });
-
-  console.log("Root", root);
 
   const d3HierarchyGraph = hierarchy(getD3Hierachy(graph, root));
   const tree = d3Tree<HierarchyGraph>().nodeSize([25, 75])(d3HierarchyGraph);
@@ -64,7 +60,6 @@ export function initPIXI(
   background.interactive = true;
   let moved = false;
   background.on("mousedown", () => {
-    console.log("Mouse down bg");
     moved = false;
   });
   background.on("mousemove", () => {
@@ -104,7 +99,14 @@ export function initPIXI(
   };
 }
 
-export function initNodeGraphics(stage: PIXI.Container, node: Node, onClick: (n: Node) => void): void {
+export function initNodeGraphics(
+  stage: PIXI.Container,
+  superStage: PIXI.Container,
+  node: Node,
+  onClick: (n: Node) => void,
+  onHover: (n: Node) => void,
+  onOut: (n: Node) => void
+): void {
   node.label = node.label.replaceAll("\\n", "\n");
   node.text = new PIXI.Text(node.label, {fontSize: 2.5});
   node.text.resolution = 16;
@@ -115,12 +117,27 @@ export function initNodeGraphics(stage: PIXI.Container, node: Node, onClick: (n:
   node.text.rotation = Math.PI;
   drawNode(node.gfx, bounds, colorToHex(node.color));
 
-  node.text.position = new PIXI.ObservablePoint(() => null, null, -bounds.width / 2, -bounds.height / 2);
+  node.text.position = new PIXI.ObservablePoint(
+    () => null,
+    null,
+    -bounds.width / 2,
+    -bounds.height / 2
+  );
   node.target_y = node.y - (bounds.height / 2);
   node.x += (bounds.width / 2);
   node.gfx.interactive = true;
   node.gfx.on("click", () => {
     onClick(node);
+  });
+  let hover: PIXI.Graphics | null = null;
+  node.gfx.on("mouseover", () => {
+    hover = drawHover(node, superStage);
+    superStage.addChild(hover);
+    onHover(node);
+  });
+  node.gfx.on("mouseout", () => {
+    hover && superStage.removeChild(hover);
+    onOut(node);
   });
   node.gfx.addChild(node.text);
   node.gfx.position = new PIXI.ObservablePoint(() => null, null, node.x, node.y);

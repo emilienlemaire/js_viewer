@@ -25,7 +25,11 @@ export class Graph {
   private _targetMap = new Map<string, Edge[]>();
 
 
-  constructor(root: d3Types.HierarchyPointNode<HierarchyGraph>, nodes: GraphType, edges: EdgeType[]) {
+  constructor(
+    root: d3Types.HierarchyPointNode<HierarchyGraph>,
+    nodes: GraphType,
+    edges: EdgeType[]
+  ) {
     this.graph = nodes;
     this.root = this._toNode(root);
     root.descendants().forEach((n) => {
@@ -151,7 +155,8 @@ export class Graph {
 
 export const getD3Hierachy = (graph: GraphType, root: GraphType): HierarchyGraph => {
   if (root.nodes().length != 1) {
-    throw new Error("The root graph must be exactly one element long.");
+    throw new Error("The root graph must be exactly one element long. It contains "
+      + root.nodes().length + " elements.");
   }
 
   //eslint-disable-next-line
