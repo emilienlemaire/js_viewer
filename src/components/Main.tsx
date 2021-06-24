@@ -8,8 +8,6 @@ const dot_str = (window as any).__DOT_STR__;
 
 export default function Main(): React.FunctionComponentElement<null> {
 
-  console.log(dot_str);
-
   return (
     <div className="App">
       <TopAppBar onClick={() => null}/>

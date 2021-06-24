@@ -33,7 +33,7 @@ export function drawNode(
     bounds.height + 1.5
   );
 }
-export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node): void {
+export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node, label?: string): void {
   const NODE_WIDTH = target.text.width;
   graphics.moveTo(source.x, source.y);
   graphics.lineTo(target.x, <number>target.target_y);
@@ -72,6 +72,18 @@ export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node): 
   graphics.lineTo(sx + topX * arrowWingsLength, sy + topY * arrowWingsLength);
   graphics.moveTo(ex, ey);
   graphics.lineTo(sx - topX * arrowWingsLength, sy - topY * arrowWingsLength);
+  if (label) {
+    const transitionLabel = new PIXI.Text(label, {
+      fontSize: 3,
+      stroke: "white",
+      strokeThickness: 1,
+    });
+    const width = transitionLabel.getLocalBounds(new PIXI.Rectangle()).width;
+    transitionLabel.resolution = 16;
+    transitionLabel.rotation = Math.PI;
+    transitionLabel.position.set(ex + (width / 2), ey);
+    graphics.addChild(transitionLabel);
+  }
 }
 
 export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {

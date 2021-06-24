@@ -114,8 +114,8 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
 
   const ref = useD3(
     (div): void => {
-      const width = (div.node() as HTMLDivElement).offsetWidth,
-        height = (div.node() as HTMLDivElement).offsetHeight;
+      const width = (div.node() as HTMLDivElement).clientWidth,
+        height = (div.node() as HTMLDivElement).clientHeight;
 
       const midpoint = new PIXI.Point(width / 2, height / 2);
 
@@ -154,7 +154,7 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
           0.5,
           edge.subsume ? colorToHex("gray") : colorToHex("black")
         );
-        drawArrow(links, source, target);
+        drawArrow(links, source, target, edge.label);
         links.closePath();
       });
 
@@ -216,7 +216,7 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
             ? 0xde9dff
             : colorToHex(edge.color)
         );
-        drawArrow(pixiContext.links, source, target);
+        drawArrow(pixiContext.links, source, target, edge.label);
         pixiContext.links.closePath();
       });
     }
