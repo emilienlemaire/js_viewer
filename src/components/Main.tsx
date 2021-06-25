@@ -39,7 +39,7 @@ export default function Main(): React.FunctionComponentElement<null> {
           }
 
           if (dot_str) {
-            return <Graph graphviz={dot_str} />
+            return <Graph graphviz={dot_str} className={classes.content}/>
           }
           return <div>No file selected yet.</div>
         }}

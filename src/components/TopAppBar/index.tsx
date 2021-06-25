@@ -11,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  grow: {
+  middle: {
     flexGrow: 1,
+    pointerEvents: "none",
   },
 }));
 
@@ -33,7 +34,7 @@ export default function TopAppBar(props: PropType): React.FunctionComponentEleme
       >
         <MenuIcon />
       </Fab>
-      <div className={classes.grow} />
+      <div className={classes.middle} />
       <Menu />
     </Toolbar>
   );

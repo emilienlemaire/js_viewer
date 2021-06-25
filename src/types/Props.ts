@@ -1,5 +1,6 @@
 export interface GraphProps {
   graphviz: string;
+  className: string;
 }
 
 export interface TooltipProps {

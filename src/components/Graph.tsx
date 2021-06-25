@@ -13,11 +13,13 @@ import { Graph as GraphType } from "../common/graphs";
 import { makeStyles } from "@material-ui/core/styles";
 
 // TODO:
+//  - Move script to end for cubicle
 //  - Hover sur les noeuds
 //  - Petit graphe = zoom, gros graphe = rotation
 //  - On select: hide all other nodes but the path to the root
 //  - Split
 //  - Select the types of nodes to display
+//  - Rotation
 
 // Hover:
 //  - Add background
@@ -73,7 +75,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function Graph({ graphviz }: GraphProps): React.FunctionComponentElement<GraphProps> {
+export default function Graph({ graphviz, className }: GraphProps): React.FunctionComponentElement<GraphProps> {
 
   const [selectionState, dispatch] = useReducer(reducer, {
     node: null,
@@ -265,6 +267,6 @@ export default function Graph({ graphviz }: GraphProps): React.FunctionComponent
   const classes = useStyles();
 
   return (
-    <div className={classes.grow} style={{height: "100%"}} ref={ref}/>
+    <div className={`${classes.grow} ${className}`} style={{height: "100%"}} ref={ref}/>
   );
 }
