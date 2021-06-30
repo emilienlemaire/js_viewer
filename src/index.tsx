@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { DotContext } from "./context/DotContext";
+import store from "./store";
+import { Provider } from "react-redux";
 import Main from "./components/Main";
 import "./index.css";
 import "./App.css";
 
 const App = (): React.FunctionComponentElement<null> => {
-  const [dot, setDot] = useState<string | null>(null);
-
   return (
-    <DotContext.Provider value={{dot, setDot}}>
+    <Provider store={store}>
       <Main />
-    </DotContext.Provider>
+    </Provider>
   );
-}
+};
 
 ReactDOM.render(
     <App />,

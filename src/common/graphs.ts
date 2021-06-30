@@ -52,7 +52,7 @@ export class Graph {
         text: new PIXI.Text(node.data.data.label as string),
         gfx: new PIXI.Graphics(),
         children: (node.children || []).map((n) => this._toNode(n)),
-        graph: this
+        graph: this,
       };
       this._nodeMap.set(node.data.name, newNode);
       return newNode;
@@ -74,7 +74,7 @@ export class Graph {
     const newEdge = {
       source,
       target,
-      ...e
+      ...e,
     };
 
     const actual_source = <Edge[]> this._sourceMap.get(source.name) || [];
@@ -93,8 +93,8 @@ export class Graph {
     return {
       source,
       target,
-      ...data
-    }
+      ...data,
+    };
   }
 
   node(n: string): Node | null {
@@ -116,7 +116,7 @@ export class Graph {
         y: -20,
         text: new PIXI.Text(`Invariant ${node}`),
         gfx: new PIXI.Graphics(),
-        graph: this
+        graph: this,
       };
 
       this._nodeMap.set(node, newNode);
@@ -177,4 +177,5 @@ export const getD3Hierachy = (graph: GraphType, root: GraphType): HierarchyGraph
   }
 
   return makeGraph(graph, root.nodes()[0]);
-}
+};
+

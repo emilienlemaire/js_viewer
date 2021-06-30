@@ -1,14 +1,18 @@
+import type { MenuProps } from "../../types/Props";
+
 import React, { useState } from "react";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fab from "@material-ui/core/Fab";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { DropzoneDialog } from "material-ui-dropzone";
-import { DotContext } from "../../context/DotContext";
+import { useDispatch } from "react-redux";
+import { setGraph } from "../../store/dot/dotSlice";
 
-export default function CustomMenu(): React.FunctionComponentElement<null> {
+export default function CustomMenu(props: MenuProps): React.FunctionComponentElement<MenuProps> {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClick: React.MouseEventHandler = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,53 +23,49 @@ export default function CustomMenu(): React.FunctionComponentElement<null> {
   };
 
   return (
-      <DotContext.Consumer>
-        {({ setDot }) => (
-          <div>
-            <div>
-              <Fab color="inherit" onClick={handleClick}>
-                <MoreIcon />
-              </Fab>
-            </div>
-            <div>
-              <Menu
-                id="menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem key="select_file" onClick={() => setOpen(true)}>
-                  Select file
-                </MenuItem>
-                <MenuItem>Select render mode (WIP)</MenuItem>
-              </Menu>
-              <DropzoneDialog
-                acceptedFiles={[".dot"]}
-                filesLimit={1}
-                maxFileSize={1e9}
-                open={open}
-                onClose={() => {
-                  setOpen(false);
-                  handleClose();
-                }}
-                onSave={(files) => {
-                  const reader = new FileReader();
-                  reader.onload = (e) => {
-                    const dotFile = e.target &&
-                      (typeof e.target.result === "string")
-                      ? (e.target && e.target.result)
-                      : (e.target && e.target.result && e.target.result.toString());
-                    setDot(dotFile);
-                    setOpen(false);
-                    handleClose();
-                  };
-                  reader.readAsText(files[0]);
-                }}
-              />
-            </div>
-          </div>
-        )}
-      </DotContext.Consumer>
-  );
+    <div>
+      <div>
+        <Fab color="inherit" onClick={handleClick} className={props.className}>
+          <MoreIcon />
+        </Fab>
+      </div>
+      <div>
+        <Menu
+          id="menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem key="select_file" onClick={() => setOpen(true)}>
+            Select file
+          </MenuItem>
+          <MenuItem>Select render mode (WIP)</MenuItem>
+        </Menu>
+        <DropzoneDialog
+          acceptedFiles={[".dot"]}
+          filesLimit={1}
+          maxFileSize={1e9}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            handleClose();
+          }}
+          onSave={(files) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const dotFile = e.target &&
+                (typeof e.target.result === "string")
+                ? (e.target && e.target.result)
+                : (e.target && e.target.result && e.target.result.toString());
+              dispatch(setGraph(dotFile as string));
+              setOpen(false);
+              handleClose();
+            };
+            reader.readAsText(files[0]);
+          }}
+        />
+        </div>
+      </div>
+    );
 }

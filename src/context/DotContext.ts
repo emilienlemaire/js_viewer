@@ -1,9 +1,6 @@
-import { useContext, createContext } from "react";
+import type { DotContextType } from "../types/Context";
 
-export type DotContextType = {
-  dot: string | null;
-  setDot: (s: string | null) => void;
-}
+import { useContext, createContext } from "react";
 
 export const DotContext = createContext<DotContextType>({
   dot: "",

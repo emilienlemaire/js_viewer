@@ -114,7 +114,7 @@ export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
   }
 
   if (globPos.x < stage.position.x) {
-    globPos.x += (stage.position.x - globPos.x) + 10
+    globPos.x += (stage.position.x - globPos.x) + 10;
   } else {
     globPos.x += 20;
   }
@@ -125,7 +125,7 @@ export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
   }
 
   if (globPos.y < stage.position.y) {
-    globPos.y += (stage.position.y - globPos.y) + 10
+    globPos.y += (stage.position.y - globPos.y) + 10;
   } else {
     globPos.y += 20;
   }

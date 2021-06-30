@@ -10,3 +10,12 @@ export interface TooltipProps {
   height: number;
   text: string;
 }
+
+export interface TopAppBarProps {
+  onClick: () => void;
+  className: string;
+}
+
+export interface MenuProps {
+  className: string;
+}

@@ -16,42 +16,42 @@ const config: Configuration = {
             presets: [
               "@babel/preset-env",
               "@babel/preset-react",
-              "@babel/preset-typescript"
-            ]
-          }
-        }
+              "@babel/preset-typescript",
+            ],
+          },
+        },
       },
       {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader'
-        ]
+          'css-loader',
+        ],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
-        loader: "file-loader"
-      }
-    ]
+        loader: "file-loader",
+      },
+    ],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".css"]
+    extensions: [".tsx", ".ts", ".js", ".css"],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
-      inject: "head",
-      favicon: "src/assets/cubicle.svg"
+      inject: "body",
+      favicon: "src/assets/cubicle.svg",
     }),
     new ForkTsCheckerWebpackPlugion({
-      async: false
+      async: false,
     }),
     new ESLintPlugin({
-      extensions: ["js", "jsx", "ts", "tsx"]
+      extensions: ["js", "jsx", "ts", "tsx"],
     }),
     new ProgressPlugin(),
-  ]
+  ],
 };
 
 export default config;

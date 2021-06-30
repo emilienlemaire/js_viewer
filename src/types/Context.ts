@@ -8,3 +8,7 @@ export interface PIXIContext {
   links: PIXI.Graphics;
 }
 
+export interface DotContextType {
+  dot: string | null;
+  setDot: (s: string | null) => void;
+};

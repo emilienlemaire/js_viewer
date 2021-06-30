@@ -1,3 +1,4 @@
+import type { TopAppBarProps } from "../../types/Props";
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,18 +12,19 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  left: {
+    float: "left",
+  },
   middle: {
     flexGrow: 1,
-    pointerEvents: "none",
+    float: "none",
+  },
+  right: {
+    float: "right",
   },
 }));
 
-type PropType = {
-  onClick: () => void,
-  className: string
-}
-
-export default function TopAppBar(props: PropType): React.FunctionComponentElement<PropType> {
+export default function TopAppBar(props: TopAppBarProps): React.FunctionComponentElement<TopAppBarProps> {
   const classes = useStyles();
 
   return (
@@ -31,11 +33,14 @@ export default function TopAppBar(props: PropType): React.FunctionComponentEleme
         color="inherit"
         aria-label="menu"
         onClick={props.onClick}
+        className={classes.left}
       >
         <MenuIcon />
       </Fab>
-      <div className={classes.middle} />
-      <Menu />
+      <div className={classes.middle}/>
+      <Menu
+        className={classes.right}
+      />
     </Toolbar>
   );
 }

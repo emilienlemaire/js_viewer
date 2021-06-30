@@ -16,6 +16,6 @@ const useD3 = (
   }, dependencies);
 
   return ref;
-}
+  };
 
 export default useD3;

@@ -83,7 +83,7 @@ export function initPIXI(
     height,
     backgroundAlpha: 0,
     antialias: true,
-    resolution: window.devicePixelRatio || 1
+    resolution: window.devicePixelRatio || 1,
   });
 
   const ticker = new PIXI.Ticker();
@@ -95,7 +95,7 @@ export function initPIXI(
     stage,
     renderer,
     ticker,
-    links
+    links,
   };
 }
 

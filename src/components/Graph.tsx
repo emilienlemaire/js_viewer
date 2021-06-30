@@ -1,8 +1,8 @@
-import type { State, Action, Node, Edge } from "../types/Graph";
+import type { Node, Edge } from "../types/Graph";
 import type { PIXIContext } from "../types/Context";
 import type { GraphProps } from "../types/Props";
 
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import stringHash from "string-hash";
 import useD3 from "../hooks/useD3";
 import * as d3 from "d3";
@@ -11,58 +11,8 @@ import * as init from "../common/init";
 import { drawArrow, colorToHex, drawNode } from "../common/draw";
 import { Graph as GraphType } from "../common/graphs";
 import { makeStyles } from "@material-ui/core/styles";
-
-// TODO:
-//  - Move script to end for cubicle
-//  - Hover sur les noeuds
-//  - Petit graphe = zoom, gros graphe = rotation
-//  - On select: hide all other nodes but the path to the root
-//  - Split
-//  - Select the types of nodes to display
-//  - Rotation
-
-// Hover:
-//  - Add background
-//  - Maybe alpha < 1.0
-
-// Questions:
-//   - Pour la config: clique droit toogle, popup avec cocher...
-
-function reducer(state: State, action: Action): State {
-
-  const oldParents = (() => {
-    if (action.payload.parents) {
-      return (state.parents)
-        ? state.parents.filter((n: Node)  => {
-          return action.payload.parents &&
-            !action.payload.parents.includes(n) && n != action.payload.node;
-        })
-        : null;
-    }
-    return state.parents;
-  })();
-
-  switch (action.type) {
-    case "setSelection":
-      return (state.node == action.payload.node)
-        ? {
-          node: null,
-          old: state.node,
-          parents: null,
-          oldParents: state.parents,
-          path: null
-        }
-        : {
-          node: action.payload.node,
-          old: state.node,
-          parents: action.payload.parents,
-          oldParents,
-          path: action.payload.path
-        };
-    default:
-      throw new Error();
-  }
-}
+import { useSelector, useDispatch } from "react-redux";
+import { selectionSelector, setSelectedNode, setEmptySelection } from "../store/selection/selectionSlice";
 
   //eslint-disable-next-line
   (window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__ &&
@@ -71,19 +21,15 @@ function reducer(state: State, action: Action): State {
 
 const useStyles = makeStyles(() => ({
   grow: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 export default function Graph({ graphviz, className }: GraphProps): React.FunctionComponentElement<GraphProps> {
 
-  const [selectionState, dispatch] = useReducer(reducer, {
-    node: null,
-    old: null,
-    parents: null,
-    oldParents: null,
-    path: null
-  });
+  const dispatch = useDispatch();
+
+  const selectionState = useSelector(selectionSelector);
   const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [requested, setRequested] = useState<number | null>(null);
   const [graph, setGraph] = useState<GraphType | null>(null);
@@ -95,31 +41,32 @@ export default function Graph({ graphviz, className }: GraphProps): React.Functi
 
       renderer.render(stage);
     };
-  }
+  };
 
   const requestRender = (stage: PIXI.Container, renderer: PIXI.AbstractRenderer): void => {
     if (requested) return;
     setRequested(requestAnimationFrame(render(stage, renderer)));
-  }
+  };
 
-  const onNodeClick = (n: Node) => {
-    const parents = n.graph.ancestors(n);
-    const path = n.graph.targetEdges([...parents, n]);
-    dispatch({type: "setSelection", payload: { node: n, parents, path }});
-    return false;
-  }
+  const onNodeClick = (node: Node) => {
+    if (node.name != selectionState.node) {
+      dispatch(setSelectedNode(node));
+    } else {
+      dispatch(setEmptySelection());
+    }
+  };
 
   const onBackgroundClick = () => {
-    dispatch({type: "setSelection", payload: { node: null, parents: null, path: null }});
-  }
+    dispatch(setEmptySelection());
+  };
 
   const onHover = (node: Node) => {
     setHoveredNode(node);
-  }
+  };
 
   const onOut = () => {
     setHoveredNode(null);
-  }
+  };
 
   const ref = useD3(
     (div): void => {
@@ -204,32 +151,34 @@ export default function Graph({ graphviz, className }: GraphProps): React.Functi
     if (pixiContext) {
       const { superStage, renderer } = pixiContext;
 
-      if (selectionState.old) {
-        const { gfx, text, color } = selectionState.old;
-        const bounds = text.getLocalBounds(new PIXI.Rectangle());
-        drawNode(gfx, bounds, colorToHex(color), 0xffffff);
-      }
-
-      if (selectionState.node) {
-        const { gfx, text, color } = selectionState.node;
-        const bounds = text.getLocalBounds(new PIXI.Rectangle());
-        drawNode(gfx, bounds, colorToHex(color), 0xb4e6a4);
-      }
-
-      if (selectionState.parents) {
-        selectionState.parents.forEach((node: Node) => {
-          const { gfx, text, color } = node;
-          const bounds = text.getLocalBounds(new PIXI.Rectangle());
-          drawNode(gfx, bounds, colorToHex(color), 0xde9dff);
-        });
-      }
-
-      if (selectionState.oldParents) {
-        selectionState.oldParents.forEach((node: Node) => {
-          const { gfx, text, color } = node;
+      if (graph) {
+        if (selectionState.oldNode) {
+          const { gfx, text, color } = graph.node(selectionState.oldNode) as Node;
           const bounds = text.getLocalBounds(new PIXI.Rectangle());
           drawNode(gfx, bounds, colorToHex(color), 0xffffff);
-        });
+        }
+
+        if (selectionState.node) {
+          const { gfx, text, color } = graph.node(selectionState.node) as Node;
+          const bounds = text.getLocalBounds(new PIXI.Rectangle());
+          drawNode(gfx, bounds, colorToHex(color), 0xb4e6a4);
+        }
+
+        if (selectionState.parents) {
+          selectionState.parents.forEach((n) => {
+            const { gfx, text, color } = graph.node(n) as Node;
+            const bounds = text.getLocalBounds(new PIXI.Rectangle());
+            drawNode(gfx, bounds, colorToHex(color), 0xde9dff);
+          });
+        }
+
+        if (selectionState.oldParents) {
+          selectionState.oldParents.forEach((n) => {
+            const { gfx, text, color } = graph.node(n) as Node;
+            const bounds = text.getLocalBounds(new PIXI.Rectangle());
+            drawNode(gfx, bounds, colorToHex(color), 0xffffff);
+          });
+        }
       }
       requestRender(superStage, renderer);
     }
@@ -242,11 +191,18 @@ export default function Graph({ graphviz, className }: GraphProps): React.Functi
 
       graph.edges.forEach((edge) => {
         const { source, target } = edge;
+        const edgeName = {
+          source: source.name,
+          target: target.name,
+        };
+
         pixiContext.links.lineStyle(
-          (selectionState.path && selectionState.path.includes(edge))
+          (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
+            e.target === edgeName.target).length)
             ? 1.5
             : 0.5,
-          (selectionState.path && selectionState.path.includes(edge))
+          (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
+            e.target === edgeName.target).length)
             ? 0xde9dff
             : colorToHex(edge.color)
         );
@@ -254,7 +210,7 @@ export default function Graph({ graphviz, className }: GraphProps): React.Functi
         pixiContext.links.closePath();
       });
     }
-  }, [selectionState.path, graph, pixiContext]);
+  }, [selectionState, graph, pixiContext]);
 
   useEffect(() => {
     if (pixiContext) {
