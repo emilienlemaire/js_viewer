@@ -153,6 +153,10 @@ export class Graph {
   }
 }
 
+export class SerializedGraph {
+
+}
+
 export const getD3Hierachy = (graph: GraphType, root: GraphType): HierarchyGraph => {
   if (root.nodes().length != 1) {
     throw new Error("The root graph must be exactly one element long. It contains "

@@ -37,7 +37,7 @@ const OptionalGraph = (): React.FunctionComponentElement<null> => {
   const classes = useStyles();
 
   if (dot) {
-    return <Graph graphviz={dot} className={classes.content} />;
+    return <Graph className={classes.content} />;
   }
 
   return <div>No file selected yet.</div>;

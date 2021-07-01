@@ -2,22 +2,23 @@ import type { Edge } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node } from "../types/Graph";
 import type { PIXIContext } from "../types/Context";
+import type { GraphInfo } from "../types/store";
 
 import dot from "graphlib-dot";
-import { getD3Hierachy, Graph } from "./graphs";
+import { getD3Hierachy } from "./graphs";
 import { hierarchy, tree as d3Tree } from "d3";
 import * as PIXI from "pixi.js";
 import { drawNode, colorToHex, drawHover } from "./draw";
 
-export function initGraph(graphviz: string): Graph {
+export function initGraph(graphviz: string): GraphInfo {
   const graph = dot.read(graphviz);
 
-  const dechargedEdge: Array<[Edge, CubicleEdge]> = [];
+  const dechargedEdges: Array<[Edge, CubicleEdge]> = [];
   graph.edges().forEach((e) => {
     const edge = graph.edge(e);
     if (edge.subsume) {
       graph.removeEdge(e);
-      dechargedEdge.push([e, edge]);
+      dechargedEdges.push([e, edge]);
     }
   });
 
@@ -28,21 +29,16 @@ export function initGraph(graphviz: string): Graph {
   });
 
   const d3HierarchyGraph = hierarchy(getD3Hierachy(graph, root));
-  const tree = d3Tree<HierarchyGraph>().nodeSize([25, 75])(d3HierarchyGraph);
+  const nodeSize: [number, number] = (d3HierarchyGraph.descendants.length > 200)
+    ? [300, 300]
+    : [50, 75];
+  const tree = d3Tree<HierarchyGraph>().nodeSize(nodeSize)(d3HierarchyGraph);
 
-  const customGraph = new Graph(tree, graph, graph.edges());
-
-  graph.nodes().forEach((n) => {
-    if (!customGraph.node(n)) {
-      customGraph.addGraphLibNode(n);
-    }
-  });
-
-  dechargedEdge.forEach((edge: [Edge, CubicleEdge]) => {
-    customGraph.addDechargedEdge(edge);
-  });
-
-  return customGraph;
+  return {
+    graphLibGraph: graph,
+    d3Tree: tree,
+    dechargedEdges,
+  };
 }
 
 export function initPIXI(
@@ -112,6 +108,7 @@ export function initNodeGraphics(
   node.text.resolution = 16;
 
   const bounds = node.text.getLocalBounds(new PIXI.Rectangle());
+  const isBigGraph = (node.graph.nodes.length > 200);
 
   node.text.anchor.set(1, 1);
   node.text.rotation = Math.PI;
@@ -123,7 +120,7 @@ export function initNodeGraphics(
     -bounds.width / 2,
     -bounds.height / 2
   );
-  node.target_y = node.y - (bounds.height / 2);
+  node.target_y = isBigGraph ? node.y : node.y - (bounds.height / 2);
   node.x += (bounds.width / 2);
   node.gfx.interactive = true;
   node.gfx.on("click", () => {
@@ -141,5 +138,8 @@ export function initNodeGraphics(
   });
   node.gfx.addChild(node.text);
   node.gfx.position = new PIXI.ObservablePoint(() => null, null, node.x, node.y);
+  if (isBigGraph) {
+    node.gfx.rotation -= (1 / 2) * Math.PI;
+  }
   stage.addChild(node.gfx);
 }

@@ -1,3 +1,8 @@
+import type { Graph, Edge as GraphLibEdge } from "graphlib";
+import type { Edge as CubicleEdge } from "./CubicleGraph";
+import type { HierarchyGraph } from "./Graph";
+import type { HierarchyPointNode } from "d3";
+
 import store from "../store";
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -21,3 +26,10 @@ export interface SelectionState {
   path: Edge[] | null;
 }
 
+export interface GraphInfo {
+  graphLibGraph: Graph;
+  d3Tree: HierarchyPointNode<HierarchyGraph>;
+  dechargedEdges: Array<[GraphLibEdge, CubicleEdge]>;
+}
+
+export type GraphState = GraphInfo | null;

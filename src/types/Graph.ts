@@ -26,21 +26,3 @@ export interface Edge extends CubicleEdge {
   target: Node;
 }
 
-export interface State {
-  node: Node | null;
-  old: Node | null;
-  parents: Node[] | null;
-  oldParents: Node[] | null;
-  path: Edge[] | null;
-}
-
-export interface Payload {
-  node: Node | null;
-  parents: Node[] | null;
-  path: Edge[] | null;
-}
-
-export interface Action {
-  type: string;
-  payload: Payload;
-}

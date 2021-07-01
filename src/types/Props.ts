@@ -1,5 +1,6 @@
+import type { GraphInfo } from "./store";
+
 export interface GraphProps {
-  graphviz: string;
   className: string;
 }
 
@@ -18,4 +19,8 @@ export interface TopAppBarProps {
 
 export interface MenuProps {
   className: string;
+}
+
+export interface GraphSplitProps {
+  graphInfo: GraphInfo;
 }
