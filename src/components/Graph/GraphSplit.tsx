@@ -52,10 +52,10 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
   };
 
   const onNodeClick = (node: Node) => {
-    if (node.name != selectionState.node) {
-      dispatch(setSelectedNode(node));
-    } else {
+    if (node.name == selectionState.node) {
       dispatch(setEmptySelection());
+    } else {
+      dispatch(setSelectedNode(node));
     }
   };
 

@@ -1,4 +1,4 @@
-import type { SelectionState, RootState } from "../../types/store";
+import type { SelectionState, RootState } from "../../types/Store";
 import type { Node } from "../../types/Graph";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";

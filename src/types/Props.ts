@@ -1,4 +1,4 @@
-import type { GraphInfo } from "./store";
+import type { GraphInfo } from "./Store";
 
 export interface GraphProps {
   className: string;

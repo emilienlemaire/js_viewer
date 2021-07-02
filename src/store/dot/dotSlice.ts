@@ -1,4 +1,4 @@
-import type { DotState, RootState } from "../../types/store";
+import type { DotState, RootState } from "../../types/Store";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

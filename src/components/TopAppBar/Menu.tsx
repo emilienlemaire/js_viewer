@@ -1,13 +1,16 @@
 import type { MenuProps } from "../../types/Props";
 
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { setGraph } from "../../store/dot/dotSlice";
+import { addOptionsInfo, resetOptionsInfo } from "../../store/options/optionsSlice";
+
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fab from "@material-ui/core/Fab";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { DropzoneDialog } from "material-ui-dropzone";
-import { useDispatch } from "react-redux";
-import { setGraph } from "../../store/dot/dotSlice";
 
 export default function CustomMenu(props: MenuProps): React.FunctionComponentElement<MenuProps> {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -40,7 +43,9 @@ export default function CustomMenu(props: MenuProps): React.FunctionComponentEle
           <MenuItem key="select_file" onClick={() => setOpen(true)}>
             Select file
           </MenuItem>
-          <MenuItem>Select render mode (WIP)</MenuItem>
+          <MenuItem key="add_split" onClick={() => dispatch(addOptionsInfo())}>
+            Add graph split
+          </MenuItem>
         </Menu>
         <DropzoneDialog
           acceptedFiles={[".dot"]}
@@ -59,6 +64,7 @@ export default function CustomMenu(props: MenuProps): React.FunctionComponentEle
                 ? (e.target && e.target.result)
                 : (e.target && e.target.result && e.target.result.toString());
               dispatch(setGraph(dotFile as string));
+              dispatch(resetOptionsInfo());
               setOpen(false);
               handleClose();
             };

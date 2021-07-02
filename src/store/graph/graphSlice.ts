@@ -1,4 +1,4 @@
-import type { GraphState, GraphInfo, RootState } from "../../types/store";
+import type { GraphState, GraphInfo, RootState } from "../../types/Store";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

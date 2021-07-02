@@ -33,3 +33,14 @@ export interface GraphInfo {
 }
 
 export type GraphState = GraphInfo | null;
+
+export interface OptionsInfo {
+  showAllNodes: boolean;
+  showApproxNodes: boolean;
+  showInvariantNodes: boolean;
+  showSubsumedNodes: boolean;
+  showUnsafeNodes: boolean;
+  showErrorNodes: boolean;
+}
+
+export type OptionsState = Array<OptionsInfo>;

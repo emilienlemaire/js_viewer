@@ -2,7 +2,7 @@ import type { Edge } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node } from "../types/Graph";
 import type { PIXIContext } from "../types/Context";
-import type { GraphInfo } from "../types/store";
+import type { GraphInfo } from "../types/Store";
 
 import dot from "graphlib-dot";
 import { getD3Hierachy } from "./graphs";

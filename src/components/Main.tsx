@@ -1,9 +1,11 @@
 import React from "react";
-import TopAppBar from "./TopAppBar";
-import Graph from "./Graph";
 import { makeStyles } from "@material-ui/core/styles";
+
 import { useSelector, useDispatch } from "react-redux";
 import { dotSelector, setGraph } from "../store/dot/dotSlice";
+
+import TopAppBar from "./TopAppBar";
+import Graph from "./Graph";
 
 //eslint-disable-next-line
 const dot_str = (window as any).__DOT_STR__;
