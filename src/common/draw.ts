@@ -109,7 +109,6 @@ export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
 
   // We need to check if the hover is outside the view
   if (globPos.x + globBounds.right > stage.width) {
-    console.log("Too wide");
     globPos.x -= globBounds.width - 10;
   }
 
@@ -120,7 +119,6 @@ export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
   }
 
   if (globPos.y + globBounds.bottom > stage.height) {
-    console.log("Too low");
     globPos.y -= globBounds.height - 10;
   }
 

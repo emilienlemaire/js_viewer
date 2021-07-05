@@ -1,7 +1,9 @@
 # TODOS
 
 - [ ] Add full standalone in cubicle
-- [ ] Split the screen
+- [o] Split the screen:
+    - [X] Make base splits
+    - [ ] Improve selection time (Btter state handling?)
 - [ ] Select nodes to display:
     - [ ] Context menu
     - [ ] Selection menu

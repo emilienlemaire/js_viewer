@@ -1,4 +1,5 @@
 import type { GraphProps } from "../../types/Props";
+import type { Size } from "../../types/Common";
 
 import React, { useEffect, useState } from "react";
 import * as PIXI from "pixi.js";
@@ -43,6 +44,27 @@ export default function Graph(
 
   const [splitsCount, setSplitCount] = useState<number>(0);
   const [splits, setSplits] = useState<JSX.Element[]>([]);
+  const [windowSize, setWindowSize] = useState<Size>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const onRezie = () => {
+    setWindowSize({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  };
+
+  const debounce = (func: CallableFunction, timer=1000) => {
+    let time: NodeJS.Timeout;
+    return (event: Event) => {
+      if (time) clearTimeout(time);
+      timer = setTimeout(func, timer, event);
+    };
+  };
+
+  window.addEventListener("resize", debounce(onRezie));
 
   useEffect(() => {
     const graphInfo = initGraph(dotState);
@@ -73,12 +95,18 @@ export default function Graph(
     for (let split = 0; split  < splitsCount; split ++) {
       splits.push(
         <Grid item xs={splitSize} key={split}>
-          <GraphSplit />
+          <GraphSplit
+            size={{
+              width: windowSize.width / splitsCount,
+                height: windowSize.height,
+            }}
+            index={split}
+          />
         </Grid>
       );
     }
     setSplits(splits);
-  }, [splitsCount]);
+  }, [windowSize, splitsCount]);
 
   const classes = useStyles();
 

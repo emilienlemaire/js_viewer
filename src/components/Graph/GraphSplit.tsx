@@ -4,6 +4,8 @@ import type { Edge as GraphLibEdge } from "graphlib";
 import type { Node, Edge } from "../../types/Graph";
 import type { PIXIContext } from "../../types/Context";
 import type { Graph as GraphType } from "../../common/graphs";
+import type { GraphSplitProps } from "../../types/Props";
+import type { Position } from "../../types/Common";
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,25 +16,41 @@ import useD3 from "../../hooks/useD3";
 import { initPIXI, initNodeGraphics } from "../../common/init";
 import { drawArrow, drawNode, colorToHex } from "../../common/draw";
 
+import { Graph } from "../../common/graphs";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Icon from "@material-ui/core/Icon";
+import CheckIcon from "@material-ui/icons/Check";
+
 import {
   setSelectedNode,
   setEmptySelection,
   selectionSelector,
 } from "../../store/selection/selectionSlice";
 import { graphSelector } from "../../store/graph/graphSlice";
-import { Graph } from "../../common/graphs";
+import {
+  optionsSelector,
+  toggleAllNodes,
+} from "../../store/options/optionsSlice";
 
-export default function GraphSplit(): React.FunctionComponentElement<null> {
+export default function GraphSplit(
+  props: GraphSplitProps
+): React.FunctionComponentElement<GraphSplitProps> {
 
   const dispatch = useDispatch();
 
   const graphState = useSelector(graphSelector);
   const selectionState = useSelector(selectionSelector);
+  const optionsState = useSelector(optionsSelector);
 
   const [requested, setRequested] = useState<number | null>(null);
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [localGraph, setLocalGraph] = useState<GraphType | null>(null);
+  const [contextMenuPos, setContextMenuPos] = useState<Position>({
+    x: null,
+    y: null,
+  });
 
   const render = (stage: Container, renderer: AbstractRenderer): () => void => {
     return () => {
@@ -65,6 +83,28 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
 
   const onOut = () => {
     setHoveredNode(null);
+  };
+
+  const onRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setContextMenuPos({
+      x: event.clientX - 2,
+      y: event.clientY - 4,
+    });
+  };
+
+  const onMenuSelection = (action: string) => {
+    switch(action) {
+      case "all":
+
+      break;
+      case "nothing":
+      default: break;
+    }
+    return () => setContextMenuPos({
+      x: null,
+      y: null,
+    });
   };
 
   const ref = useD3(
@@ -148,7 +188,7 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
 
         div.selectAll<HTMLCanvasElement, unknown>("canvas").call(zoom);
 
-      requestRender(superStage, renderer);
+        requestRender(superStage, renderer);
       }
     }, [graphState]);
 
@@ -187,7 +227,7 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
       }
       requestRender(superStage, renderer);
     }
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [selectionState, pixiContext]);
 
   useEffect(() => {
@@ -204,12 +244,12 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
         pixiContext.links.lineStyle(
           (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
             e.target === edgeName.target).length)
-            ? 1.5
-            : 0.5,
+          ? 1.5
+          : 0.5,
           (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
             e.target === edgeName.target).length)
-            ? 0xde9dff
-            : colorToHex(edge.color)
+          ? 0xde9dff
+          : colorToHex(edge.color)
         );
         drawArrow(pixiContext.links, source, target, edge.label);
         pixiContext.links.closePath();
@@ -222,8 +262,68 @@ export default function GraphSplit(): React.FunctionComponentElement<null> {
       const { superStage, renderer } = pixiContext;
       requestRender(superStage, renderer);
     }
-  //eslint-disable-next-line
+    //eslint-disable-next-line
   }, [pixiContext, hoveredNode]);
 
-  return (<div style={{height: "100%"}} ref={ref}/>);
+  useEffect(() => {
+    if (pixiContext) {
+      const { superStage, renderer } = pixiContext;
+      const size = props.size;
+
+      renderer.view.width = size.width;
+      renderer.view.height = size.height;
+      renderer.resize(size.width, size.height);
+      requestRender(superStage, renderer);
+    }
+    //eslint-disable-next-line
+  }, [props.size, pixiContext]);
+
+  return (
+    <div onContextMenu={onRightClick} style={{height: "100%"}}>
+      <div style={{height: "100%"}} ref={ref}/>
+      <Menu
+        keepMounted
+        open={contextMenuPos.y !== null}
+        onClose={onMenuSelection("nothing")}
+        anchorReference="anchorPosition"
+        anchorPosition={
+          contextMenuPos.x && contextMenuPos.y
+          ? {top: contextMenuPos.y, left: contextMenuPos.x}
+          : undefined
+        }
+      >
+        <MenuItem onClick={() => {
+          dispatch(toggleAllNodes(props.index));
+          setContextMenuPos({x: null, y: null});
+        }}>
+          <Icon>
+            {optionsState[props.index].showAllNodes &&
+              <CheckIcon />}
+          </Icon>
+          Display all nodes
+        </MenuItem>
+        <MenuItem onClick={onMenuSelection("approx")}>
+          <Icon>
+            {optionsState[props.index].showApproxNodes &&
+              <CheckIcon />}
+          </Icon>
+          Display Approx. nodes
+        </MenuItem>
+        <MenuItem onClick={onMenuSelection("invariant")}>
+          <Icon>
+            {optionsState[props.index].showInvariantNodes &&
+              <CheckIcon />}
+          </Icon>
+          Display Invariant nodes
+        </MenuItem>
+        <MenuItem onClick={onMenuSelection("subsumed")}>
+          <Icon>
+            {optionsState[props.index].showInvariantNodes &&
+              <CheckIcon />}
+          </Icon>
+          Display Invariant nodes
+        </MenuItem>
+      </Menu>
+    </div>
+  );
 }

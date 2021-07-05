@@ -1,4 +1,5 @@
 import type { GraphInfo } from "./Store";
+import type { Size } from "./Common";
 
 export interface GraphProps {
   className: string;
@@ -22,5 +23,6 @@ export interface MenuProps {
 }
 
 export interface GraphSplitProps {
-  graphInfo: GraphInfo;
+  size: Size;
+  index: number;
 }

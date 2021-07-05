@@ -24,7 +24,6 @@ export function initGraph(graphviz: string): GraphInfo {
 
   const root = graph.filterNodes((n) => {
     const node = graph.node(n);
-    console.log(node.orig);
     return (node.orig && node.orig === "true");
   });
 

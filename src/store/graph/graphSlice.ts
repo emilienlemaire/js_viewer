@@ -8,8 +8,7 @@ export const graphSlice = createSlice({
   name: "graph",
   initialState,
   reducers: {
-    setGraph: (state, action: PayloadAction<GraphInfo>) => {
-      console.log("GraphState", action.payload);
+    setGraph: (_, action: PayloadAction<GraphInfo>) => {
       return {
         graphLibGraph: action.payload.graphLibGraph,
         d3Tree: action.payload.d3Tree,

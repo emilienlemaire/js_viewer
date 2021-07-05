@@ -22,8 +22,6 @@ export const selectionSlice = createSlice({
         target: e.target.name,
       }));
 
-      console.log("Path", path);
-
       const parents = parentNodes.map((n) => n.name);
 
       const oldParents = state.parents &&

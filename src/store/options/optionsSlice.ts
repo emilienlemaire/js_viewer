@@ -88,7 +88,7 @@ const optionSlice = createSlice({
   },
 });
 
-export const { addOptionsInfo, resetOptionsInfo } = optionSlice.actions;
+export const { addOptionsInfo, toggleAllNodes, resetOptionsInfo } = optionSlice.actions;
 
 export const optionsSelector = (state: RootState): OptionsState => state.options;
 
