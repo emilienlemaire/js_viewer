@@ -10,7 +10,7 @@ import { initGraph } from "../../common/init";
 
 import { dotSelector } from "../../store/dot/dotSlice";
 import { setGraph, graphSelector } from "../../store/graph/graphSlice";
-import { addOptionsInfo, optionsSelector } from "../../store/options/optionsSlice";
+import { addOptionsInfo, optionsSelector, resetOptionsInfo } from "../../store/options/optionsSlice";
 
 import GraphSplit from "./GraphSplit";
 import Grid from "@material-ui/core/Grid";
@@ -68,9 +68,10 @@ export default function Graph(
 
   useEffect(() => {
     const graphInfo = initGraph(dotState);
+    setSplits([]);
     dispatch(setGraph(graphInfo));
+    dispatch(resetOptionsInfo());
     dispatch(addOptionsInfo());
-    setSplitCount(1);
     //eslint-disable-next-line
   }, [dotState]);
 

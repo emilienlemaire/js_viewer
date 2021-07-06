@@ -1,20 +1,21 @@
 import type { Container, AbstractRenderer } from "pixi.js";
 import type { Edge as CubicleEdge } from "../../types/CubicleGraph";
 import type { Edge as GraphLibEdge } from "graphlib";
-import type { Node, Edge } from "../../types/Graph";
+import type { Node, Edge, HierarchyGraph } from "../../types/Graph";
 import type { PIXIContext } from "../../types/Context";
-import type { Graph as GraphType } from "../../common/graphs";
+import { getGraphNoSubsumed, Graph as GraphType } from "../../common/graphs";
 import type { GraphSplitProps } from "../../types/Props";
 import type { Position } from "../../types/Common";
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Point, ObservablePoint, Rectangle } from "pixi.js";
-import { zoom as d3zoom } from "d3";
+import { hierarchy, zoom as d3zoom } from "d3";
 
 import useD3 from "../../hooks/useD3";
 import { initPIXI, initNodeGraphics } from "../../common/init";
 import { drawArrow, drawNode, colorToHex } from "../../common/draw";
+import { tree as d3Tree } from "d3";
 
 import { Graph } from "../../common/graphs";
 import Menu from "@material-ui/core/Menu";
@@ -31,6 +32,7 @@ import { graphSelector } from "../../store/graph/graphSlice";
 import {
   optionsSelector,
   toggleAllNodes,
+  toggleSubsumedNodes,
 } from "../../store/options/optionsSlice";
 
 export default function GraphSplit(
@@ -70,7 +72,7 @@ export default function GraphSplit(
   };
 
   const onNodeClick = (node: Node) => {
-    if (node.name == selectionState.node) {
+    if (selectionState.node && node.name == selectionState.node.name) {
       dispatch(setEmptySelection());
     } else {
       dispatch(setSelectedNode(node));
@@ -125,7 +127,7 @@ export default function GraphSplit(
           requestRender(superStage, renderer);
         };
 
-        const {graphLibGraph: graph, d3Tree: tree, dechargedEdges} = graphState;
+        const {graphLibGraph: graph, d3Tree: tree, subsumedEdges } = graphState;
 
         const customGraph = new Graph(tree, graph, graph.edges());
 
@@ -135,7 +137,7 @@ export default function GraphSplit(
           }
         });
 
-        dechargedEdges.forEach((edge: [GraphLibEdge, CubicleEdge]) => {
+        subsumedEdges.forEach((edge: [GraphLibEdge, CubicleEdge]) => {
           customGraph.addDechargedEdge(edge);
         });
 
@@ -166,12 +168,12 @@ export default function GraphSplit(
           ? (viewBounds.height - padding) / graphBounds.height
           : (viewBounds.height - padding) / graphBounds.width;
 
-
         if (customGraph.nodes.length > MAX_NODES) {
-          stage.rotation -= (Math.PI / 2);
+          stage.rotation = -(Math.PI / 2);
         } else {
           stage.rotation = Math.PI;
         }
+
         stage.position = new ObservablePoint(onPosOrScaleChange, null, midpoint.x, height - padding);
         stage.scale = new ObservablePoint(onPosOrScaleChange, null, stage.scale.x, stage.scale.y);
         stage.scale.set(dHeight, dHeight);
@@ -198,30 +200,34 @@ export default function GraphSplit(
 
       if (localGraph) {
         if (selectionState.oldNode) {
-          const { gfx, text, color } = localGraph.node(selectionState.oldNode) as Node;
+          const { gfx, text, color } = selectionState.oldNode;
           const bounds = text.getLocalBounds(new Rectangle());
           drawNode(gfx, bounds, colorToHex(color), 0xffffff);
         }
 
-        if (selectionState.node) {
-          const { gfx, text, color } = localGraph.node(selectionState.node) as Node;
+        if (selectionState.node && selectionState.node) {
+          const { gfx, text, color } = selectionState.node;
           const bounds = text.getLocalBounds(new Rectangle());
           drawNode(gfx, bounds, colorToHex(color), 0xb4e6a4);
         }
 
         if (selectionState.parents) {
           selectionState.parents.forEach((n) => {
-            const { gfx, text, color } = localGraph.node(n) as Node;
-            const bounds = text.getLocalBounds(new Rectangle());
-            drawNode(gfx, bounds, colorToHex(color), 0xde9dff);
+            if (n) {
+              const { gfx, text, color } = n;
+              const bounds = text.getLocalBounds(new Rectangle());
+              drawNode(gfx, bounds, colorToHex(color), 0xde9dff);
+            }
           });
         }
 
         if (selectionState.oldParents) {
           selectionState.oldParents.forEach((n) => {
-            const { gfx, text, color } = localGraph.node(n) as Node;
-            const bounds = text.getLocalBounds(new Rectangle());
-            drawNode(gfx, bounds, colorToHex(color), 0xffffff);
+            if (n) {
+              const { gfx, text, color } = n as Node;
+              const bounds = text.getLocalBounds(new Rectangle());
+              drawNode(gfx, bounds, colorToHex(color), 0xffffff);
+            }
           });
         }
       }
@@ -236,18 +242,10 @@ export default function GraphSplit(
 
       localGraph.edges.forEach((edge) => {
         const { source, target } = edge;
-        const edgeName = {
-          source: source.name,
-          target: target.name,
-        };
-
-        pixiContext.links.lineStyle(
-          (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
-            e.target === edgeName.target).length)
+        pixiContext.links.lineStyle(selectionState.path && selectionState.path.includes(edge)
           ? 1.5
           : 0.5,
-          (selectionState.path && selectionState.path.filter((e) => e.source === edgeName.source &&
-            e.target === edgeName.target).length)
+          selectionState.path && selectionState.path.includes(edge)
           ? 0xde9dff
           : colorToHex(edge.color)
         );
@@ -278,9 +276,132 @@ export default function GraphSplit(
     //eslint-disable-next-line
   }, [props.size, pixiContext]);
 
+  useEffect(() => {
+    const options = optionsState[props.index];
+    if (graphState && pixiContext && options) {
+      const {graphLibGraph, subsumedEdges, hierarchyGraph } = graphState;
+      const {stage, superStage, links, renderer } = pixiContext;
+
+      if (!options.showSubsumedNodes) {
+        const hierarchyTree = hierarchy(getGraphNoSubsumed(hierarchyGraph));
+
+        const nodeSize: [number, number] = (hierarchyTree.descendants.length > 200)
+          ? [300, 300]
+          : [50, 75];
+        const tree = d3Tree<HierarchyGraph>().nodeSize(nodeSize)(hierarchyTree);
+        const customGraph = new Graph(tree, graphLibGraph, graphLibGraph.edges());
+        console.log(customGraph);
+
+        {/* stage.clear(); */}
+        stage.removeChildren();
+        links.clear();
+        links.removeChildren();
+        stage.addChild(links);
+
+        customGraph.nodes.forEach((node: Node) => {
+          initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
+        });
+
+
+        customGraph.edges.forEach((edge: Edge) => {
+          console.log("Drawing edge", edge);
+          const { source, target } = edge;
+          links.lineStyle(
+            0.5,
+            edge.subsume ? colorToHex("gray") : colorToHex("black")
+          );
+          drawArrow(links, source, target, edge.label);
+          links.closePath();
+        });
+
+        const viewBounds = superStage.getBounds();
+        const graphBounds = stage.getBounds();
+        const padding = 100;
+        const MAX_NODES = 200;
+
+        const dHeight = (customGraph.nodes.length <= MAX_NODES)
+          ? (viewBounds.height - padding) / graphBounds.height
+          : (viewBounds.height - padding) / graphBounds.width;
+
+        if (customGraph.nodes.length > MAX_NODES) {
+          stage.rotation = -(Math.PI / 2);
+        } else {
+          stage.rotation = Math.PI;
+        }
+        stage.scale.set(dHeight, dHeight);
+
+        setLocalGraph(customGraph);
+      }
+
+      if (options.showAllNodes) {
+        const hierarchyTree = hierarchy(hierarchyGraph);
+
+        const nodeSize: [number, number] = (hierarchyTree.descendants.length > 200)
+          ? [300, 300]
+          : [50, 75];
+        const tree = d3Tree<HierarchyGraph>().nodeSize(nodeSize)(hierarchyTree);
+        const customGraph = new Graph(tree, graphLibGraph, graphLibGraph.edges());
+        console.log(customGraph);
+
+        stage.removeChildren();
+        links.clear();
+        links.removeChildren();
+        stage.addChild(links);
+
+        graphLibGraph.nodes().forEach((n) => {
+          if (!customGraph.node(n)) {
+            customGraph.addGraphLibNode(n);
+          }
+        });
+
+        subsumedEdges.forEach((edge: [GraphLibEdge, CubicleEdge]) => {
+          customGraph.addDechargedEdge(edge);
+        });
+
+        customGraph.nodes.forEach((node: Node) => {
+          initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
+        });
+
+
+        customGraph.edges.forEach((edge: Edge) => {
+          console.log("Drawing edge", edge);
+          const { source, target } = edge;
+          links.lineStyle(
+            0.5,
+            edge.subsume ? colorToHex("gray") : colorToHex("black")
+          );
+          drawArrow(links, source, target, edge.label);
+          links.closePath();
+        });
+
+        {/* const viewBounds = superStage.getBounds();
+        const graphBounds = stage.getBounds();
+        const padding = 100;
+        const MAX_NODES = 200;
+
+        const dHeight = (customGraph.nodes.length <= MAX_NODES)
+          ? (viewBounds.height - padding) / graphBounds.height
+          : (viewBounds.height - padding) / graphBounds.width;
+
+        if (customGraph.nodes.length > MAX_NODES) {
+          stage.rotation = -(Math.PI / 2);
+        } else {
+          stage.rotation = Math.PI;
+        }
+        stage.scale.set(dHeight, dHeight); */}
+
+        setLocalGraph(customGraph);
+      }
+
+      requestRender(superStage, renderer);
+    }
+  //eslint-disable-next-line
+  }, [optionsState, graphState, props.index, pixiContext]);
+
   return (
     <div onContextMenu={onRightClick} style={{height: "100%"}}>
       <div style={{height: "100%"}} ref={ref}/>
+      {optionsState[props.index] &&
       <Menu
         keepMounted
         open={contextMenuPos.y !== null}
@@ -316,14 +437,18 @@ export default function GraphSplit(
           </Icon>
           Display Invariant nodes
         </MenuItem>
-        <MenuItem onClick={onMenuSelection("subsumed")}>
+        <MenuItem onClick={() => {
+          dispatch(toggleSubsumedNodes(props.index));
+          setContextMenuPos({x: null, y: null});
+        }}>
           <Icon>
-            {optionsState[props.index].showInvariantNodes &&
+            {optionsState[props.index].showSubsumedNodes &&
               <CheckIcon />}
           </Icon>
-          Display Invariant nodes
+          Display Subsumed nodes
         </MenuItem>
       </Menu>
+    }
     </div>
   );
 }

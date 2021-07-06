@@ -12,7 +12,8 @@ export const graphSlice = createSlice({
       return {
         graphLibGraph: action.payload.graphLibGraph,
         d3Tree: action.payload.d3Tree,
-        dechargedEdges: action.payload.dechargedEdges,
+        subsumedEdges: action.payload.subsumedEdges,
+        hierarchyGraph: action.payload.hierarchyGraph,
       };
     },
   },

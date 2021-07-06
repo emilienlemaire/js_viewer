@@ -13,12 +13,12 @@ import { drawNode, colorToHex, drawHover } from "./draw";
 export function initGraph(graphviz: string): GraphInfo {
   const graph = dot.read(graphviz);
 
-  const dechargedEdges: Array<[Edge, CubicleEdge]> = [];
+  const subsumedEdges: Array<[Edge, CubicleEdge]> = [];
   graph.edges().forEach((e) => {
     const edge = graph.edge(e);
     if (edge.subsume) {
       graph.removeEdge(e);
-      dechargedEdges.push([e, edge]);
+      subsumedEdges.push([e, edge]);
     }
   });
 
@@ -27,7 +27,8 @@ export function initGraph(graphviz: string): GraphInfo {
     return (node.orig && node.orig === "true");
   });
 
-  const d3HierarchyGraph = hierarchy(getD3Hierachy(graph, root));
+  const hierarchyGraph = getD3Hierachy(graph, root);
+  const d3HierarchyGraph = hierarchy(hierarchyGraph);
   const nodeSize: [number, number] = (d3HierarchyGraph.descendants.length > 200)
     ? [300, 300]
     : [50, 75];
@@ -36,7 +37,8 @@ export function initGraph(graphviz: string): GraphInfo {
   return {
     graphLibGraph: graph,
     d3Tree: tree,
-    dechargedEdges,
+    subsumedEdges,
+    hierarchyGraph,
   };
 }
 

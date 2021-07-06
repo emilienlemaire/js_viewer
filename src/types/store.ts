@@ -1,6 +1,6 @@
 import type { Graph, Edge as GraphLibEdge } from "graphlib";
 import type { Edge as CubicleEdge } from "./CubicleGraph";
-import type { HierarchyGraph } from "./Graph";
+import type { HierarchyGraph, Node, Edge } from "./Graph";
 import type { HierarchyPointNode } from "d3";
 
 import store from "../store";
@@ -13,23 +13,19 @@ export interface DotState {
   graph: string;
 }
 
-interface Edge {
-  source: string;
-  target: string;
-}
-
 export interface SelectionState {
-  node: string | null;
-  oldNode: string | null;
-  parents: string[] | null;
-  oldParents: string[] | null;
+  node: Node | null;
+  oldNode: Node | null;
+  parents: Node[] | null;
+  oldParents: Node[] | null;
   path: Edge[] | null;
 }
 
 export interface GraphInfo {
   graphLibGraph: Graph;
   d3Tree: HierarchyPointNode<HierarchyGraph>;
-  dechargedEdges: Array<[GraphLibEdge, CubicleEdge]>;
+  subsumedEdges: Array<[GraphLibEdge, CubicleEdge]>;
+  hierarchyGraph: HierarchyGraph;
 }
 
 export type GraphState = GraphInfo | null;

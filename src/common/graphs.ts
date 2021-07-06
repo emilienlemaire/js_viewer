@@ -1,9 +1,10 @@
-import type { Graph as GraphType, Edge as EdgeType } from "graphlib";
+import type { Edge as EdgeType } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node, Edge } from "../types/Graph";
 import type * as d3Types from "d3";
 
 import * as PIXI from "pixi.js";
+import { Graph as GraphType } from "graphlib";
 
 export class Graph {
   graph: GraphType;
@@ -35,9 +36,14 @@ export class Graph {
     root.descendants().forEach((n) => {
       this._toNode(n);
     });
-    this.edges = edges.map((e): Edge => {
-      return this._toEdge(e);
-    });
+    this.edges = edges.reduce((acc: Edge[], e: EdgeType): Edge[] => {
+      const edge = this._toEdge(e);
+      if ( edge ) {
+        acc.push(edge);
+        return acc;
+      }
+      return acc;
+    }, []);
     this.nodes = Array.from(this._nodeMap.values());
   }
 
@@ -60,8 +66,12 @@ export class Graph {
     return <Node> this._nodeMap.get(node.data.name);
   }
 
-  private _toEdge(edge: EdgeType): Edge {
+  private _toEdge(edge: EdgeType): Edge | undefined {
     const e = this.graph.edge(edge);
+    if (!this._nodeMap.has(edge.w) || !this._nodeMap.has(edge.v)) {
+      return;
+    }
+
     this._parents.set(edge.w, (() => {
       const actual_parents = this._parents.get(edge.w) || [];
       const new_parent = <Node> this._nodeMap.get(edge.v);
@@ -153,33 +163,49 @@ export class Graph {
   }
 }
 
-export class SerializedGraph {
+function makeGraph(graph: GraphType, node: string): HierarchyGraph {
+  const n = graph.node(node);
+  const g: HierarchyGraph = {
+    name: node,
+    data: n,
+  };
+  const succ: Array<string> = (graph.successors(node) instanceof Array)
+    ? <string[]>(graph.successors(node))
+    : [];
+  g.children = succ.map((child) => {
+    return makeGraph(graph, child);
+  });
 
+  return g;
 }
 
-export const getD3Hierachy = (graph: GraphType, root: GraphType): HierarchyGraph => {
+export function getD3Hierachy(graph: GraphType, root: GraphType): HierarchyGraph {
   if (root.nodes().length != 1) {
     throw new Error("The root graph must be exactly one element long. It contains "
       + root.nodes().length + " elements.");
   }
 
-  //eslint-disable-next-line
-  function makeGraph(graph: GraphType, node: string) {
-    const n = graph.node(node);
-    const g: HierarchyGraph = {
-      name: node,
-      data: n,
-    };
-    const succ: Array<string> = (graph.successors(node) instanceof Array)
-      ? <string[]>(graph.successors(node))
-      : [];
-    g.children = succ.map((child) => {
-      return makeGraph(graph, child);
-    });
-
-    return g;
-  }
-
   return makeGraph(graph, root.nodes()[0]);
-};
+}
+
+export function getGraphNoSubsumed(graph: HierarchyGraph): HierarchyGraph {
+
+  const children = (graph.children && !graph.data.subsumed)
+    ? graph.children.filter((child) => {
+      if(child.data.subsumed) {
+        return false;
+      }
+      return true;
+    }).map((child) => {
+      return getGraphNoSubsumed(child);
+    })
+    : undefined;
+  console.log("Children", children);
+  const newGraph: HierarchyGraph = {
+    children: children,
+    data: graph.data,
+    name: graph.name,
+  };
+  return newGraph;
+}
 
