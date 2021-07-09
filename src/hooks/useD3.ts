@@ -1,5 +1,5 @@
 import {useRef, useEffect} from "react";
-import * as d3 from "d3";
+import { select } from "d3";
 
 const useD3 = (
   renderGraphFn: (selection: d3.Selection<HTMLDivElement, unknown, null, undefined>) => void,
@@ -8,7 +8,7 @@ const useD3 = (
 
   useEffect(() => {
     if (ref && ref.current) {
-      renderGraphFn(d3.select(ref.current));
+      renderGraphFn(select(ref.current));
     }
     // eslint-disable-next-line
     return () => {};

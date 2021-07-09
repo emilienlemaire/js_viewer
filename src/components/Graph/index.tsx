@@ -2,7 +2,6 @@ import type { GraphProps } from "../../types/Props";
 import type { Size } from "../../types/Common";
 
 import React, { useEffect, useState } from "react";
-import * as PIXI from "pixi.js";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -16,9 +15,9 @@ import GraphSplit from "./GraphSplit";
 import Grid from "@material-ui/core/Grid";
 
 //eslint-disable-next-line
-(window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__ &&
+// (window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__ &&
   //eslint-disable-next-line
-  (window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
+//(window as any).__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 
 const useStyles = makeStyles(() => ({
   grow: {

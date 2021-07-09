@@ -7,8 +7,20 @@ import type { GraphInfo } from "../types/Store";
 import dot from "graphlib-dot";
 import { getD3Hierachy } from "./graphs";
 import { hierarchy, tree as d3Tree } from "d3";
-import * as PIXI from "pixi.js";
 import { drawNode, colorToHex, drawHover } from "./draw";
+import { onTicked } from "./eventHandlers";
+import {
+  InteractionEvent,
+  Container,
+  Sprite,
+  Texture,
+  Graphics,
+  Ticker,
+  Text,
+  Rectangle,
+  ObservablePoint,
+  autoDetectRenderer,
+} from "pixi.js";
 
 export function initGraph(graphviz: string): GraphInfo {
   const graph = dot.read(graphviz);
@@ -45,12 +57,12 @@ export function initGraph(graphviz: string): GraphInfo {
 export function initPIXI(
   width: number,
   height: number,
-  onBackgroundClick:(ev: PIXI.InteractionEvent) => void
+  onBackgroundClick:(ev: InteractionEvent) => void
 ): PIXIContext {
-  const superStage = new PIXI.Container();
-  const stage = new PIXI.Container();
+  const superStage = new Container();
+  const stage = new Container();
 
-  const background = new PIXI.Sprite(PIXI.Texture.WHITE);
+  const background = new Sprite(Texture.WHITE);
   background.width = width;
   background.height = height;
   // bg.tint = 0xff0000;
@@ -71,11 +83,11 @@ export function initPIXI(
   superStage.addChild(background);
   superStage.addChild(stage);
 
-  const links = new PIXI.Graphics();
+  const links = new Graphics();
 
   stage.addChild(links);
 
-  const renderer = PIXI.autoDetectRenderer({
+  const renderer = autoDetectRenderer({
     width,
     height,
     backgroundAlpha: 0,
@@ -83,7 +95,7 @@ export function initPIXI(
     resolution: window.devicePixelRatio || 1,
   });
 
-  const ticker = new PIXI.Ticker();
+  const ticker = new Ticker();
 
   ticker.autoStart = false;
 
@@ -97,25 +109,23 @@ export function initPIXI(
 }
 
 export function initNodeGraphics(
-  stage: PIXI.Container,
-  superStage: PIXI.Container,
+  pixiContext: PIXIContext,
   node: Node,
-  onClick: (n: Node) => void,
-  onHover: (n: Node) => void,
-  onOut: (n: Node) => void
+  onClick: (n: Node) => void
 ): void {
+  const { stage, superStage, renderer, ticker } = pixiContext;
   node.label = node.label.replaceAll("\\n", "\n");
-  node.text = new PIXI.Text(node.label, {fontSize: 2.5});
+  node.text = new Text(node.label, {fontSize: 2.5});
   node.text.resolution = 16;
 
-  const bounds = node.text.getLocalBounds(new PIXI.Rectangle());
+  const bounds = node.text.getLocalBounds(new Rectangle());
   const isBigGraph = (node.graph.nodes.length > 200);
 
   node.text.anchor.set(1, 1);
   node.text.rotation = Math.PI;
   drawNode(node.gfx, bounds, colorToHex(node.color));
 
-  node.text.position = new PIXI.ObservablePoint(
+  node.text.position = new ObservablePoint(
     () => null,
     null,
     -bounds.width / 2,
@@ -127,18 +137,21 @@ export function initNodeGraphics(
   node.gfx.on("click", () => {
     onClick(node);
   });
-  let hover: PIXI.Graphics | null = null;
+  let hover: Graphics | null = null;
   node.gfx.on("mouseover", () => {
+    ticker.stop();
+    ticker.remove(onTicked(renderer, superStage));
     hover = drawHover(node, superStage);
     superStage.addChild(hover);
-    onHover(node);
+    ticker.add(onTicked(renderer, superStage));
+    ticker.start();
   });
   node.gfx.on("mouseout", () => {
     hover && superStage.removeChild(hover);
-    onOut(node);
+    ticker.start();
   });
   node.gfx.addChild(node.text);
-  node.gfx.position = new PIXI.ObservablePoint(() => null, null, node.x, node.y);
+  node.gfx.position = new ObservablePoint(() => null, null, node.x, node.y);
   if (isBigGraph) {
     node.gfx.rotation -= (1 / 2) * Math.PI;
   }

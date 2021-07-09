@@ -16,15 +16,18 @@ export const selectionSlice = createSlice({
   initialState,
   reducers: {
     setSelectedNode: (state, {payload: node}: PayloadAction<Node>) => {
-      console.log(node);
-      const parents = node.graph.ancestors(node);
-      const path = node.graph.targetEdges([...parents, node]);
+      const newParents = node.graph.ancestors(node);
+      const path = node.graph.targetEdges([...newParents, node]).map((e) => ({
+        source: e.source.name,
+        target: e.target.name,
+      }));
+      const parents = newParents.map((n) => n.name);
 
       const oldParents = state.parents &&
-        state.parents.filter((n) => !parents.includes((n as Node)) && n.name != node.name);
+        state.parents.filter((n) => !parents.includes(n) && n != node.name);
 
       return {
-        node,
+        node: node.name,
         oldNode: state.node,
         parents,
         oldParents,

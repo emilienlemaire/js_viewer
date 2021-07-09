@@ -1,21 +1,21 @@
-import type { Container, AbstractRenderer } from "pixi.js";
 import type { Edge as CubicleEdge } from "../../types/CubicleGraph";
 import type { Edge as GraphLibEdge } from "graphlib";
-import type { Node, Edge, HierarchyGraph } from "../../types/Graph";
+import type { HierarchyGraph } from "../../types/Graph";
 import type { PIXIContext } from "../../types/Context";
-import { getGraphNoSubsumed, Graph as GraphType } from "../../common/graphs";
 import type { GraphSplitProps } from "../../types/Props";
-import type { Position } from "../../types/Common";
+import type { Position, ZoomInfo } from "../../types/Common";
+import type { OptionsInfo } from "../../types/Store";
 
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Point, ObservablePoint, Rectangle } from "pixi.js";
-import { hierarchy, zoom as d3zoom } from "d3";
+import { ObservablePoint, Point, Rectangle } from "pixi.js";
+import { D3ZoomEvent, hierarchy, zoom as d3zoom, tree as d3Tree } from "d3";
 
 import useD3 from "../../hooks/useD3";
-import { initPIXI, initNodeGraphics } from "../../common/init";
+import { initPIXI } from "../../common/init";
 import { drawArrow, drawNode, colorToHex } from "../../common/draw";
-import { tree as d3Tree } from "d3";
+import { getGraphNoSubsumed, Graph as GraphType } from "../../common/graphs";
+import { onBackgroundClick, onTicked } from "../../common/eventHandlers";
 
 import { Graph } from "../../common/graphs";
 import Menu from "@material-ui/core/Menu";
@@ -23,17 +23,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Icon from "@material-ui/core/Icon";
 import CheckIcon from "@material-ui/icons/Check";
 
-import {
-  setSelectedNode,
-  setEmptySelection,
-  selectionSelector,
-} from "../../store/selection/selectionSlice";
+import { selectionSelector } from "../../store/selection/selectionSlice";
 import { graphSelector } from "../../store/graph/graphSlice";
 import {
   optionsSelector,
   toggleAllNodes,
   toggleSubsumedNodes,
 } from "../../store/options/optionsSlice";
+import { displayNewGraph } from "../../common/displayGraph";
+
+// TODO:
+//  - Change material-ui
+//  - Close selection menu on click
+//  - Fix hovering
 
 export default function GraphSplit(
   props: GraphSplitProps
@@ -45,47 +47,24 @@ export default function GraphSplit(
   const selectionState = useSelector(selectionSelector);
   const optionsState = useSelector(optionsSelector);
 
-  const [requested, setRequested] = useState<number | null>(null);
-  const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [localGraph, setLocalGraph] = useState<GraphType | null>(null);
   const [contextMenuPos, setContextMenuPos] = useState<Position>({
     x: null,
     y: null,
   });
-
-  const render = (stage: Container, renderer: AbstractRenderer): () => void => {
-    return () => {
-      setRequested(null);
-
-      renderer.render(stage);
-    };
-  };
-
-  const requestRender = (stage: Container, renderer: AbstractRenderer): void => {
-    if (requested) return;
-    setRequested(requestAnimationFrame(render(stage, renderer)));
-  };
-
-  const onBackgroundClick = () => {
-    dispatch(setEmptySelection());
-  };
-
-  const onNodeClick = (node: Node) => {
-    if (selectionState.node && node.name == selectionState.node.name) {
-      dispatch(setEmptySelection());
-    } else {
-      dispatch(setSelectedNode(node));
-    }
-  };
-
-  const onHover = (node: Node) => {
-    setHoveredNode(node);
-  };
-
-  const onOut = () => {
-    setHoveredNode(null);
-  };
+  const [midpoint, setMidpoint] = useState<Point>(new Point(0, 0));
+  const [localOptions, setLocalOptions] = useState<OptionsInfo | null>(null);
+  const [zoomInfo, setZoomInfo] = useState<ZoomInfo>({
+    x: 0,
+    y: 0,
+    k: 1,
+  });
+  const [transformInfo, setTransformInfo] = useState<ZoomInfo>({
+    x: 0,
+    y: 0,
+    k: 1,
+  });
 
   const onRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -95,14 +74,7 @@ export default function GraphSplit(
     });
   };
 
-  const onMenuSelection = (action: string) => {
-    switch(action) {
-      case "all":
-
-      break;
-      case "nothing":
-      default: break;
-    }
+  const onMenuSelection = () => {
     return () => setContextMenuPos({
       x: null,
       y: null,
@@ -115,17 +87,13 @@ export default function GraphSplit(
         const width = (div.node() as HTMLDivElement).clientWidth,
           height = (div.node() as HTMLDivElement).clientHeight;
 
-        const midpoint = new Point(width / 2, height / 2);
+        setMidpoint(new Point(width / 2, height / 2));
 
         const {superStage, stage, renderer, ticker, links} = initPIXI(
           width,
           height,
           onBackgroundClick
         );
-
-        const onPosOrScaleChange = () => {
-          requestRender(superStage, renderer);
-        };
 
         const {graphLibGraph: graph, d3Tree: tree, subsumedEdges } = graphState;
 
@@ -141,111 +109,97 @@ export default function GraphSplit(
           customGraph.addDechargedEdge(edge);
         });
 
-
-        customGraph.nodes.forEach((node: Node) => {
-          initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
-        });
-
-        customGraph.edges.forEach((edge: Edge) => {
-          const { source, target } = edge;
-          links.lineStyle(
-            0.5,
-            edge.subsume ? colorToHex("gray") : colorToHex("black")
-          );
-          drawArrow(links, source, target, edge.label);
-          links.closePath();
-        });
+        displayNewGraph(
+          customGraph,
+          {superStage, stage, renderer, ticker, links} as PIXIContext
+        );
 
         setPIXIContext({superStage, stage, renderer, ticker, links} as PIXIContext);
         setLocalGraph(customGraph);
 
-        const viewBounds = superStage.getBounds();
-        const graphBounds = stage.getBounds();
-        const padding = 100;
-        const MAX_NODES = 200;
-
-        const dHeight = (customGraph.nodes.length <= MAX_NODES)
-          ? (viewBounds.height - padding) / graphBounds.height
-          : (viewBounds.height - padding) / graphBounds.width;
-
-        if (customGraph.nodes.length > MAX_NODES) {
-          stage.rotation = -(Math.PI / 2);
-        } else {
-          stage.rotation = Math.PI;
-        }
-
-        stage.position = new ObservablePoint(onPosOrScaleChange, null, midpoint.x, height - padding);
-        stage.scale = new ObservablePoint(onPosOrScaleChange, null, stage.scale.x, stage.scale.y);
-        stage.scale.set(dHeight, dHeight);
-
         div.selectAll("*").remove();
         (div.node() as HTMLDivElement).appendChild(renderer.view);
 
-        const zoom = d3zoom<HTMLCanvasElement, unknown>().on("zoom", (event) => {
-          const { x, y, k } = event.transform.translate(midpoint.x, height - padding).scale(dHeight);
-          stage.position.set(x, y);
-          stage.scale.set(k, k);
-          requestRender(superStage, renderer);
+        const zoom = d3zoom<HTMLCanvasElement, unknown>().on(
+          "zoom",
+          (event: D3ZoomEvent<HTMLCanvasElement, unknown>) => {
+            setZoomInfo({...(event.transform)});
         });
 
         div.selectAll<HTMLCanvasElement, unknown>("canvas").call(zoom);
 
-        requestRender(superStage, renderer);
+        ticker.maxFPS = 60;
+        ticker.add(onTicked(renderer, superStage));
+
+        ticker.start();
       }
     }, [graphState]);
 
+  // Update localOptions only when they change in the global state
   useEffect(() => {
-    if (pixiContext) {
-      const { superStage, renderer } = pixiContext;
+    const options = optionsState[props.index];
+    if (options != localOptions) {
+      setLocalOptions(options);
+    }
+  }, [optionsState, localOptions, props.index]);
 
-      if (localGraph) {
-        if (selectionState.oldNode) {
-          const { gfx, text, color } = selectionState.oldNode;
+  // Update graph view when selection is edited
+  useEffect(() => {
+    if (pixiContext && localGraph) {
+      if (selectionState.oldNode) {
+        const oldNode = localGraph.node(selectionState.oldNode);
+        if (oldNode) {
+          const { gfx, text, color } = oldNode;
           const bounds = text.getLocalBounds(new Rectangle());
           drawNode(gfx, bounds, colorToHex(color), 0xffffff);
         }
+      }
 
-        if (selectionState.node && selectionState.node) {
-          const { gfx, text, color } = selectionState.node;
+      if (selectionState.node && selectionState.node) {
+        const node = localGraph.node(selectionState.node);
+        if (node) {
+          const { gfx, text, color } = node;
           const bounds = text.getLocalBounds(new Rectangle());
           drawNode(gfx, bounds, colorToHex(color), 0xb4e6a4);
         }
+      }
 
-        if (selectionState.parents) {
-          selectionState.parents.forEach((n) => {
-            if (n) {
-              const { gfx, text, color } = n;
+      if (selectionState.parents) {
+        selectionState.parents.forEach((n) => {
+          const node = localGraph.node(n);
+          if (node) {
+            {
+              const { gfx, text, color } = node;
               const bounds = text.getLocalBounds(new Rectangle());
               drawNode(gfx, bounds, colorToHex(color), 0xde9dff);
             }
-          });
-        }
-
-        if (selectionState.oldParents) {
-          selectionState.oldParents.forEach((n) => {
-            if (n) {
-              const { gfx, text, color } = n as Node;
-              const bounds = text.getLocalBounds(new Rectangle());
-              drawNode(gfx, bounds, colorToHex(color), 0xffffff);
-            }
-          });
-        }
+          }
+        });
       }
-      requestRender(superStage, renderer);
-    }
-    //eslint-disable-next-line
-  }, [selectionState, pixiContext]);
 
-  useEffect(() => {
-    if (pixiContext && localGraph) {
+      if (selectionState.oldParents) {
+        selectionState.oldParents.forEach((n) => {
+          const node = localGraph.node(n);
+          if (node) {
+            const { gfx, text, color } = node;
+            const bounds = text.getLocalBounds(new Rectangle());
+            drawNode(gfx, bounds, colorToHex(color), 0xffffff);
+          }
+        });
+      }
       pixiContext.links.clear();
 
       localGraph.edges.forEach((edge) => {
         const { source, target } = edge;
-        pixiContext.links.lineStyle(selectionState.path && selectionState.path.includes(edge)
+        const isParentTarget = selectionState.path && selectionState.parents &&
+          selectionState.parents.includes(target.name);
+        const isSelectedNodeTarget = selectionState.path && selectionState.node &&
+          selectionState.node == target.name;
+        pixiContext.links.lineStyle(selectionState.path &&
+          (isParentTarget || isSelectedNodeTarget) && !edge.subsume
           ? 1.5
           : 0.5,
-          selectionState.path && selectionState.path.includes(edge)
+          (isParentTarget || isSelectedNodeTarget) && !edge.subsume
           ? 0xde9dff
           : colorToHex(edge.color)
         );
@@ -255,34 +209,26 @@ export default function GraphSplit(
     }
   }, [selectionState, localGraph, pixiContext]);
 
+  // Update view size according to parent div size.
   useEffect(() => {
     if (pixiContext) {
-      const { superStage, renderer } = pixiContext;
-      requestRender(superStage, renderer);
-    }
-    //eslint-disable-next-line
-  }, [pixiContext, hoveredNode]);
-
-  useEffect(() => {
-    if (pixiContext) {
-      const { superStage, renderer } = pixiContext;
+      const { renderer } = pixiContext;
       const size = props.size;
 
       renderer.view.width = size.width;
       renderer.view.height = size.height;
       renderer.resize(size.width, size.height);
-      requestRender(superStage, renderer);
     }
     //eslint-disable-next-line
   }, [props.size, pixiContext]);
 
+  // Display new graphs according to options
   useEffect(() => {
-    const options = optionsState[props.index];
-    if (graphState && pixiContext && options) {
+    if (graphState && pixiContext && localOptions) {
       const {graphLibGraph, subsumedEdges, hierarchyGraph } = graphState;
-      const {stage, superStage, links, renderer } = pixiContext;
+      const { stage, superStage } = pixiContext;
 
-      if (!options.showSubsumedNodes) {
+      if (!localOptions.showSubsumedNodes) {
         const hierarchyTree = hierarchy(getGraphNoSubsumed(hierarchyGraph));
 
         const nodeSize: [number, number] = (hierarchyTree.descendants.length > 200)
@@ -290,50 +236,45 @@ export default function GraphSplit(
           : [50, 75];
         const tree = d3Tree<HierarchyGraph>().nodeSize(nodeSize)(hierarchyTree);
         const customGraph = new Graph(tree, graphLibGraph, graphLibGraph.edges());
-        console.log(customGraph);
 
-        {/* stage.clear(); */}
-        stage.removeChildren();
-        links.clear();
-        links.removeChildren();
-        stage.addChild(links);
-
-        customGraph.nodes.forEach((node: Node) => {
-          initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
-        });
-
-
-        customGraph.edges.forEach((edge: Edge) => {
-          console.log("Drawing edge", edge);
-          const { source, target } = edge;
-          links.lineStyle(
-            0.5,
-            edge.subsume ? colorToHex("gray") : colorToHex("black")
-          );
-          drawArrow(links, source, target, edge.label);
-          links.closePath();
-        });
+        displayNewGraph(
+          customGraph,
+          pixiContext
+        );
 
         const viewBounds = superStage.getBounds();
         const graphBounds = stage.getBounds();
-        const padding = 100;
-        const MAX_NODES = 200;
 
-        const dHeight = (customGraph.nodes.length <= MAX_NODES)
-          ? (viewBounds.height - padding) / graphBounds.height
-          : (viewBounds.height - padding) / graphBounds.width;
+        const dHeight = (customGraph.nodes.length <= 200)
+          ? (viewBounds.height - 100) / graphBounds.height
+          : (viewBounds.height - 100) / graphBounds.width;
+
+        stage.position = new ObservablePoint(
+          () => null,
+          null,
+          midpoint.x,
+          (midpoint.y * 2) - 100
+        );
+        stage.scale = new ObservablePoint(() => null, null, stage.scale.x, stage.scale.y);
+        stage.scale.set(dHeight, dHeight);
+        const MAX_NODES = 200;
 
         if (customGraph.nodes.length > MAX_NODES) {
           stage.rotation = -(Math.PI / 2);
         } else {
           stage.rotation = Math.PI;
         }
-        stage.scale.set(dHeight, dHeight);
+
+        setTransformInfo({
+          x: stage.position.x,
+          y: stage.position.y,
+          k: dHeight,
+        });
 
         setLocalGraph(customGraph);
       }
 
-      if (options.showAllNodes) {
+      if (localOptions.showAllNodes) {
         const hierarchyTree = hierarchy(hierarchyGraph);
 
         const nodeSize: [number, number] = (hierarchyTree.descendants.length > 200)
@@ -341,12 +282,6 @@ export default function GraphSplit(
           : [50, 75];
         const tree = d3Tree<HierarchyGraph>().nodeSize(nodeSize)(hierarchyTree);
         const customGraph = new Graph(tree, graphLibGraph, graphLibGraph.edges());
-        console.log(customGraph);
-
-        stage.removeChildren();
-        links.clear();
-        links.removeChildren();
-        stage.addChild(links);
 
         graphLibGraph.nodes().forEach((n) => {
           if (!customGraph.node(n)) {
@@ -355,100 +290,143 @@ export default function GraphSplit(
         });
 
         subsumedEdges.forEach((edge: [GraphLibEdge, CubicleEdge]) => {
+          // TODO: Probably should check if edge is already in graph.
           customGraph.addDechargedEdge(edge);
         });
 
-        customGraph.nodes.forEach((node: Node) => {
-          initNodeGraphics(stage, superStage , node, onNodeClick, onHover, onOut);
-        });
+        displayNewGraph(
+          customGraph,
+          pixiContext
+        );
 
-
-        customGraph.edges.forEach((edge: Edge) => {
-          console.log("Drawing edge", edge);
-          const { source, target } = edge;
-          links.lineStyle(
-            0.5,
-            edge.subsume ? colorToHex("gray") : colorToHex("black")
-          );
-          drawArrow(links, source, target, edge.label);
-          links.closePath();
-        });
-
-        {/* const viewBounds = superStage.getBounds();
+        const viewBounds = superStage.getBounds();
         const graphBounds = stage.getBounds();
-        const padding = 100;
-        const MAX_NODES = 200;
 
-        const dHeight = (customGraph.nodes.length <= MAX_NODES)
-          ? (viewBounds.height - padding) / graphBounds.height
-          : (viewBounds.height - padding) / graphBounds.width;
+        const dHeight = (customGraph.nodes.length <= 200)
+          ? (viewBounds.height - 100) / graphBounds.height
+          : (viewBounds.height - 100) / graphBounds.width;
 
-        if (customGraph.nodes.length > MAX_NODES) {
+        stage.position = new ObservablePoint(
+          () => null,
+          null,
+          midpoint.x,
+          (midpoint.y * 2) - 100
+        );
+        stage.scale = new ObservablePoint(() => null, null, stage.scale.x, stage.scale.y);
+        stage.scale.set(dHeight, dHeight);
+
+        if (customGraph.nodes.length > 200) {
           stage.rotation = -(Math.PI / 2);
         } else {
           stage.rotation = Math.PI;
         }
-        stage.scale.set(dHeight, dHeight); */}
 
+        setTransformInfo({
+          x: stage.position.x,
+          y: stage.position.y,
+          k: dHeight,
+        });
         setLocalGraph(customGraph);
       }
-
-      requestRender(superStage, renderer);
     }
-  //eslint-disable-next-line
-  }, [optionsState, graphState, props.index, pixiContext]);
+    //eslint-disable-next-line
+  }, [
+    localOptions?.showAllNodes,
+    localOptions?.showSubsumedNodes,
+    graphState,
+    props.index,
+    pixiContext,
+    midpoint,
+  ]);
+
+  // Update zoom only when changed
+  useEffect(() => {
+    console.log("New zoom", zoomInfo);
+    if (pixiContext && localGraph) {
+      const { stage } = pixiContext;
+
+      const { x, y, k } = {
+        x: zoomInfo.x + zoomInfo.k * transformInfo.x,
+        y: zoomInfo.y + zoomInfo.k * transformInfo.y,
+        k: zoomInfo.k * transformInfo.k,
+      };
+      stage.position.set(x, y);
+      stage.scale.set(k);
+    }
+    //eslint-disable-next-line
+  }, [zoomInfo, transformInfo, pixiContext, localGraph, midpoint]);
+
+  useEffect(() => {
+    if (pixiContext) {
+      const { ticker } = pixiContext;
+      ticker.update();
+    }
+  }, [pixiContext]);
 
   return (
     <div onContextMenu={onRightClick} style={{height: "100%"}}>
       <div style={{height: "100%"}} ref={ref}/>
-      {optionsState[props.index] &&
-      <Menu
-        keepMounted
-        open={contextMenuPos.y !== null}
-        onClose={onMenuSelection("nothing")}
-        anchorReference="anchorPosition"
-        anchorPosition={
-          contextMenuPos.x && contextMenuPos.y
-          ? {top: contextMenuPos.y, left: contextMenuPos.x}
-          : undefined
-        }
-      >
-        <MenuItem onClick={() => {
-          dispatch(toggleAllNodes(props.index));
-          setContextMenuPos({x: null, y: null});
-        }}>
-          <Icon>
-            {optionsState[props.index].showAllNodes &&
-              <CheckIcon />}
-          </Icon>
-          Display all nodes
-        </MenuItem>
-        <MenuItem onClick={onMenuSelection("approx")}>
-          <Icon>
-            {optionsState[props.index].showApproxNodes &&
-              <CheckIcon />}
-          </Icon>
-          Display Approx. nodes
-        </MenuItem>
-        <MenuItem onClick={onMenuSelection("invariant")}>
-          <Icon>
-            {optionsState[props.index].showInvariantNodes &&
-              <CheckIcon />}
-          </Icon>
-          Display Invariant nodes
-        </MenuItem>
-        <MenuItem onClick={() => {
-          dispatch(toggleSubsumedNodes(props.index));
-          setContextMenuPos({x: null, y: null});
-        }}>
-          <Icon>
-            {optionsState[props.index].showSubsumedNodes &&
-              <CheckIcon />}
-          </Icon>
-          Display Subsumed nodes
-        </MenuItem>
-      </Menu>
-    }
+      {
+        optionsState[props.index] &&
+        <Menu
+          keepMounted
+          open={contextMenuPos.y !== null}
+          onClose={onMenuSelection()}
+          anchorReference="anchorPosition"
+          anchorPosition={
+            contextMenuPos.x && contextMenuPos.y
+            ? {top: contextMenuPos.y, left: contextMenuPos.x}
+            : undefined
+          }
+        >
+          <MenuItem
+            onClick={() => {
+              dispatch(toggleAllNodes(props.index));
+              setContextMenuPos({x: null, y: null});
+            }}
+          >
+            <Icon>
+              {
+                optionsState[props.index].showAllNodes &&
+                <CheckIcon />
+              }
+            </Icon>
+            Display all nodes
+          </MenuItem>
+          <MenuItem onClick={onMenuSelection()}>
+            <Icon>
+              {
+                optionsState[props.index].showApproxNodes &&
+                <CheckIcon />
+              }
+            </Icon>
+            Display Approx. nodes
+          </MenuItem>
+          <MenuItem onClick={onMenuSelection()}>
+            <Icon>
+              {
+                optionsState[props.index].showInvariantNodes &&
+                <CheckIcon />
+              }
+            </Icon>
+            Display Invariant nodes
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              dispatch(toggleSubsumedNodes(props.index));
+              setContextMenuPos({x: null, y: null});
+            }}
+          >
+            <Icon>
+              {
+                optionsState[props.index].showSubsumedNodes &&
+                <CheckIcon />
+              }
+            </Icon>
+            Display Subsumed nodes
+          </MenuItem>
+        </Menu>
+      }
     </div>
   );
 }

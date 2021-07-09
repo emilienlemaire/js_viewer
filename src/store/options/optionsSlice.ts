@@ -1,4 +1,5 @@
 import type { OptionsInfo, OptionsState, RootState } from "../../types/Store";
+import type { Node } from "../../types/Graph";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,7 +7,6 @@ const initialState: OptionsState = [] as OptionsState;
 
 function checkIndex(state: OptionsState, index: number): boolean {
   if (index > state.length - 1) {
-    console.error(`The numbers of views are ${state.length}. Index ${index} is out of range.`);
     return false;
   }
 
@@ -17,6 +17,7 @@ function checkShowAllNodes(state: OptionsInfo): boolean {
   return state.showApproxNodes && state.showInvariantNodes && state.showSubsumedNodes &&
     state.showUnsafeNodes && state.showErrorNodes;
 }
+
 
 const optionSlice = createSlice({
   name: "options",
@@ -30,10 +31,11 @@ const optionSlice = createSlice({
         showSubsumedNodes: true,
         showUnsafeNodes: true,
         showErrorNodes: true,
+        hoveredNode: null,
       });
     },
     toggleAllNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       if (state[action.payload].showAllNodes) {
@@ -48,39 +50,45 @@ const optionSlice = createSlice({
       }
     },
     toggleApproxNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       state[action.payload].showApproxNodes = !state[action.payload].showApproxNodes;
-      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload]);
+      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload] as OptionsInfo);
     },
     toggleInvariantNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       state[action.payload].showInvariantNodes = !state[action.payload].showInvariantNodes;
-      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload]);
+      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload] as OptionsInfo);
     },
     toggleSubsumedNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       state[action.payload].showSubsumedNodes = !state[action.payload].showSubsumedNodes;
-      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload]);
+      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload] as OptionsInfo);
     },
     toggleUnsafeNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       state[action.payload].showUnsafeNodes = !state[action.payload].showUnsafeNodes;
-      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload]);
+      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload] as OptionsInfo);
     },
     toggleErrorNodes: (state, action: PayloadAction<number>) => {
-      if (!checkIndex(state, action.payload))
+      if (!checkIndex(state as OptionsState, action.payload))
         return;
 
       state[action.payload].showErrorNodes = !state[action.payload].showErrorNodes;
-      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload]);
+      state[action.payload].showAllNodes = checkShowAllNodes(state[action.payload] as OptionsInfo);
+    },
+    setHoveredNode: (state, action: PayloadAction<{index: number, node: Node | null}>) => {
+      if (!checkIndex(state as OptionsState, action.payload.index)) {
+        return;
+      }
+      (state[action.payload.index] as OptionsInfo).hoveredNode = action.payload.node;
     },
     resetOptionsInfo: () => {
       return [] as OptionsState;
@@ -93,6 +101,7 @@ export const {
   toggleAllNodes,
   toggleSubsumedNodes,
   resetOptionsInfo,
+  setHoveredNode,
 } = optionSlice.actions;
 
 export const optionsSelector = (state: RootState): OptionsState => state.options;

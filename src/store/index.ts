@@ -5,7 +5,7 @@ import selectionReducer from "./selection/selectionSlice";
 import graphReducer from "./graph/graphSlice";
 import optionsReducer from "./options/optionsSlice";
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     dot: dotReducer,
     selection: selectionReducer,
@@ -22,3 +22,6 @@ export default configureStore({
     },
   }),
 });
+
+export const { dispatch } = store;
+export default store;

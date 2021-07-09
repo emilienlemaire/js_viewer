@@ -1,6 +1,12 @@
 import type { Node } from "../types/Graph";
 
-import * as PIXI from "pixi.js";
+import {
+  Graphics,
+  Rectangle,
+  Text,
+  Container,
+  ObservablePoint,
+} from "pixi.js";
 
 export function colorToHex(color: string): number {
   switch (color) {
@@ -18,8 +24,8 @@ export function colorToHex(color: string): number {
 }
 
 export function drawNode(
-  graphics: PIXI.Graphics,
-  bounds: PIXI.Rectangle,
+  graphics: Graphics,
+  bounds: Rectangle,
   contourColor: number,
   fillColor = 0xffffff
 ): void {
@@ -33,7 +39,7 @@ export function drawNode(
     bounds.height + 1.5
   );
 }
-export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node, label?: string): void {
+export function drawArrow(graphics: Graphics, source: Node, target: Node, label?: string): void {
   const NODE_WIDTH = target.text.width;
   graphics.moveTo(source.x, source.y);
   graphics.lineTo(target.x, <number>target.target_y);
@@ -73,12 +79,12 @@ export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node, l
   graphics.moveTo(ex, ey);
   graphics.lineTo(sx - topX * arrowWingsLength, sy - topY * arrowWingsLength);
   if (label) {
-    const transitionLabel = new PIXI.Text(label, {
+    const transitionLabel = new Text(label, {
       fontSize: 3,
       stroke: "white",
       strokeThickness: 1,
     });
-    const width = transitionLabel.getLocalBounds(new PIXI.Rectangle()).width;
+    const width = transitionLabel.getLocalBounds(new Rectangle()).width;
     transitionLabel.resolution = 16;
     transitionLabel.rotation = Math.PI;
     transitionLabel.position.set(ex + (width / 2), ey);
@@ -86,9 +92,9 @@ export function drawArrow(graphics: PIXI.Graphics, source: Node, target: Node, l
   }
 }
 
-export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
-  const hover = new PIXI.Graphics();
-  const hoverText = new PIXI.Text("");
+export function drawHover(node: Node, stage: Container): Graphics {
+  const hover = new Graphics();
+  const hoverText = new Text("");
   const globPos = node.gfx.getBounds();
 
   hoverText.text = node.label;
@@ -128,7 +134,7 @@ export function drawHover(node: Node, stage: PIXI.Container): PIXI.Graphics {
     globPos.y += 20;
   }
 
-  hover.position =  new PIXI.ObservablePoint(() => null, null, globPos.x, globPos.y);
+  hover.position =  new ObservablePoint(() => null, null, globPos.x, globPos.y);
 
   return hover;
 }

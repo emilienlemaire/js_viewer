@@ -1,21 +1,27 @@
 import type { Edge as EdgeType } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node, Edge } from "../types/Graph";
+import type { Edge as StoreEdge } from "../types/Store";
 import type * as d3Types from "d3";
 
-import * as PIXI from "pixi.js";
+import {
+  Text,
+  Graphics,
+} from "pixi.js";
 import { Graph as GraphType } from "graphlib";
 
 export class Graph {
-  graph: GraphType;
+  readonly graph: GraphType;
 
-  root: Node;
+  readonly root: Node;
 
-  nodes: Node[] = [];
+  readonly nodes: Node[] = [];
 
-  edges: Edge[];
+  readonly edges: Edge[];
 
   private _nodeMap = new Map<string, Node>();
+
+  private _edgeMap = new Map<StoreEdge, Edge>();
 
   private _topLevelX = 50;
 
@@ -55,8 +61,8 @@ export class Graph {
         color: node.data.data.color,
         x: node.x,
         y: node.y,
-        text: new PIXI.Text(node.data.data.label as string),
-        gfx: new PIXI.Graphics(),
+        text: new Text(node.data.data.label as string),
+        gfx: new Graphics(),
         children: (node.children || []).map((n) => this._toNode(n)),
         graph: this,
       };
@@ -93,6 +99,15 @@ export class Graph {
     const actual_target = <Edge[]> this._targetMap.get(target.name) || [];
     this._targetMap.set(target.name, [...actual_target, newEdge]);
 
+    const edgeLabel = {
+      source: edge.v,
+      target: edge.w,
+    };
+
+    if (!this._edgeMap.has(edgeLabel)) {
+      this._edgeMap.set(edgeLabel, newEdge);
+    }
+
     return newEdge;
   }
 
@@ -124,8 +139,8 @@ export class Graph {
         color: "gray",
         x: this._topLevelX,
         y: -20,
-        text: new PIXI.Text(`Invariant ${node}`),
-        gfx: new PIXI.Graphics(),
+        text: new Text(`Invariant ${node}`),
+        gfx: new Graphics(),
         graph: this,
       };
 
@@ -160,6 +175,17 @@ export class Graph {
 
   addDechargedEdge(edge: [EdgeType, CubicleEdge]): void {
     this.edges.push(this._toEdgeDecharged(edge[0], edge[1]));
+  }
+
+  getEdges(arr: StoreEdge[]): Edge[] {
+    return arr.reduce((acc: Edge[], e: StoreEdge): Edge[] => {
+      const edge = this._edgeMap.get(e);
+      if (edge) {
+        acc.push(edge);
+        return acc;
+      }
+      return acc;
+    }, []);
   }
 }
 
@@ -200,7 +226,6 @@ export function getGraphNoSubsumed(graph: HierarchyGraph): HierarchyGraph {
       return getGraphNoSubsumed(child);
     })
     : undefined;
-  console.log("Children", children);
   const newGraph: HierarchyGraph = {
     children: children,
     data: graph.data,
