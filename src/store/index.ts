@@ -4,6 +4,7 @@ import dotReducer from "./dot/dotSlice";
 import selectionReducer from "./selection/selectionSlice";
 import graphReducer from "./graph/graphSlice";
 import optionsReducer from "./options/optionsSlice";
+import contextMenuSlice from "./contextMenu/contextMenuSlice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     selection: selectionReducer,
     graph: graphReducer,
     options: optionsReducer,
+    contextMenu: contextMenuSlice,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: {

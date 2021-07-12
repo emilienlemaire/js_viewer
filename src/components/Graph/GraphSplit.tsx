@@ -3,12 +3,13 @@ import type { Edge as GraphLibEdge } from "graphlib";
 import type { HierarchyGraph } from "../../types/Graph";
 import type { PIXIContext } from "../../types/Context";
 import type { GraphSplitProps } from "../../types/Props";
-import type { Position, ZoomInfo } from "../../types/Common";
+import type { ZoomInfo } from "../../types/Common";
 import type { OptionsInfo } from "../../types/Store";
 
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { ObservablePoint, Point, Rectangle } from "pixi.js";
+import { useSelector } from "react-redux";
+import { useContextMenu } from "react-contexify";
+import { ObservablePoint, Point, Rectangle } from "../../common/pixi";
 import { D3ZoomEvent, hierarchy, zoom as d3zoom, tree as d3Tree } from "d3";
 
 import useD3 from "../../hooks/useD3";
@@ -18,19 +19,15 @@ import { getGraphNoSubsumed, Graph as GraphType } from "../../common/graphs";
 import { onBackgroundClick, onTicked } from "../../common/eventHandlers";
 
 import { Graph } from "../../common/graphs";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Icon from "@material-ui/core/Icon";
-import CheckIcon from "@material-ui/icons/Check";
 
 import { selectionSelector } from "../../store/selection/selectionSlice";
 import { graphSelector } from "../../store/graph/graphSlice";
 import {
   optionsSelector,
-  toggleAllNodes,
-  toggleSubsumedNodes,
 } from "../../store/options/optionsSlice";
 import { displayNewGraph } from "../../common/displayGraph";
+
+import ContextMenu from "./ContextMenu";
 
 // TODO:
 //  - Change material-ui
@@ -40,19 +37,12 @@ import { displayNewGraph } from "../../common/displayGraph";
 export default function GraphSplit(
   props: GraphSplitProps
 ): React.FunctionComponentElement<GraphSplitProps> {
-
-  const dispatch = useDispatch();
-
   const graphState = useSelector(graphSelector);
   const selectionState = useSelector(selectionSelector);
   const optionsState = useSelector(optionsSelector);
 
   const [pixiContext, setPIXIContext] = useState<PIXIContext | null>(null);
   const [localGraph, setLocalGraph] = useState<GraphType | null>(null);
-  const [contextMenuPos, setContextMenuPos] = useState<Position>({
-    x: null,
-    y: null,
-  });
   const [midpoint, setMidpoint] = useState<Point>(new Point(0, 0));
   const [localOptions, setLocalOptions] = useState<OptionsInfo | null>(null);
   const [zoomInfo, setZoomInfo] = useState<ZoomInfo>({
@@ -66,19 +56,12 @@ export default function GraphSplit(
     k: 1,
   });
 
-  const onRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setContextMenuPos({
-      x: event.clientX - 2,
-      y: event.clientY - 4,
-    });
-  };
+  const { show } = useContextMenu({
+    id: `context-menu-${props.index}`,
+  });
 
-  const onMenuSelection = () => {
-    return () => setContextMenuPos({
-      x: null,
-      y: null,
-    });
+  const onRightClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    show(e);
   };
 
   const ref = useD3(
@@ -366,67 +349,7 @@ export default function GraphSplit(
   return (
     <div onContextMenu={onRightClick} style={{height: "100%"}}>
       <div style={{height: "100%"}} ref={ref}/>
-      {
-        optionsState[props.index] &&
-        <Menu
-          keepMounted
-          open={contextMenuPos.y !== null}
-          onClose={onMenuSelection()}
-          anchorReference="anchorPosition"
-          anchorPosition={
-            contextMenuPos.x && contextMenuPos.y
-            ? {top: contextMenuPos.y, left: contextMenuPos.x}
-            : undefined
-          }
-        >
-          <MenuItem
-            onClick={() => {
-              dispatch(toggleAllNodes(props.index));
-              setContextMenuPos({x: null, y: null});
-            }}
-          >
-            <Icon>
-              {
-                optionsState[props.index].showAllNodes &&
-                <CheckIcon />
-              }
-            </Icon>
-            Display all nodes
-          </MenuItem>
-          <MenuItem onClick={onMenuSelection()}>
-            <Icon>
-              {
-                optionsState[props.index].showApproxNodes &&
-                <CheckIcon />
-              }
-            </Icon>
-            Display Approx. nodes
-          </MenuItem>
-          <MenuItem onClick={onMenuSelection()}>
-            <Icon>
-              {
-                optionsState[props.index].showInvariantNodes &&
-                <CheckIcon />
-              }
-            </Icon>
-            Display Invariant nodes
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              dispatch(toggleSubsumedNodes(props.index));
-              setContextMenuPos({x: null, y: null});
-            }}
-          >
-            <Icon>
-              {
-                optionsState[props.index].showSubsumedNodes &&
-                <CheckIcon />
-              }
-            </Icon>
-            Display Subsumed nodes
-          </MenuItem>
-        </Menu>
-      }
+      <ContextMenu index={props.index} x={0} y={0} />
     </div>
   );
 }

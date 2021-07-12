@@ -1,4 +1,3 @@
-import type { GraphInfo } from "./Store";
 import type { Size } from "./Common";
 
 export interface GraphProps {
@@ -13,13 +12,18 @@ export interface TooltipProps {
   text: string;
 }
 
-export interface TopAppBarProps {
-  onClick: () => void;
-  className: string;
+export interface DropzoneProps {
+  show: boolean;
 }
 
 export interface MenuProps {
   className: string;
+}
+
+export interface ContextMenuProps {
+  index: number;
+  x: number | null;
+  y: number | null;
 }
 
 export interface GraphSplitProps {

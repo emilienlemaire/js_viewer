@@ -66,17 +66,21 @@ export default function Graph(
   window.addEventListener("resize", debounce(onRezie));
 
   useEffect(() => {
-    const graphInfo = initGraph(dotState);
-    setSplits([]);
-    dispatch(setGraph(graphInfo));
-    dispatch(resetOptionsInfo());
-    dispatch(addOptionsInfo());
+    if (dotState) {
+      console.log("New dot file");
+      const graphInfo = initGraph(dotState);
+      setSplitCount(0);
+      setSplits([]);
+      dispatch(setGraph(graphInfo));
+      dispatch(resetOptionsInfo());
+      dispatch(addOptionsInfo());
+    }
     //eslint-disable-next-line
   }, [dotState]);
 
   useEffect(() => {
     setSplitCount(optionsState.length);
-  }, [optionsState.length]);
+  }, [optionsState]);
 
   useEffect(() => {
     const splits = [];
@@ -105,6 +109,7 @@ export default function Graph(
         </Grid>
       );
     }
+    console.log(splits);
     setSplits(splits);
   }, [windowSize, splitsCount]);
 

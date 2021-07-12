@@ -1,5 +1,5 @@
 import type { Node } from "../types/Graph";
-import type { AbstractRenderer, Container } from "pixi.js";
+import type { AbstractRenderer, Container } from "../common/pixi";
 
 import store, { dispatch } from "../store";
 import {

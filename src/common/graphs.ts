@@ -2,7 +2,7 @@ import type { Edge as EdgeType } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node, Edge } from "../types/Graph";
 import type { Edge as StoreEdge } from "../types/Store";
-import type * as d3Types from "d3";
+import type { HierarchyPointNode } from "d3";
 
 import {
   Text,
@@ -33,7 +33,7 @@ export class Graph {
 
 
   constructor(
-    root: d3Types.HierarchyPointNode<HierarchyGraph>,
+    root: HierarchyPointNode<HierarchyGraph>,
     nodes: GraphType,
     edges: EdgeType[]
   ) {
@@ -53,7 +53,7 @@ export class Graph {
     this.nodes = Array.from(this._nodeMap.values());
   }
 
-  private _toNode(node: d3Types.HierarchyPointNode<HierarchyGraph>): Node {
+  private _toNode(node: HierarchyPointNode<HierarchyGraph>): Node {
     if (!this._nodeMap.has(node.data.name)) {
       const newNode = {
         name: node.data.name,

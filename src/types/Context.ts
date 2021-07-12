@@ -1,14 +1,19 @@
-import type * as PIXI from "pixi.js";
+import type {
+  Container,
+  AbstractRenderer,
+  Ticker,
+  Graphics,
+} from "../common/pixi";
 
 export interface PIXIContext {
-  superStage: PIXI.Container;
-  stage: PIXI.Container;
-  renderer: PIXI.AbstractRenderer;
-  ticker: PIXI.Ticker;
-  links: PIXI.Graphics;
+  superStage: Container;
+  stage: Container;
+  renderer: AbstractRenderer;
+  ticker: Ticker;
+  links: Graphics;
 }
 
 export interface DotContextType {
   dot: string | null;
   setDot: (s: string | null) => void;
-};
+}

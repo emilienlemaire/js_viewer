@@ -1,4 +1,4 @@
-import type * as PIXI from "pixi.js";
+import type { Text, Graphics } from "../common/pixi";
 import type { Node as CubicleNode, Edge as CubicleEdge } from "./CubicleGraph";
 import type { Graph } from "../common/graphs";
 
@@ -14,8 +14,8 @@ export interface Node {
   color: string;
   x: number;
   y: number;
-  text: PIXI.Text;
-  gfx: PIXI.Graphics;
+  text: Text;
+  gfx: Graphics;
   children?: Node[];
   target_y?: number;
   graph: Graph;

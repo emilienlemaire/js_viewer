@@ -6,11 +6,15 @@
     ],
     "plugins": [
         [
-        "@babel/plugin-transform-runtime",
-        {
-            "regenerator": true
-        }
+            "@babel/plugin-transform-runtime",
+            {
+                "regenerator": true
+            }
         ],
+        ["@babel/plugin-transform-react-jsx", {
+            "pargma": "h",
+            "pragmaFrag": "Fragment",
+        }],
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread"
     ]

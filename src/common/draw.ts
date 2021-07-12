@@ -6,7 +6,7 @@ import {
   Text,
   Container,
   ObservablePoint,
-} from "pixi.js";
+} from "./pixi";
 
 export function colorToHex(color: string): number {
   switch (color) {

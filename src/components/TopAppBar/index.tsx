@@ -1,46 +1,49 @@
-import type { TopAppBarProps } from "../../types/Props";
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Toolbar from "@material-ui/core/Toolbar";
-import Fab from "@material-ui/core/Fab";
-import MenuIcon from "@material-ui/icons/Menu";
-import Menu from "./Menu";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import MenuIcon from "@material-ui/icons/MoreVert";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-  left: {
-    float: "left",
-  },
-  middle: {
-    flexGrow: 1,
-    float: "none",
-  },
-  right: {
-    float: "right",
-  },
-}));
+import Dropzone from "./Dropzone";
 
-export default function TopAppBar(props: TopAppBarProps): React.FunctionComponentElement<TopAppBarProps> {
-  const classes = useStyles();
+import {
+  addOptionsInfo,
+} from "../../store/options/optionsSlice";
+
+import "./../../css/TopAppBar.css";
+import "../../css/Dropdown.css";
+
+export default function TopAppBar(): React.FunctionComponentElement<null> {
+  const dispatch = useDispatch();
+
+  const [show, setShow] = useState(false);
+  const [dropzone, setDropzone] = useState(false);
+
+  const onClick = () => {
+    setShow(!show);
+  };
+
+  const onSelectClick = () => {
+    setDropzone(!dropzone);
+    onClick();
+};
+
+const onAddSplitClick = () => {
+  dispatch(addOptionsInfo());
+  onClick();
+};
 
   return (
-    <Toolbar className={classes.root + props.className}>
-      <Fab
-        color="inherit"
-        aria-label="menu"
-        onClick={props.onClick}
-        className={classes.left}
+    <div className="dropdown float">
+      <a
+        className="dropdownbtn"
+        onClick={onClick}
       >
-        <MenuIcon />
-      </Fab>
-      <div className={classes.middle}/>
-      <Menu
-        className={classes.right}
-      />
-    </Toolbar>
+        <MenuIcon className="my-float" />
+      </a>
+      <div className="dropdown-content">
+        <a className="dropdown-item" href="#" onClick={onSelectClick}>Select file</a>
+        <a className="dropdown-item" href="#" onClick={onAddSplitClick}>Add graph split</a>
+      </div>
+      <Dropzone show={dropzone}/>
+    </div>
   );
 }

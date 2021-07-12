@@ -1,7 +1,7 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugion from "fork-ts-checker-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
-import { ProgressPlugin, Configuration } from "webpack";
+import { ProgressPlugin, Configuration, ProvidePlugin } from "webpack";
 
 const config: Configuration = {
   entry: "./src/index.tsx",
@@ -51,6 +51,9 @@ const config: Configuration = {
       extensions: ["js", "jsx", "ts", "tsx"],
     }),
     new ProgressPlugin(),
+    new ProvidePlugin({
+      process: "process/browser",
+    }),
   ],
 };
 

@@ -47,3 +47,9 @@ export interface OptionsInfo {
 }
 
 export type OptionsState = Array<OptionsInfo>;
+
+export interface ContextMenuState {
+  index: number | null;
+  x: number | null;
+  y: number | null;
+}
