@@ -1,0 +1,17 @@
+.grid {
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    counter-reset: grid-items;
+}
+
+.grid--auto-fit {
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+}
+
+.grid__item {
+    border: 1px solid #000;
+    counter-increment: grid-item;
+    z-index: 1;
+}
+

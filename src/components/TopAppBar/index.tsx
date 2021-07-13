@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import MenuIcon from "@material-ui/icons/MoreVert";
 
 import Dropzone from "./Dropzone";
+import MoreIcon from "../../icons/More";
 
 import {
   addOptionsInfo,
@@ -37,7 +37,7 @@ const onAddSplitClick = () => {
         className="dropdownbtn"
         onClick={onClick}
       >
-        <MenuIcon className="my-float" />
+        <MoreIcon className="my-float" />
       </a>
       <div className="dropdown-content">
         <a className="dropdown-item" href="#" onClick={onSelectClick}>Select file</a>

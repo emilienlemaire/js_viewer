@@ -55,6 +55,10 @@ export default function GraphSplit(
     y: 0,
     k: 1,
   });
+  const [size, setSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const { show } = useContextMenu({
     id: `context-menu-${props.index}`,
@@ -68,7 +72,9 @@ export default function GraphSplit(
     (div) => {
       if (graphState) {
         const width = (div.node() as HTMLDivElement).clientWidth,
-          height = (div.node() as HTMLDivElement).clientHeight;
+          height = props.size.height;
+
+        setSize({ width, height: props.size.height });
 
         setMidpoint(new Point(width / 2, height / 2));
 
@@ -194,16 +200,15 @@ export default function GraphSplit(
 
   // Update view size according to parent div size.
   useEffect(() => {
-    if (pixiContext) {
+    if (pixiContext && size.width > 0 && size.height > 0) {
       const { renderer } = pixiContext;
-      const size = props.size;
 
       renderer.view.width = size.width;
       renderer.view.height = size.height;
       renderer.resize(size.width, size.height);
     }
     //eslint-disable-next-line
-  }, [props.size, pixiContext]);
+  }, [props.size, pixiContext, size]);
 
   // Display new graphs according to options
   useEffect(() => {
