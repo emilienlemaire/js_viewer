@@ -29,4 +29,5 @@ export interface ContextMenuProps {
 export interface GraphSplitProps {
   size: Size;
   index: number;
+  onClose: () => void;
 }

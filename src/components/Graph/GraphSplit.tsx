@@ -28,6 +28,9 @@ import {
 import { displayNewGraph } from "../../common/displayGraph";
 
 import ContextMenu from "./ContextMenu";
+import CrossIcon from "../../icons/Cross";
+
+import "../../css/TopAppBar.css";
 
 // TODO:
 //  - Change material-ui
@@ -37,6 +40,7 @@ import ContextMenu from "./ContextMenu";
 export default function GraphSplit(
   props: GraphSplitProps
 ): React.FunctionComponentElement<GraphSplitProps> {
+
   const graphState = useSelector(graphSelector);
   const selectionState = useSelector(selectionSelector);
   const optionsState = useSelector(optionsSelector);
@@ -113,9 +117,13 @@ export default function GraphSplit(
           "zoom",
           (event: D3ZoomEvent<HTMLCanvasElement, unknown>) => {
             setZoomInfo({...(event.transform)});
-        });
+          }).filter((event) => {
+            return !event.ctrlKey;
+          });
 
-        div.selectAll<HTMLCanvasElement, unknown>("canvas").call(zoom);
+        div.selectAll<HTMLCanvasElement, unknown>("canvas")
+          .call(zoom)
+          .on("dblclick.zoom", null);
 
         ticker.maxFPS = 60;
         ticker.add(onTicked(renderer, superStage));
@@ -127,7 +135,7 @@ export default function GraphSplit(
   // Update localOptions only when they change in the global state
   useEffect(() => {
     const options = optionsState[props.index];
-    if (options != localOptions) {
+    if (options && options != localOptions) {
       setLocalOptions(options);
     }
   }, [optionsState, localOptions, props.index]);
@@ -329,7 +337,6 @@ export default function GraphSplit(
 
   // Update zoom only when changed
   useEffect(() => {
-    console.log("New zoom", zoomInfo);
     if (pixiContext && localGraph) {
       const { stage } = pixiContext;
 
@@ -353,6 +360,16 @@ export default function GraphSplit(
 
   return (
     <div onContextMenu={onRightClick} style={{height: "100%"}}>
+      { optionsState.length > 1 &&
+      <div className="float-right">
+        <a
+          className="dropdownbtn"
+          onClick={props.onClose}
+        >
+          <CrossIcon className="my-float" />
+        </a>
+      </div>
+      }
       <div style={{height: "100%"}} ref={ref}/>
       <ContextMenu index={props.index} x={0} y={0} />
     </div>

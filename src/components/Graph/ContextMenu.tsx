@@ -17,20 +17,18 @@ export default function ContextMenu(
   props: ContextMenuProps
 ): React.FunctionComponentElement<ContextMenuProps> {
 
-  console.log("We here");
-
   const dispatch = useDispatch();
   const optionsState = useSelector(optionsSelector);
 
   return (
     <Menu id={`context-menu-${props.index}`}>
       <Item onClick={() => dispatch(toggleAllNodes(props.index))}>
-        {optionsState[props.index].showAllNodes &&
+        {optionsState[props.index] && optionsState[props.index].showAllNodes &&
           <span>&#10003;</span>}
         Show all nodes
       </Item>
       <Item onClick={() => dispatch(toggleSubsumedNodes(props.index))}>
-        {optionsState[props.index].showSubsumedNodes &&
+        {optionsState[props.index] && optionsState[props.index].showSubsumedNodes &&
           <span>&#10003;</span>}
         Show Subsumed nodes
       </Item>

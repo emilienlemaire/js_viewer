@@ -7,7 +7,12 @@ import { initGraph } from "../../common/init";
 
 import { dotSelector } from "../../store/dot/dotSlice";
 import { setGraph, graphSelector } from "../../store/graph/graphSlice";
-import { addOptionsInfo, optionsSelector, resetOptionsInfo } from "../../store/options/optionsSlice";
+import {
+  addOptionsInfo,
+  optionsSelector,
+  resetOptionsInfo,
+  deleteOptionsInfo,
+} from "../../store/options/optionsSlice";
 
 import GraphSplit from "./GraphSplit";
 
@@ -49,11 +54,14 @@ export default function Graph(): React.FunctionComponentElement<null> {
     };
   };
 
+  const onClose = (index: number) => {
+    return () => dispatch(deleteOptionsInfo(index));
+  };
+
   window.addEventListener("resize", debounce(onRezie));
 
   useEffect(() => {
     if (dotState) {
-      console.log("New dot file");
       const graphInfo = initGraph(dotState);
       setSplitCount(0);
       setSplits([]);
@@ -77,16 +85,17 @@ export default function Graph(): React.FunctionComponentElement<null> {
           <GraphSplit
             size={{
               width: windowSize.width / splitsCount,
-                height: windowSize.height,
+              height: windowSize.height,
             }}
             index={split}
+            onClose={onClose(split)}
           />
         </div>
       );
     }
 
     setSplits(splits);
-  }, [windowSize, splitsCount]);
+  }, [windowSize, splitsCount, optionsState.length]);
 
   return (
     <div className="grid grid--auto-fit" style={{height: "100%"}}>

@@ -93,6 +93,9 @@ const optionSlice = createSlice({
     resetOptionsInfo: () => {
       return [] as OptionsState;
     },
+    deleteOptionsInfo: (state, action: PayloadAction<number>) => {
+      state.splice(action.payload, 1);
+    },
   },
 });
 
@@ -102,6 +105,7 @@ export const {
   toggleSubsumedNodes,
   resetOptionsInfo,
   setHoveredNode,
+  deleteOptionsInfo,
 } = optionSlice.actions;
 
 export const optionsSelector = (state: RootState): OptionsState => state.options;
