@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>hooks/useD3.ts - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="global.html#Graph">Graph</a><ul class='methods'><li data-type='method'><a href="global.html#Graph#_getAncestors">_getAncestors</a></li><li data-type='method'><a href="global.html#Graph#_toEdge">_toEdge</a></li><li data-type='method'><a href="global.html#Graph#_toNode">_toNode</a></li><li data-type='method'><a href="global.html#Graph#_toSubsumedEdge">_toSubsumedEdge</a></li><li data-type='method'><a href="global.html#Graph#addGraphLibNode">addGraphLibNode</a></li><li data-type='method'><a href="global.html#Graph#addSubsumedEdge">addSubsumedEdge</a></li><li data-type='method'><a href="global.html#Graph#ancestors">ancestors</a></li><li data-type='method'><a href="global.html#Graph#getEdges">getEdges</a></li><li data-type='method'><a href="global.html#Graph#node">node</a></li><li data-type='method'><a href="global.html#Graph#targetEdges">targetEdges</a></li><li data-type='method'><a href="global.html#Graph#~debounce">debounce</a></li><li data-type='method'><a href="global.html#Graph#~onClose">onClose</a></li><li data-type='method'><a href="global.html#Graph#~onRezie">onRezie</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#checkIndex">checkIndex</a></li><li><a href="global.html#checkShowAllNodes">checkShowAllNodes</a></li><li><a href="global.html#colorToHex">colorToHex</a></li><li><a href="global.html#ContextMenu">ContextMenu</a></li><li><a href="global.html#CrossIcon">CrossIcon</a></li><li><a href="global.html#deleteOptionsInfo">deleteOptionsInfo</a></li><li><a href="global.html#displayNewGraph">displayNewGraph</a></li><li><a href="global.html#dot_str">dot_str</a></li><li><a href="global.html#drawArrow">drawArrow</a></li><li><a href="global.html#drawHover">drawHover</a></li><li><a href="global.html#drawNode">drawNode</a></li><li><a href="global.html#Dropzone">Dropzone</a></li><li><a href="global.html#getD3Hierachy">getD3Hierachy</a></li><li><a href="global.html#getGraphNoSubsumed">getGraphNoSubsumed</a></li><li><a href="global.html#GraphSplit">GraphSplit</a></li><li><a href="global.html#hideContextMenu">hideContextMenu</a></li><li><a href="global.html#initGraph">initGraph</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#initNodeGraphics">initNodeGraphics</a></li><li><a href="global.html#initPIXI">initPIXI</a></li><li><a href="global.html#Main">Main</a></li><li><a href="global.html#MoreVerticalIcon">MoreVerticalIcon</a></li><li><a href="global.html#onBackgroundClick">onBackgroundClick</a></li><li><a href="global.html#onHover">onHover</a></li><li><a href="global.html#onNodeClick">onNodeClick</a></li><li><a href="global.html#onOut">onOut</a></li><li><a href="global.html#onTicked">onTicked</a></li><li><a href="global.html#OptionalGraph">OptionalGraph</a></li><li><a href="global.html#setEmptySelection">setEmptySelection</a></li><li><a href="global.html#setGraph">setGraph</a></li><li><a href="global.html#TopAppBar">TopAppBar</a></li><li><a href="global.html#useD3">useD3</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">hooks/useD3.ts</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * src/hooks/useD3.ts
+ * Copyright (c) 2021 Emilien Lemaire &lt;emilien.lem@icloud.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import {useRef, useEffect} from "react";
+import { select } from "d3";
+
+/**
+ * Custom hook to use d3 in a component.
+ *
+ * @param {Function} renderGraphFn - Function called on the ref containing the graph.
+ * @param {React.DependencyList} dependencies - Dependencies that triggers this hook.
+ * @returns {React.RefObject&lt;HTMLDivElement>} The ref with all the d3 modifications applied to it.
+ */
+function useD3(
+  renderGraphFn: (selection: d3.Selection&lt;HTMLDivElement, unknown, null, undefined>) => void,
+  dependencies: React.DependencyList
+): React.RefObject&lt;HTMLDivElement> {
+  const ref = useRef&lt;HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref &amp;&amp; ref.current) {
+      renderGraphFn(select(ref.current));
+    }
+    //eslint-disable-next-line
+  }, dependencies);
+
+  return ref;
+}
+
+export default useD3;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Mon Jul 19 2021 17:16:25 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
