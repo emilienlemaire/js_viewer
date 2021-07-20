@@ -1,4 +1,4 @@
-# js_of_cubicle
+# js_viewer
 
 ## Initialization
 
