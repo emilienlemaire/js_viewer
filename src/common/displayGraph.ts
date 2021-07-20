@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module common/displayGraph */
 import type { Graph } from "./graphs";
 import type { Node, Edge } from "../types/Graph";
 import type { PIXIContext } from "../types/Context";
@@ -26,8 +27,8 @@ import { onNodeClick } from "./eventHandlers";
  * displayNewGraph.
  *
  * @param {Graph} graph - The graph to display
- * @param {PIXIContext} - The PIXIContext to display the graph on
- * @returns {void}
+ * @param {PIXIContext} pixiContext - The PIXIContext to display the graph on
+ * @return {void}
  */
 export function displayNewGraph(
   graph: Graph,

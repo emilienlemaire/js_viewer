@@ -165,3 +165,17 @@ export interface ContextMenuState {
    */
   y: number | null;
 }
+
+/**
+ * HoveredNodePayload.
+ */
+export interface HoveredNodePayload {
+  /**
+   * @type {number}
+   */
+  index: number;
+  /**
+   * @type {Node | null}
+   */
+  node: Node | null;
+}

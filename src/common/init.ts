@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module common/init */
 import type { Edge } from "graphlib";
 import type { Edge as CubicleEdge } from "../types/CubicleGraph";
 import type { HierarchyGraph, Node } from "../types/Graph";
@@ -36,7 +37,7 @@ import {
   Rectangle,
   ObservablePoint,
   autoDetectRenderer,
-} from "pixi.js";
+} from "../common/pixi";
 
 /**
  * Initializes the graph for PIXI to be able to display it and for the state to be able to manipulate

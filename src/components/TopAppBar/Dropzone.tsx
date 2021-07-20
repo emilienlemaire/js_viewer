@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/TopAppBar/Dropzone */
 import type { DropzoneProps } from "../../types/Props";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -28,7 +29,7 @@ import "../../css/Modal.css";
  * The file selection compenent.
  *
  * @param {DropzoneProps} props - The props neede for this component
- * @returns {React.FunctionComponentElement<DropzoneProps>}
+ * @return {React.FunctionComponentElement<DropzoneProps>}
  */
 export default function Dropzone(props: DropzoneProps): React.FunctionComponentElement<DropzoneProps> {
   // This is a reference to the div containing this component.

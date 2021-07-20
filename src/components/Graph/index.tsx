@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/Graph */
 import type { Size } from "../../types/Common";
 
 import React, { useEffect, useState } from "react";
@@ -43,7 +44,7 @@ import "../../css/Grid.css";
 /**
  * This component contains the graphslipts and manages their layout.
  *
- * @returns {React.FunctionComponentElement<null>} The component to be displayed according to current
+ * @return {React.FunctionComponentElement<null>} The component to be displayed according to current
  *  state
  */
 export default function Graph(): React.FunctionComponentElement<null> {
@@ -64,7 +65,7 @@ export default function Graph(): React.FunctionComponentElement<null> {
   /**
    * On resize callback.
    */
-  const onRezie = () => {
+  const onResize = () => {
     setWindowSize({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -75,7 +76,7 @@ export default function Graph(): React.FunctionComponentElement<null> {
    * This is debounced callback returned by {@link debounce}.
    * @callback debouncedCallabck
    * @param {Event} event - The event that needs debouncing.
-   * @returns {void}
+   * @return {void}
    */
   /**
    * This debounce a function according to the timing between 2 similar events. This allows
@@ -83,9 +84,9 @@ export default function Graph(): React.FunctionComponentElement<null> {
    *
    * @param {CallableFunction} func - The function we wish to debounce.
    * @param {number} [timer=1000] - The timeout befaore the function can be called again.
-  * @returns {debouncedCallabck} The debounced event handler.
+  * @return {debouncedCallabck} The debounced event handler.
    */
-  const debounce = ({ func, timer = 1000 }: { func: CallableFunction; timer?: number; }) => {
+  const debounce = (func: CallableFunction, timer = 1000) => {
     let time: NodeJS.Timeout;
     const f = (event: Event) => {
       if (time) clearTimeout(time);
@@ -97,14 +98,14 @@ export default function Graph(): React.FunctionComponentElement<null> {
   /**
   * Split close callback
   * @callback onSplitCloseCallback
-  * @returns {{payload: number, type: string}} The state action performed.
+  * @return {{payload: number, type: string}} The state action performed.
   */
 
   /**
    * Split close handler.
    *
    * @param {number} index - The index of the closed split.
-   * @returns {onSplitCloseCallback} The event handle for the split of index index.
+   * @return {onSplitCloseCallback} The event handle for the split of index index.
    */
   const onClose = (index: number) => {
     return () => dispatch(deleteOptionsInfo(index));
@@ -112,7 +113,7 @@ export default function Graph(): React.FunctionComponentElement<null> {
 
   // We don't want to resize before the window resize is, that generates too many rendering, so we
   // debounce the resizing.
-  window.addEventListener("resize", debounce({ func: onRezie }));
+  window.addEventListener("resize", debounce(onResize));
 
   // If the .dot file loaded is changed, then we reinitialize all the local state, and global state.
   useEffect(() => {

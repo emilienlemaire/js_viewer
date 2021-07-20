@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module icons/More */
 import React from "react";
 
 /**
  * A custom More Vertical svg icon (three vertical dots)
  *
  * @param {React.SVGProps} props - Common Ract SVG props.
- * @returns {React.FunctionComponentElement<React.SVGProps<SVGSVGElement>>}
+ * @return {React.FunctionComponentElement<React.SVGProps<SVGSVGElement>>}
  */
 function MoreVerticalIcon(
   props: React.SVGProps<SVGSVGElement>

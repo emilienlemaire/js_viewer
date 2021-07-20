@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/Graph/ContextMenu */
 import type { ContextMenuProps } from "../../types/Props";
 
 import React from "react";
@@ -33,7 +34,7 @@ import "react-contexify/dist/ReactContexify.css";
  * The ContextMenu component, showed when the split is right clicked.
  *
  * @param {ContextMenuProps} props - The props for this component.
- * @returns {React.FunctionComponentElement<ContextMenuProps>} The compenent according to the props.
+ * @return {React.FunctionComponentElement<ContextMenuProps>} The compenent according to the props.
  */
 export default function ContextMenu(
   props: ContextMenuProps

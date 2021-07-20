@@ -1,4 +1,4 @@
-/**
+/*
  * src/types/Common.ts
  * Copyright (c) 2021 Emilien Lemaire <emilien.lem@icloud.com>
  *
@@ -14,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
 /**
  * Size.
  */

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module hooks/useD3 */
 import {useRef, useEffect} from "react";
 import { select } from "d3";
 
@@ -22,7 +23,7 @@ import { select } from "d3";
  *
  * @param {Function} renderGraphFn - Function called on the ref containing the graph.
  * @param {React.DependencyList} dependencies - Dependencies that triggers this hook.
- * @returns {React.RefObject<HTMLDivElement>} The ref with all the d3 modifications applied to it.
+ * @return {React.RefObject<HTMLDivElement>} The ref with all the d3 modifications applied to it.
  */
 function useD3(
   renderGraphFn: (selection: d3.Selection<HTMLDivElement, unknown, null, undefined>) => void,

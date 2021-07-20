@@ -6,9 +6,10 @@
 yarn install
 ```
 
-## Main deoendencies
+## Main dependencies
 
-* React: React is used to manipulate the DOM and manage local state.
+* React: React is used to manipulate the DOM and manage local state:
+    * We use PReact at runtime, to lower the final bundle size.
 * PIXIjs: PIXI is used to display the graph using WebGL.
 * Redux: Redux is used for the global state.
 

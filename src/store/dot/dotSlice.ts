@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module store/dot/dotSlice */
 import type { DotState, RootState } from "../../types/Store";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -43,7 +44,7 @@ export const { setGraph } = dotSlice.actions;
  * Select the dot state from the gloabl state.
  *
  * @param {RootState} state - The global state
- * @returns {string} The current grph from the dot state.
+ * @return {string} The current grph from the dot state.
  */
 export const dotSelector = (state: RootState): string => state.dot.graph;
 

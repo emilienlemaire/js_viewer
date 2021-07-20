@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/Graph/GraphSplit */
 import type { Edge as CubicleEdge } from "../../types/CubicleGraph";
 import type { Edge as GraphLibEdge } from "graphlib";
 import type { HierarchyGraph } from "../../types/Graph";
@@ -52,7 +53,7 @@ import "../../css/TopAppBar.css";
  * The component containing a graph split. One is generated for each split one the screen.
  *
  * @param {GraphSplitProps} props - The props for this component.
- * @returns {React.FunctionComponentElement<GraphSplitProps>} The component according to the props.
+ * @return {React.FunctionComponentElement<GraphSplitProps>} The component according to the props.
  */
 export default function GraphSplit(
   props: GraphSplitProps
@@ -85,11 +86,6 @@ export default function GraphSplit(
     id: `context-menu-${props.index}`,
   });
 
-  /**
-   * The right click event handler.
-   *
-   * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} e - The right click event to handle.
-   */
   const onRightClick: React.MouseEventHandler<HTMLDivElement> =
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       show(e);
@@ -100,13 +96,13 @@ export default function GraphSplit(
     (div) => {
       // If we don't have a graph yet, no need to the initialization.
       if (graphState) {
-        // WE get the width and heigh of the split.
+        // We get the width and heigh of the split.
         const width = (div.node() as HTMLDivElement).clientWidth,
           height = props.size.height;
 
         setSize({ width, height: props.size.height });
 
-        // WE get the mid point to center the graph later.
+        // We get the mid point to center the graph later.
         setMidpoint(new Point(width / 2, height / 2));
 
         const {superStage, stage, renderer, ticker, links} = initPIXI(
@@ -126,7 +122,7 @@ export default function GraphSplit(
           }
         });
 
-        // WE also add the subsumed edges to the graph.
+        // We also add the subsumed edges to the graph.
         subsumedEdges.forEach((edge: [GraphLibEdge, CubicleEdge]) => {
           customGraph.addSubsumedEdge(edge);
         });

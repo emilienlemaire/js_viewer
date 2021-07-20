@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/TopAppBar */
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -27,6 +28,11 @@ import {
 import "./../../css/TopAppBar.css";
 import "../../css/Dropdown.css";
 
+/**
+ * The React component for the App Bar.
+ *
+ * @return {React.FunctionComponentElement<null>} The top app bar functionnal component.
+ */
 export default function TopAppBar(): React.FunctionComponentElement<null> {
   const dispatch = useDispatch();
 

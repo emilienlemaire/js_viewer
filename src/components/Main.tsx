@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module components/Main */
 import React from "react";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -30,7 +31,7 @@ const dot_str: string = (window as any).__DOT_STR__;
  * Optional graph components, which invites to select a graph or displays it if
  *  we have one already.
  *
- * @returns {React.FunctionComponentElement<null>}
+ * @return {React.FunctionComponentElement<null>}
  */
 const OptionalGraph = (): React.FunctionComponentElement<null> => {
   const dot = useSelector(dotSelector);
@@ -52,7 +53,7 @@ const OptionalGraph = (): React.FunctionComponentElement<null> => {
 /**
  * The Main component that conatians all our graph and menus.
  *
- * @returns {React.FunctionComponentElement<null>}
+ * @return {React.FunctionComponentElement<null>}
  */
 export default function Main(): React.FunctionComponentElement<null> {
 

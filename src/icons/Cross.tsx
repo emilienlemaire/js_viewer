@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+  /** @module icons/Cross */
 import React from "react";
 
 /**
  * A custom cross (X) svg icon.
  *
  * @param {React.SVGProps} props - Common React SVG props.
- * @returns {React.FunctionComponentElement<SVGSVGElement>}
+ * @return {React.FunctionComponentElement<SVGSVGElement>}
  */
 function CrossIcon(
   props: React.SVGProps<SVGSVGElement>

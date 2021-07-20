@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>store/graph/graphSlice.ts - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Graph.html">Graph</a><ul class='methods'><li data-type='method'><a href="Graph.html#_getAncestors">_getAncestors</a></li><li data-type='method'><a href="Graph.html#_toEdge">_toEdge</a></li><li data-type='method'><a href="Graph.html#_toNode">_toNode</a></li><li data-type='method'><a href="Graph.html#_toSubsumedEdge">_toSubsumedEdge</a></li><li data-type='method'><a href="Graph.html#addGraphLibNode">addGraphLibNode</a></li><li data-type='method'><a href="Graph.html#addSubsumedEdge">addSubsumedEdge</a></li><li data-type='method'><a href="Graph.html#ancestors">ancestors</a></li><li data-type='method'><a href="Graph.html#getEdges">getEdges</a></li><li data-type='method'><a href="Graph.html#node">node</a></li><li data-type='method'><a href="Graph.html#targetEdges">targetEdges</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-common_displayGraph.html">common/displayGraph</a><ul class='methods'><li data-type='method'><a href="module-common_displayGraph.html#~displayNewGraph">displayNewGraph</a></li></ul></li><li><a href="module-common_draw.html">common/draw</a><ul class='methods'><li data-type='method'><a href="module-common_draw.html#~colorToHex">colorToHex</a></li><li data-type='method'><a href="module-common_draw.html#~drawArrow">drawArrow</a></li><li data-type='method'><a href="module-common_draw.html#~drawHover">drawHover</a></li><li data-type='method'><a href="module-common_draw.html#~drawNode">drawNode</a></li></ul></li><li><a href="module-common_graphs.html">common/graphs</a><ul class='methods'><li data-type='method'><a href="module-common_graphs.html#~getD3Hierachy">getD3Hierachy</a></li><li data-type='method'><a href="module-common_graphs.html#~getGraphNoSubsumed">getGraphNoSubsumed</a></li><li data-type='method'><a href="module-common_graphs.html#~makeHierarchyGraph">makeHierarchyGraph</a></li></ul></li><li><a href="module-common_init.html">common/init</a><ul class='methods'><li data-type='method'><a href="module-common_init.html#~initGraph">initGraph</a></li><li data-type='method'><a href="module-common_init.html#~initNodeGraphics">initNodeGraphics</a></li><li data-type='method'><a href="module-common_init.html#~initPIXI">initPIXI</a></li></ul></li><li><a href="module-common_pixi.html">common/pixi</a></li><li><a href="module-components_Graph.html">components/Graph</a><ul class='methods'><li data-type='method'><a href="module-components_Graph.html#~Graph">Graph</a></li></ul></li><li><a href="module-components_Graph_ContextMenu.html">components/Graph/ContextMenu</a><ul class='methods'><li data-type='method'><a href="module-components_Graph_ContextMenu.html#~ContextMenu">ContextMenu</a></li></ul></li><li><a href="module-components_Main.html">components/Main</a><ul class='methods'><li data-type='method'><a href="module-components_Main.html#~Main">Main</a></li><li data-type='method'><a href="module-components_Main.html#~OptionalGraph">OptionalGraph</a></li></ul></li><li><a href="module-components_TopAppBar.html">components/TopAppBar</a><ul class='methods'><li data-type='method'><a href="module-components_TopAppBar.html#~TopAppBar">TopAppBar</a></li></ul></li><li><a href="module-components_TopAppBar_Dropzone.html">components/TopAppBar/Dropzone</a><ul class='methods'><li data-type='method'><a href="module-components_TopAppBar_Dropzone.html#~Dropzone">Dropzone</a></li></ul></li><li><a href="module-hooks_useD3.html">hooks/useD3</a><ul class='methods'><li data-type='method'><a href="module-hooks_useD3.html#~useD3">useD3</a></li></ul></li><li><a href="module-icons_Cross.html">icons/Cross</a><ul class='methods'><li data-type='method'><a href="module-icons_Cross.html#~CrossIcon">CrossIcon</a></li></ul></li><li><a href="module-icons_More.html">icons/More</a><ul class='methods'><li data-type='method'><a href="module-icons_More.html#~MoreVerticalIcon">MoreVerticalIcon</a></li></ul></li><li><a href="module-index.html">index</a><ul class='methods'><li data-type='method'><a href="module-index.html#~App">App</a></li></ul></li><li><a href="module-store_contextMenu_contextMenuSlice.html">store/contextMenu/contextMenuSlice</a></li><li><a href="module-store_dot_dotSlice.html">store/dot/dotSlice</a></li><li><a href="module-store_graph_GraphSlice.html">store/graph/GraphSlice</a></li><li><a href="module-store_options_optionsSlice.html">store/options/optionsSlice</a><ul class='methods'><li data-type='method'><a href="module-store_options_optionsSlice.html#~checkIndex">checkIndex</a></li><li data-type='method'><a href="module-store_options_optionsSlice.html#~checkShowAllNodes">checkShowAllNodes</a></li></ul></li><li><a href="module-store_selection_selectionSlice.html">store/selection/selectionSlice</a></li></ul><h3>Global</h3><ul><li><a href="global.html#GraphSplit">GraphSplit</a></li><li><a href="global.html#onBackgroundClick">onBackgroundClick</a></li><li><a href="global.html#onHover">onHover</a></li><li><a href="global.html#onNodeClick">onNodeClick</a></li><li><a href="global.html#onOut">onOut</a></li><li><a href="global.html#onTicked">onTicked</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">store/graph/graphSlice.ts</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * src/store/graph/graphSlice.ts
+ * Copyright (c) 2021 Emilien Lemaire &lt;emilien.lem@icloud.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/** @module store/graph/GraphSlice */
+import type { GraphState, GraphInfo, RootState } from "../../types/Store";
+
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+const initialState: GraphState = null as GraphState;
+
+export const graphSlice = createSlice({
+  name: "graph",
+  initialState,
+  reducers: {
+    /**
+     * Sets the fraph info state
+     * @param {PayloadAction&lt;GraphInfo>} action - All the informations for the action happening,
+     *  the playload is containing all our global graph information.
+     * @return {GraphState} The new state after we set the payload to it.
+     */
+    setGraph: (_, action: PayloadAction&lt;GraphInfo>): GraphState => {
+      return {
+        graphLibGraph: action.payload.graphLibGraph,
+        d3Tree: action.payload.d3Tree,
+        subsumedEdges: action.payload.subsumedEdges,
+        hierarchyGraph: action.payload.hierarchyGraph,
+      };
+    },
+  },
+});
+
+export const { setGraph } = graphSlice.actions;
+
+
+/**
+ * Selects the current graph state from the global current state.
+ *
+ * @param {RootState} state - The current global state.
+ * @return {GraphState} The current global graph state.
+ */
+export const graphSelector = (state: RootState): GraphState => state.graph;
+
+export default graphSlice.reducer;
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Tue Jul 20 2021 15:32:23 GMT+0200 (Central European Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

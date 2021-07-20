@@ -16,8 +16,9 @@
  */
 
 /**
- * @file This anbles us to have all the PIXIjs objects we need to be imported from one place.
+ * @file This enables us to have all the PIXIjs objects we need to be imported from one place.
  */
+/** @module common/pixi */
 export * from '@pixi/constants';
 export * from '@pixi/math';
 export * from '@pixi/runner';

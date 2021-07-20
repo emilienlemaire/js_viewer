@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module store/selection/selectionSlice */
 import type { SelectionState, RootState } from "../../types/Store";
 import type { Node } from "../../types/Graph";
 
@@ -35,10 +36,11 @@ export const selectionSlice = createSlice({
     * Sets the selected node and get its parents and the path to the root node.
     *
     * @param state - The state before the update.
-    * @param {PayloadAction<Node>} {payload: node} - All the informations of the action to perform,
+    * @param {PayloadAction<Node>}  action - All the informations of the action to perform,
     *  the payload contains the selected node.
     */
-    setSelectedNode: (state, {payload: node}: PayloadAction<Node>) => {
+    setSelectedNode: (state, action: PayloadAction<Node>) => {
+      const node = action.payload;
       // We get the parents of the selected node.
       const newParents = node.graph.ancestors(node);
       // We get the path to the root node from the selected node.
@@ -83,7 +85,7 @@ export const { setSelectedNode, setEmptySelection } = selectionSlice.actions;
  * Selects the current selection state from the global state.
  *
  * @param {RootState} state - The current global state.
- * @returns {SelectionState} The current selection state.
+ * @return {SelectionState} The current selection state.
  */
 export const selectionSelector = (state: RootState): SelectionState => state.selection;
 

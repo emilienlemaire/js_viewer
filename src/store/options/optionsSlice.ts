@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { OptionsInfo, OptionsState, RootState } from "../../types/Store";
+/** @module store/options/optionsSlice */
+import type { HoveredNodePayload, OptionsInfo, OptionsState, RootState } from "../../types/Store";
 import type { Node } from "../../types/Graph";
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -26,7 +27,7 @@ const initialState: OptionsState = [] as OptionsState;
  *
  * @param {OptionsState} state - The current option state.
  * @param {number} index - The index to be checked.
- * @returns {boolean} true if the index is good for our current option state.
+ * @return {boolean} true if the index is good for our current option state.
  */
 function checkIndex(state: OptionsState, index: number): boolean {
   if (index > state.length - 1) {
@@ -40,7 +41,7 @@ function checkIndex(state: OptionsState, index: number): boolean {
  * Check if we show all nodes or not.
  *
  * @param {OptionsInfo} state - The current option state.
- * @returns {boolean} true if all nodes must be shown.
+ * @return {boolean} true if all nodes must be shown.
  */
 function checkShowAllNodes(state: OptionsInfo): boolean {
   return state.showApproxNodes && state.showInvariantNodes && state.showSubsumedNodes &&
@@ -72,7 +73,7 @@ const optionSlice = createSlice({
     * Toogles the show all nodes options on a given split.
     *
     * @param  state - The option state befoare we update it.
-    * @param {PayloadAction<number>} - All the informations about the action. the payload is the
+    * @param {PayloadAction<number>} action - All the informations about the action. the payload is the
     *  index of the split where the options are set.
     */
     toggleAllNodes: (state, action: PayloadAction<number>) => {
@@ -93,7 +94,7 @@ const optionSlice = createSlice({
     /** Toogles the show subsumed nodes options on a given split.
     *
     * @param  state - The option state befoare we update it.
-    * @param {PayloadAction<number>} - All the informations about the action. the payload is the
+    * @param {PayloadAction<number>} action - All the informations about the action. the payload is the
     *  index of the split where the options are set.
     */
     toggleSubsumedNodes: (state, action: PayloadAction<number>) => {
@@ -106,11 +107,11 @@ const optionSlice = createSlice({
     /** Set the hovered node of a given split.
     *
     * @param  state - The option state befoare we update it.
-    * @param {PayloadAction<{index: number, node: Node | null}>} - All the informations about the
+    * @param {PayloadAction<HoveredNodePayload>} action - All the informations about the
     *  action. The payload is the index of the split where the options are set and the hovered node,
     *  or null if there is no havred node.
     */
-    setHoveredNode: (state, action: PayloadAction<{index: number, node: Node | null}>) => {
+    setHoveredNode: (state, action: PayloadAction<HoveredNodePayload>) => {
       if (!checkIndex(state as OptionsState, action.payload.index)) {
         return;
       }
@@ -119,7 +120,7 @@ const optionSlice = createSlice({
     /**
     * Resets all the options as an empty array.
     *
-    * @returns {OptionsState} An empty array of OptionsInfo.
+    * @return {OptionsState} An empty array of OptionsInfo.
     */
     resetOptionsInfo: (): OptionsState => {
       return [] as OptionsState;
@@ -149,7 +150,7 @@ export const {
  * Selects the options state from the current global state.
  *
  * @param {RootState} state - The current global state.
- * @returns {OptionsState} The current option state.
+ * @return {OptionsState} The current option state.
  */
 export const optionsSelector = (state: RootState): OptionsState => state.options;
 

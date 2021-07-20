@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/** @module common/draw */
 import type { Node } from "../types/Graph";
 
 import {
@@ -27,7 +28,7 @@ import {
  * Transforsm a string color to a hex color, defaulted to black if the string color is unknown.
  *
  * @param {string} color - The name of the color
- * @returns {number} The color in hax format, or black if the name is not handled by the switch
+ * @return {number} The color in hax format, or black if the name is not handled by the switch
  *     statement.
  */
 export function colorToHex(color: string): number {
@@ -52,7 +53,7 @@ export function colorToHex(color: string): number {
  * @param {Rectanlge} bounds - The bounds of the node to be drawn.
  * @param {number} contourColor - The color of the contour of the node to be displayed.
  * @param {number} [fillColor=0xffffff] - The background color of the node to be displayed.
- * @returns {void}
+ * @return {void}
  */
 export function drawNode(
   graphics: Graphics,
@@ -82,7 +83,7 @@ export function drawNode(
  * @param {Node} target - The target node of the arrow, this contains the coordinates of the target node.
  * @param {string=} label - The optional label of the arrow, if present, it will be drawn at the middle of
  *      the arrow.
- * @returns {void}
+ * @return {void}
  */
 export function drawArrow(graphics: Graphics, source: Node, target: Node, label?: string): void {
   const nodeWidth = target.text.width;
@@ -90,9 +91,9 @@ export function drawArrow(graphics: Graphics, source: Node, target: Node, label?
   // We mode to the source of the arrow.
   graphics.moveTo(source.x, source.y);
   // Draw a line to the target.
-  graphics.lineTo(target.x, <number>target.target_y);
+  graphics.lineTo(target.x, target.target_y as number);
   const dx = target.x - source.x;
-  const dy = <number>target.target_y - source.y;
+  const dy = (target.target_y as number) - source.y;
   const l = Math.sqrt(dx * dx + dy * dy);
 
   if (l === 0) {
@@ -152,7 +153,7 @@ export function drawArrow(graphics: Graphics, source: Node, target: Node, label?
  *
  * @param {Node} node - The node that is hovered.
  * @param {Container} stage - The stage where we want to draw the hovered node.
- * @returns {Graphics} A new graphics instance with the hovered node drawn on it.
+ * @return {Graphics} A new graphics instance with the hovered node drawn on it.
  */
 export function drawHover(node: Node, stage: Container): Graphics {
   // The new grpahics to be returned

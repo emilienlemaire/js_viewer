@@ -1,0 +1,1882 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>GraphicsGeometry | js_viewer</title>
+	<meta name="description" content="Documentation for js_viewer">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">js_viewer</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">js_viewer</a>
+				</li>
+				<li>
+					<a href="../modules/common_pixi.html">common/pixi</a>
+				</li>
+				<li>
+					<a href="common_pixi.GraphicsGeometry.html">GraphicsGeometry</a>
+				</li>
+			</ul>
+			<h1>Class GraphicsGeometry</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Graphics class contains methods used to draw primitive shapes such as lines, circles and
+						rectangles to the display, and to color and fill them.</p>
+					</div>
+					<p>GraphicsGeometry is designed to not be continually updating the geometry since it&#39;s expensive
+					to re-tesselate using <strong>earcut</strong>. Consider using {@link PIXI.Mesh} for this use-case, it&#39;s much faster.</p>
+					<dl class="tsd-comment-tags">
+						<dt>memberof</dt>
+						<dd><p>PIXI</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="common_pixi.BatchGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">BatchGeometry</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">GraphicsGeometry</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#_bounds" class="tsd-kind-icon">_bounds</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#_buffer" class="tsd-kind-icon">_buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#_indexBuffer" class="tsd-kind-icon">_index<wbr>Buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#attributes" class="tsd-kind-icon">attributes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#batchDirty" class="tsd-kind-icon">batch<wbr>Dirty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#batchable" class="tsd-kind-icon">batchable</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#batches" class="tsd-kind-icon">batches</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#boundsDirty" class="tsd-kind-icon">bounds<wbr>Dirty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#boundsPadding" class="tsd-kind-icon">bounds<wbr>Padding</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#buffers" class="tsd-kind-icon">buffers</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#cacheDirty" class="tsd-kind-icon">cache<wbr>Dirty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#clearDirty" class="tsd-kind-icon">clear<wbr>Dirty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#closePointEps" class="tsd-kind-icon">close<wbr>Point<wbr>Eps</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#colors" class="tsd-kind-icon">colors</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#dirty" class="tsd-kind-icon">dirty</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#disposeRunner" class="tsd-kind-icon">dispose<wbr>Runner</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#drawCalls" class="tsd-kind-icon">draw<wbr>Calls</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#glVertexArrayObjects" class="tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#graphicsData" class="tsd-kind-icon">graphics<wbr>Data</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#indexBuffer" class="tsd-kind-icon">index<wbr>Buffer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#indices" class="tsd-kind-icon">indices</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#indicesUint16" class="tsd-kind-icon">indices<wbr>Uint16</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#instanceCount" class="tsd-kind-icon">instance<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#instanced" class="tsd-kind-icon">instanced</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#points" class="tsd-kind-icon">points</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#refCount" class="tsd-kind-icon">ref<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#shapeIndex" class="tsd-kind-icon">shape<wbr>Index</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#textureIds" class="tsd-kind-icon">texture<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#uvs" class="tsd-kind-icon">uvs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#uvsFloat32" class="tsd-kind-icon">uvs<wbr>Float32</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#BATCHABLE_SIZE" class="tsd-kind-icon">BATCHABLE_<wbr>SIZE</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#bounds" class="tsd-kind-icon">bounds</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#_compareStyles" class="tsd-kind-icon">_compare<wbr>Styles</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#addAttribute" class="tsd-kind-icon">add<wbr>Attribute</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#addColors" class="tsd-kind-icon">add<wbr>Colors</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#addIndex" class="tsd-kind-icon">add<wbr>Index</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#addTextureIds" class="tsd-kind-icon">add<wbr>Texture<wbr>Ids</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#addUvs" class="tsd-kind-icon">add<wbr>Uvs</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#adjustUvs" class="tsd-kind-icon">adjust<wbr>Uvs</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#buildDrawCalls" class="tsd-kind-icon">build<wbr>Draw<wbr>Calls</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#calculateBounds" class="tsd-kind-icon">calculate<wbr>Bounds</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#clone" class="tsd-kind-icon">clone</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#dispose" class="tsd-kind-icon">dispose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#drawHole" class="tsd-kind-icon">draw<wbr>Hole</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#drawShape" class="tsd-kind-icon">draw<wbr>Shape</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#getAttribute" class="tsd-kind-icon">get<wbr>Attribute</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#getBuffer" class="tsd-kind-icon">get<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#getIndex" class="tsd-kind-icon">get<wbr>Index</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#getSize" class="tsd-kind-icon">get<wbr>Size</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#interleave" class="tsd-kind-icon">interleave</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#invalidate" class="tsd-kind-icon">invalidate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#isBatchable" class="tsd-kind-icon">is<wbr>Batchable</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#packAttributes" class="tsd-kind-icon">pack<wbr>Attributes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#packBatches" class="tsd-kind-icon">pack<wbr>Batches</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#processFill" class="tsd-kind-icon">process<wbr>Fill</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#processHoles" class="tsd-kind-icon">process<wbr>Holes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#processLine" class="tsd-kind-icon">process<wbr>Line</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#transformPoints" class="tsd-kind-icon">transform<wbr>Points</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#updateBatches" class="tsd-kind-icon">update<wbr>Batches</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#validateBatching" class="tsd-kind-icon">validate<wbr>Batching</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static tsd-is-external"><a href="common_pixi.GraphicsGeometry.html#merge" class="tsd-kind-icon">merge</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Graphics<wbr>Geometry<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:734</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="_bounds" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _bounds</h3>
+					<div class="tsd-signature tsd-kind-icon">_bounds<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Bounds.html" class="tsd-signature-type" data-tsd-kind="Class">Bounds</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:732</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="_buffer" class="tsd-anchor"></a>
+					<h3>_buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">_buffer<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#_buffer">_buffer</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:909</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="_indexBuffer" class="tsd-anchor"></a>
+					<h3>_index<wbr>Buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">_index<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#_indexBuffer">_indexBuffer</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:910</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="attributes" class="tsd-anchor"></a>
+					<h3>attributes</h3>
+					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#attributes">attributes</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1939</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="common_pixi.Attribute.html" class="tsd-signature-type" data-tsd-kind="Class">Attribute</a></h5>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="batchDirty" class="tsd-anchor"></a>
+					<h3>batch<wbr>Dirty</h3>
+					<div class="tsd-signature tsd-kind-icon">batch<wbr>Dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:726</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="batchable" class="tsd-anchor"></a>
+					<h3>batchable</h3>
+					<div class="tsd-signature tsd-kind-icon">batchable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:718</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="batches" class="tsd-anchor"></a>
+					<h3>batches</h3>
+					<div class="tsd-signature tsd-kind-icon">batches<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">BatchPart</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:727</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="boundsDirty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> bounds<wbr>Dirty</h3>
+					<div class="tsd-signature tsd-kind-icon">bounds<wbr>Dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:733</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="boundsPadding" class="tsd-anchor"></a>
+					<h3>bounds<wbr>Padding</h3>
+					<div class="tsd-signature tsd-kind-icon">bounds<wbr>Padding<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:715</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="buffers" class="tsd-anchor"></a>
+					<h3>buffers</h3>
+					<div class="tsd-signature tsd-kind-icon">buffers<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#buffers">buffers</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1937</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="cacheDirty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> cache<wbr>Dirty</h3>
+					<div class="tsd-signature tsd-kind-icon">cache<wbr>Dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:729</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="clearDirty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> clear<wbr>Dirty</h3>
+					<div class="tsd-signature tsd-kind-icon">clear<wbr>Dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:730</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="closePointEps" class="tsd-anchor"></a>
+					<h3>close<wbr>Point<wbr>Eps</h3>
+					<div class="tsd-signature tsd-kind-icon">close<wbr>Point<wbr>Eps<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:714</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="colors" class="tsd-anchor"></a>
+					<h3>colors</h3>
+					<div class="tsd-signature tsd-kind-icon">colors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:720</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="dirty" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> dirty</h3>
+					<div class="tsd-signature tsd-kind-icon">dirty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:728</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="disposeRunner" class="tsd-anchor"></a>
+					<h3>dispose<wbr>Runner</h3>
+					<div class="tsd-signature tsd-kind-icon">dispose<wbr>Runner<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Runner.html" class="tsd-signature-type" data-tsd-kind="Class">Runner</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#disposeRunner">disposeRunner</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1950</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="drawCalls" class="tsd-anchor"></a>
+					<h3>draw<wbr>Calls</h3>
+					<div class="tsd-signature tsd-kind-icon">draw<wbr>Calls<span class="tsd-signature-symbol">:</span> <a href="common_pixi.BatchDrawCall.html" class="tsd-signature-type" data-tsd-kind="Class">BatchDrawCall</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:725</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="glVertexArrayObjects" class="tsd-anchor"></a>
+					<h3>gl<wbr>Vertex<wbr>Array<wbr>Objects</h3>
+					<div class="tsd-signature tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#glVertexArrayObjects">glVertexArrayObjects</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1945</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-symbol">{}</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter-index-signature">
+										<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">WebGLVertexArrayObject</span></h5>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="graphicsData" class="tsd-anchor"></a>
+					<h3>graphics<wbr>Data</h3>
+					<div class="tsd-signature tsd-kind-icon">graphics<wbr>Data<span class="tsd-signature-symbol">:</span> <a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:724</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#id">id</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1942</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="indexBuffer" class="tsd-anchor"></a>
+					<h3>index<wbr>Buffer</h3>
+					<div class="tsd-signature tsd-kind-icon">index<wbr>Buffer<span class="tsd-signature-symbol">:</span> <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#indexBuffer">indexBuffer</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1938</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="indices" class="tsd-anchor"></a>
+					<h3>indices</h3>
+					<div class="tsd-signature tsd-kind-icon">indices<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:722</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="indicesUint16" class="tsd-anchor"></a>
+					<h3>indices<wbr>Uint16</h3>
+					<div class="tsd-signature tsd-kind-icon">indices<wbr>Uint16<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Uint16Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint32Array</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:717</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="instanceCount" class="tsd-anchor"></a>
+					<h3>instance<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">instance<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#instanceCount">instanceCount</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1944</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="instanced" class="tsd-anchor"></a>
+					<h3>instanced</h3>
+					<div class="tsd-signature tsd-kind-icon">instanced<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#instanced">instanced</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1943</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="points" class="tsd-anchor"></a>
+					<h3>points</h3>
+					<div class="tsd-signature tsd-kind-icon">points<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:719</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="refCount" class="tsd-anchor"></a>
+					<h3>ref<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">ref<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#refCount">refCount</a></p>
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1951</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="shapeIndex" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> shape<wbr>Index</h3>
+					<div class="tsd-signature tsd-kind-icon">shape<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:731</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="textureIds" class="tsd-anchor"></a>
+					<h3>texture<wbr>Ids</h3>
+					<div class="tsd-signature tsd-kind-icon">texture<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:723</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="uvs" class="tsd-anchor"></a>
+					<h3>uvs</h3>
+					<div class="tsd-signature tsd-kind-icon">uvs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:721</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
+					<a name="uvsFloat32" class="tsd-anchor"></a>
+					<h3>uvs<wbr>Float32</h3>
+					<div class="tsd-signature tsd-kind-icon">uvs<wbr>Float32<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Float32Array</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:716</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+					<a name="BATCHABLE_SIZE" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> BATCHABLE_<wbr>SIZE</h3>
+					<div class="tsd-signature tsd-kind-icon">BATCHABLE_<wbr>SIZE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:713</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of points to consider an object &quot;batchable&quot;,
+							able to be batched by the renderer&#39;s batch system.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>memberof</dt>
+							<dd><p>PIXI.GraphicsGeometry</p>
+							</dd>
+							<dt>static</dt>
+							<dd></dd>
+							<dt>member</dt>
+							<dd><p>{number} BATCHABLE_SIZE</p>
+							</dd>
+							<dt>default</dt>
+							<dd><p>100</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-external">
+					<a name="bounds" class="tsd-anchor"></a>
+					<h3>bounds</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> bounds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Bounds.html" class="tsd-signature-type" data-tsd-kind="Class">Bounds</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:741</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the current bounds of the graphic geometry.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>member</dt>
+									<dd><p>{PIXI.Bounds}</p>
+									</dd>
+									<dt>readonly</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Bounds.html" class="tsd-signature-type" data-tsd-kind="Class">Bounds</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="_compareStyles" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _compare<wbr>Styles</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">_compare<wbr>Styles<span class="tsd-signature-symbol">(</span>styleA<span class="tsd-signature-symbol">: </span><a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a><span class="tsd-signature-symbol"> | </span><a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a>, styleB<span class="tsd-signature-symbol">: </span><a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a><span class="tsd-signature-symbol"> | </span><a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:796</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Affinity check</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>styleA: <a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a><span class="tsd-signature-symbol"> | </span><a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a></h5>
+								</li>
+								<li>
+									<h5>styleB: <a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a><span class="tsd-signature-symbol"> | </span><a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="addAttribute" class="tsd-anchor"></a>
+					<h3>add<wbr>Attribute</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Attribute<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a>, size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, normalized<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, type<span class="tsd-signature-symbol">?: </span><a href="../enums/common_pixi.TYPES.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TYPES</a>, stride<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, start<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, instance<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#addAttribute">addAttribute</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1975</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds an attribute to the geometry
+									Note: <code>stride</code> and <code>start</code> should be <code>undefined</code> if you dont know them, not 0!</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of the attribute (matching up to a shader)</p>
+									</div>
+								</li>
+								<li>
+									<h5>buffer: <span class="tsd-signature-type">Uint32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Float32Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the buffer that holds the data of the attribute . You can also provide an Array and a buffer will be created from it.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> size: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> normalized: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <a href="../enums/common_pixi.TYPES.html" class="tsd-signature-type" data-tsd-kind="Enumeration">TYPES</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> stride: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> start: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> instance: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></h4>
+							<p>returns self, useful for chaining.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="addColors" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> add<wbr>Colors</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Colors<span class="tsd-signature-symbol">(</span>colors<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, alpha<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:872</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add colors.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>colors: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>List of colors to add to</p>
+									</div>
+								</li>
+								<li>
+									<h5>color: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Color to add</p>
+									</div>
+								</li>
+								<li>
+									<h5>alpha: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Alpha to use</p>
+									</div>
+								</li>
+								<li>
+									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Number of colors to add</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="addIndex" class="tsd-anchor"></a>
+					<h3>add<wbr>Index</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Index<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">?: </span><a href="../interfaces/common_pixi.IArrayBuffer.html" class="tsd-signature-type" data-tsd-kind="Interface">IArrayBuffer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#addIndex">addIndex</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1998</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds an index buffer to the geometry
+									The index buffer contains integers, three for each triangle in the geometry, which reference the various attribute buffers (position, colour, UV coordinates, other UV coordinates, normal, …). There is only ONE index buffer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> buffer: <a href="../interfaces/common_pixi.IArrayBuffer.html" class="tsd-signature-type" data-tsd-kind="Interface">IArrayBuffer</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></h4>
+							<p>returns self, useful for chaining.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="addTextureIds" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> add<wbr>Texture<wbr>Ids</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Texture<wbr>Ids<span class="tsd-signature-symbol">(</span>textureIds<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:881</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add texture id that the shader/fragment wants to use.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>textureIds: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>id: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="addUvs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> add<wbr>Uvs</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Uvs<span class="tsd-signature-symbol">(</span>verts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, uvs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, texture<span class="tsd-signature-symbol">: </span><a href="common_pixi.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">&lt;</span><a href="common_pixi.Resource.html" class="tsd-signature-type" data-tsd-kind="Class">Resource</a><span class="tsd-signature-symbol">&gt;</span>, start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, matrix<span class="tsd-signature-symbol">?: </span><a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:893</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generates the UVs for a shape.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>verts: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Vertices</p>
+									</div>
+								</li>
+								<li>
+									<h5>uvs: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>UVs</p>
+									</div>
+								</li>
+								<li>
+									<h5>texture: <a href="common_pixi.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">&lt;</span><a href="common_pixi.Resource.html" class="tsd-signature-type" data-tsd-kind="Class">Resource</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Reference to Texture</p>
+									</div>
+								</li>
+								<li>
+									<h5>start: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Index buffer start index.</p>
+									</div>
+								</li>
+								<li>
+									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The size/length for index buffer.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> matrix: <a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="adjustUvs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> adjust<wbr>Uvs</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">adjust<wbr>Uvs<span class="tsd-signature-symbol">(</span>uvs<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, texture<span class="tsd-signature-symbol">: </span><a href="common_pixi.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">&lt;</span><a href="common_pixi.Resource.html" class="tsd-signature-type" data-tsd-kind="Class">Resource</a><span class="tsd-signature-symbol">&gt;</span>, start<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:903</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Modify uvs array according to position of texture region
+									Does not work with rotated or trimmed textures</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>uvs: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>array</p>
+									</div>
+								</li>
+								<li>
+									<h5>texture: <a href="common_pixi.Texture.html" class="tsd-signature-type" data-tsd-kind="Class">Texture</a><span class="tsd-signature-symbol">&lt;</span><a href="common_pixi.Resource.html" class="tsd-signature-type" data-tsd-kind="Class">Resource</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>region</p>
+									</div>
+								</li>
+								<li>
+									<h5>start: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>starting index for uvs</p>
+									</div>
+								</li>
+								<li>
+									<h5>size: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>how many points to adjust</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="buildDrawCalls" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build<wbr>Draw<wbr>Calls</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">build<wbr>Draw<wbr>Calls<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:821</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Converts intermediate batches data to drawCalls.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="calculateBounds" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> calculate<wbr>Bounds</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">calculate<wbr>Bounds<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:854</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update the local bounds of the object. Expensive to use performance-wise.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clear" class="tsd-anchor"></a>
+					<h3>clear</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:752</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clears the graphics that were drawn to this Graphics object, and resets fill and line style settings.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></h4>
+							<p>This GraphicsGeometry object. Good for chaining method calls</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="clone" class="tsd-anchor"></a>
+					<h3>clone</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clone<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#clone">clone</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2026</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns a clone of the geometry</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></h4>
+							<p>a new clone of this geometry</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="containsPoint" class="tsd-anchor"></a>
+					<h3>contains<wbr>Point</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">contains<wbr>Point<span class="tsd-signature-symbol">(</span>point<span class="tsd-signature-symbol">: </span><a href="../interfaces/common_pixi.IPointData.html" class="tsd-signature-type" data-tsd-kind="Interface">IPointData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:782</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check to see if a point is contained within this geometry.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>point: <a href="../interfaces/common_pixi.IPointData.html" class="tsd-signature-type" data-tsd-kind="Interface">IPointData</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Point to check if it&#39;s contained.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if the point is contained within geometry.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#destroy">destroy</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:775</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destroys the GraphicsGeometry object.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#dispose">dispose</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2016</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>disposes WebGL resources that are connected to this geometry</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="drawHole" class="tsd-anchor"></a>
+					<h3>draw<wbr>Hole</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">draw<wbr>Hole<span class="tsd-signature-symbol">(</span>shape<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IShape_2</span>, matrix<span class="tsd-signature-symbol">?: </span><a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:770</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Draws the given shape to this Graphics object. Can be any of Circle, Rectangle, Ellipse, Line or Polygon.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>shape: <span class="tsd-signature-type">IShape_2</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The shape object to draw.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> matrix: <a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Transform applied to the points of the shape.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></h4>
+							<p>Returns geometry for chaining.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="drawShape" class="tsd-anchor"></a>
+					<h3>draw<wbr>Shape</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">draw<wbr>Shape<span class="tsd-signature-symbol">(</span>shape<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IShape_2</span>, fillStyle<span class="tsd-signature-symbol">?: </span><a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a>, lineStyle<span class="tsd-signature-symbol">?: </span><a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a>, matrix<span class="tsd-signature-symbol">?: </span><a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:762</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Draws the given shape to this Graphics object. Can be any of Circle, Rectangle, Ellipse, Line or Polygon.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>shape: <span class="tsd-signature-type">IShape_2</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The shape object to draw.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> fillStyle: <a href="common_pixi.FillStyle.html" class="tsd-signature-type" data-tsd-kind="Class">FillStyle</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Defines style of the fill.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> lineStyle: <a href="common_pixi.LineStyle.html" class="tsd-signature-type" data-tsd-kind="Class">LineStyle</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Defines style of the lines.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> matrix: <a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Transform applied to the points of the shape.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.GraphicsGeometry.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsGeometry</a></h4>
+							<p>Returns geometry for chaining.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getAttribute" class="tsd-anchor"></a>
+					<h3>get<wbr>Attribute</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Attribute<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Attribute.html" class="tsd-signature-type" data-tsd-kind="Class">Attribute</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#getAttribute">getAttribute</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1982</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns the requested attribute</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of the attribute required</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Attribute.html" class="tsd-signature-type" data-tsd-kind="Class">Attribute</a></h4>
+							<p>the attribute requested.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getBuffer" class="tsd-anchor"></a>
+					<h3>get<wbr>Buffer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Buffer<span class="tsd-signature-symbol">(</span>id<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#getBuffer">getBuffer</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:1989</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns the requested buffer</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>id: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the name of the buffer required</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></h4>
+							<p>the buffer requested.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getIndex" class="tsd-anchor"></a>
+					<h3>get<wbr>Index</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Index<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#getIndex">getIndex</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2004</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>returns the index buffer</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Buffer.html" class="tsd-signature-type" data-tsd-kind="Class">Buffer</a></h4>
+							<p>the index buffer.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="getSize" class="tsd-anchor"></a>
+					<h3>get<wbr>Size</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Size<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#getSize">getSize</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2012</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="interleave" class="tsd-anchor"></a>
+					<h3>interleave</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">interleave<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#interleave">interleave</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2011</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>this function modifies the structure so that all current attributes become interleaved into a single buffer
+									This can be useful if your model remains static as it offers a little performance boost</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></h4>
+							<p>returns self, useful for chaining.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="invalidate" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> invalidate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">invalidate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:746</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Call if you changed graphicsData manually.
+									Empties all batch buffers.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="isBatchable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> is<wbr>Batchable</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Batchable<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:815</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks to see if this graphics geometry can be batched.
+									Currently it needs to be small enough and not contain any native lines.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="packAttributes" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> pack<wbr>Attributes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">pack<wbr>Attributes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:827</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Packs attributes to single buffer.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="packBatches" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> pack<wbr>Batches</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">pack<wbr>Batches<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:808</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Offset the indices so that it works with the batcher.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="processFill" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> process<wbr>Fill</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Fill<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:834</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Process fill part of Graphics.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="processHoles" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> process<wbr>Holes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Holes<span class="tsd-signature-symbol">(</span>holes<span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:848</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Process the holes data.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>holes: <a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Holes to render</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="processLine" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> process<wbr>Line</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Line<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:841</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Process line part of Graphics.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>data: <a href="common_pixi.GraphicsData.html" class="tsd-signature-type" data-tsd-kind="Class">GraphicsData</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="transformPoints" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> transform<wbr>Points</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">transform<wbr>Points<span class="tsd-signature-symbol">(</span>points<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, matrix<span class="tsd-signature-symbol">: </span><a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:862</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Transform points using matrix.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>points: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Points to transform</p>
+									</div>
+								</li>
+								<li>
+									<h5>matrix: <a href="common_pixi.Matrix.html" class="tsd-signature-type" data-tsd-kind="Class">Matrix</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Transform matrix</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="updateBatches" class="tsd-anchor"></a>
+					<h3>update<wbr>Batches</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Batches<span class="tsd-signature-symbol">(</span>allow32Indices<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:789</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Generates intermediate batch data. Either gets converted to drawCalls
+									or used to convert to batch objects directly by the Graphics object.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> allow32Indices: <span class="tsd-signature-type">boolean</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+					<a name="validateBatching" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> validate<wbr>Batching</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">validate<wbr>Batching<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/graphics/index.d.ts:802</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Test geometry for batching process.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static tsd-is-external">
+					<a name="merge" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> merge</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">merge<span class="tsd-signature-symbol">(</span>geometries<span class="tsd-signature-symbol">: </span><a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="common_pixi.BatchGeometry.html">BatchGeometry</a>.<a href="common_pixi.BatchGeometry.html#merge">merge</a></p>
+								<ul>
+									<li>Defined in Development/javascript/js_viewer/node_modules/@pixi/core/index.d.ts:2034</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>merges an array of geometries into a new single one
+									geometry attribute styles must match for this operation to work</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>geometries: <a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>array of geometries to merge</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="common_pixi.Geometry.html" class="tsd-signature-type" data-tsd-kind="Class">Geometry</a></h4>
+							<p>shiny new geometry!</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/common_pixi.html">common/pixi</a>
+						<ul>
+							<li class=" tsd-kind-namespace tsd-parent-kind-module tsd-is-external">
+								<a href="../modules/common_pixi.utils.html">utils</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-external">
+						<a href="common_pixi.GraphicsGeometry.html" class="tsd-kind-icon">Graphics<wbr>Geometry</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#_bounds" class="tsd-kind-icon">_bounds</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#_buffer" class="tsd-kind-icon">_buffer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#_indexBuffer" class="tsd-kind-icon">_index<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#attributes" class="tsd-kind-icon">attributes</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#batchDirty" class="tsd-kind-icon">batch<wbr>Dirty</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#batchable" class="tsd-kind-icon">batchable</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#batches" class="tsd-kind-icon">batches</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#boundsDirty" class="tsd-kind-icon">bounds<wbr>Dirty</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#boundsPadding" class="tsd-kind-icon">bounds<wbr>Padding</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#buffers" class="tsd-kind-icon">buffers</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#cacheDirty" class="tsd-kind-icon">cache<wbr>Dirty</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#clearDirty" class="tsd-kind-icon">clear<wbr>Dirty</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#closePointEps" class="tsd-kind-icon">close<wbr>Point<wbr>Eps</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#colors" class="tsd-kind-icon">colors</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#dirty" class="tsd-kind-icon">dirty</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#disposeRunner" class="tsd-kind-icon">dispose<wbr>Runner</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#drawCalls" class="tsd-kind-icon">draw<wbr>Calls</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#glVertexArrayObjects" class="tsd-kind-icon">gl<wbr>Vertex<wbr>Array<wbr>Objects</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#graphicsData" class="tsd-kind-icon">graphics<wbr>Data</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#indexBuffer" class="tsd-kind-icon">index<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#indices" class="tsd-kind-icon">indices</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#indicesUint16" class="tsd-kind-icon">indices<wbr>Uint16</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#instanceCount" class="tsd-kind-icon">instance<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#instanced" class="tsd-kind-icon">instanced</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#points" class="tsd-kind-icon">points</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#refCount" class="tsd-kind-icon">ref<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#shapeIndex" class="tsd-kind-icon">shape<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#textureIds" class="tsd-kind-icon">texture<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#uvs" class="tsd-kind-icon">uvs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#uvsFloat32" class="tsd-kind-icon">uvs<wbr>Float32</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#BATCHABLE_SIZE" class="tsd-kind-icon">BATCHABLE_<wbr>SIZE</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#bounds" class="tsd-kind-icon">bounds</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#_compareStyles" class="tsd-kind-icon">_compare<wbr>Styles</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#addAttribute" class="tsd-kind-icon">add<wbr>Attribute</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#addColors" class="tsd-kind-icon">add<wbr>Colors</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#addIndex" class="tsd-kind-icon">add<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#addTextureIds" class="tsd-kind-icon">add<wbr>Texture<wbr>Ids</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#addUvs" class="tsd-kind-icon">add<wbr>Uvs</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#adjustUvs" class="tsd-kind-icon">adjust<wbr>Uvs</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#buildDrawCalls" class="tsd-kind-icon">build<wbr>Draw<wbr>Calls</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#calculateBounds" class="tsd-kind-icon">calculate<wbr>Bounds</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#clear" class="tsd-kind-icon">clear</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#clone" class="tsd-kind-icon">clone</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#containsPoint" class="tsd-kind-icon">contains<wbr>Point</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#destroy" class="tsd-kind-icon">destroy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#dispose" class="tsd-kind-icon">dispose</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#drawHole" class="tsd-kind-icon">draw<wbr>Hole</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#drawShape" class="tsd-kind-icon">draw<wbr>Shape</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#getAttribute" class="tsd-kind-icon">get<wbr>Attribute</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#getBuffer" class="tsd-kind-icon">get<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#getIndex" class="tsd-kind-icon">get<wbr>Index</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#getSize" class="tsd-kind-icon">get<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#interleave" class="tsd-kind-icon">interleave</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#invalidate" class="tsd-kind-icon">invalidate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#isBatchable" class="tsd-kind-icon">is<wbr>Batchable</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#packAttributes" class="tsd-kind-icon">pack<wbr>Attributes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#packBatches" class="tsd-kind-icon">pack<wbr>Batches</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#processFill" class="tsd-kind-icon">process<wbr>Fill</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#processHoles" class="tsd-kind-icon">process<wbr>Holes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#processLine" class="tsd-kind-icon">process<wbr>Line</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#transformPoints" class="tsd-kind-icon">transform<wbr>Points</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#updateBatches" class="tsd-kind-icon">update<wbr>Batches</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#validateBatching" class="tsd-kind-icon">validate<wbr>Batching</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static tsd-is-external">
+								<a href="common_pixi.GraphicsGeometry.html#merge" class="tsd-kind-icon">merge</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

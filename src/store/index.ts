@@ -1,4 +1,4 @@
-/**
+/*
  * src/store/index.ts
  * Copyright (c) 2021 Emilien Lemaire <emilien.lem@icloud.com>
  *
@@ -13,10 +13,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+*/
 
 /**
-* @file In this file we create the store for the global state and then export it.
+* In this file we create the store for the global state and then export it.
+* @module store
 */
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
