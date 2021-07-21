@@ -33,4 +33,4 @@ yarn build
 
 * **Root folder**: The files on the root folder are mainly configuration files.
 * **build**: The final built javascript bundle goes there.
-* **src**: All the source files of the project are here: check the [README](src/README.MD) file there for more informations.
+* **src**: All the source files of the project are here: check the [README](src/README.md) file there for more informations.
