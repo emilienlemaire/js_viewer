@@ -101,6 +101,7 @@ export default function GraphSplit(
           height = props.size.height;
 
         setSize({ width, height: props.size.height });
+        console.log(width, props.size.height);
 
         // We get the mid point to center the graph later.
         setMidpoint(new Point(width / 2, height / 2));

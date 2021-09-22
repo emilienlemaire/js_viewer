@@ -106,7 +106,7 @@ export function initPIXI(
   height: number,
   onBackgroundClick: (ev: InteractionEvent) => void
 ): PIXIContext {
-  // We create the grpaics' containers.
+  // We create the graphics' containers.
   const superStage = new Container();
   const stage = new Container();
 
@@ -150,7 +150,7 @@ export function initPIXI(
     height,
     backgroundAlpha: 0,
     antialias: true,
-    resolution: window.devicePixelRatio || 1,
+    resolution: 1,
   });
 
   // We create a ticker to trigger the rendering function.
