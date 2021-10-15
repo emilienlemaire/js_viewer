@@ -17,7 +17,7 @@ const config = merge(common, {
     contentBase: path.join(__dirname, "build"),
     historyApiFallback: true,
     port: 4000,
-    open: "Google Chrome",
+    open: "Safari",
     hot: true
   }
 });

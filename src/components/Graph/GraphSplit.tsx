@@ -158,7 +158,7 @@ export default function GraphSplit(
           .on("dblclick.zoom", null);
 
         // We don't really need more FPS, this would use GPU and CPU cycles for nothing.
-        ticker.maxFPS = 60;
+        ticker.maxFPS = 120;
 
         // Add the rendering function to the ticker and start it.
         ticker.add(onTicked(renderer, superStage));
