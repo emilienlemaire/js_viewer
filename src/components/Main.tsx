@@ -59,11 +59,6 @@ export default function Main(): React.FunctionComponentElement<null> {
 
   const dot = useSelector(dotSelector);
   const dispatch = useDispatch();
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-  if (isSafari) {
-    alert("Safari makes the application particularly slow. Please consider to use another browser.");
-  }
 
   if (!dot && dot_str) {
     dispatch(setGraph(dot_str));
